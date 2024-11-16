@@ -25,9 +25,7 @@ public class WelcomeController {
 
     @RequestMapping(method=RequestMethod.GET)
     public String home(Model model) {
-        model.addAttribute("age", 8);
-        model.addAttribute("title", "Welcome page");
-        model.addAttribute("magicKeyForm", new MagicKeyForm());
+        model.addAttribute("title", "Accueil");
         return "integrated:welcome";
     }
 

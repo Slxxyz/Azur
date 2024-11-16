@@ -1,0 +1,149 @@
+// Import des variables
+@import 'variables';
+
+// Reset global
+   * {
+       margin: 0;
+       padding: 0;
+       box-sizing: border-box;
+   }
+
+body {
+    font-family: $font-family;
+}
+
+// Tout les liens
+a {
+    color: $text-color;
+    text-decoration: none;
+    font-weight: $font-weight-links;
+    font-size: 1rem;
+
+    &:hover {
+        text-decoration: underline;
+    }
+}
+
+// Header
+   header {
+       background-color: #fff;
+       padding: $padding-header;
+       border-bottom: 1px solid #ddd;
+       width: 100%;
+
+       .header-container {
+           display: flex;
+           justify-content: space-between;
+           align-items: center;
+           width: 100%;
+           padding: 0 20px;
+
+           .left-section {
+               display: flex;
+               align-items: center;
+               gap: $gap-large;
+
+               #logo {
+                   height: $logo-height;
+               }
+
+               .nav-links {
+                   display: flex;
+                   gap: $gap-large;
+                   position: relative;
+               }
+           }
+
+           .right-section {
+               display: flex;
+               align-items: center;
+               gap: $gap-medium;
+
+               .language-section {
+                   display: flex;
+                   align-items: center;
+                   gap: $gap-small;
+
+                   img {
+                       height: 20px;
+                       border-radius: 3px;
+                   }
+               }
+
+               .cart-icon {
+                   font-size: 1.2rem;
+                   color: $text-color;
+                   text-decoration: none;
+
+                   &:hover {
+                       color: $hover-color;
+                   }
+               }
+           }
+       }
+   }
+
+// Footer
+   .footer-container {
+       background-color: $primary-color;
+
+       .footer-links {
+           display: flex;
+           flex-direction: column;
+           align-items: center;
+           gap: $gap-large;
+           padding: 20px 0;
+       }
+
+       .copyright {
+           padding: 1% 0 3% 15%;
+           border-top: 1px solid white;
+           font-weight: $font-weight-links;
+       }
+   }
+
+/* Conteneur du menu déroulant */
+#dropdownMenu {
+    display: none; // Masquer le menu par défaut
+    position: absolute;
+    top: 100%; // Placer le menu juste en dessous du lien
+    left: 25%;
+    background-color: #f9f9f9;
+    min-width: 160px;
+    box-shadow: 0px 8px 16px rgba(0, 0, 0, 0.2);
+    z-index: 1;
+    margin-top: 24px; // Espacement entre le lien et le menu
+    border-radius: 5px;
+    padding: 5px 0;
+    border: 1px solid #ddd; // Bordure du menu pour mieux le délimiter
+    opacity: 0; // Commence invisible
+    visibility: hidden; // Commence caché
+    transition: opacity 0.3s, visibility 0.3s ease;
+}
+
+/* Lorsque la classe 'show' est ajoutée, rendre le menu visible */
+#dropdownMenu.show {
+    display: block;
+    opacity: 1;
+    visibility: visible;
+}
+
+#dropdownMenu a {
+    color: #333;
+    padding: 12px 16px;
+    text-decoration: none;
+    display: block;
+    font-size: 1rem;
+    background-color: #fff;
+    transition: background-color 0.3s ease;
+
+    &:hover {
+        background-color: #ddd;
+    }
+}
+
+
+
+
+
+

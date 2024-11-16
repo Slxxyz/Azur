@@ -2,26 +2,23 @@
 <%@ include file="include/importTags.jsp"%>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
 
+<link type="text/css" rel="stylesheet" href="<spring:url value='/css/welcome.css'/>">
+
 <html>
 <head>
-    <title>Bienvenue mon gâté</title>
 </head>
 <body>
-<div>
-    <h1>Welcome</h1>
-    <p>Age : ${age}</p>
-    <form:form id="form" method="POST" action="hello/send" modelAttribute="magicKeyForm">
-
-        <form:label path="magicKey">
-            <spring:message code="magicKeyLabel"/>
-        </form:label>
-
-        <form:input path="magicKey"/>
-        <form:button>
-            <spring:message code="magicKeySendButton"/>
-        </form:button>
-
-    </form:form>
+<div class="image-container">
+    <img alt="English" src="<spring:url value='/images/Accueil/imageAccueil.png'/>">
+    <h1 class="overlay-text">SERVE.<br>SMASH.<br>SCORE!</h1>
+</div>
+<div class="collaborations">
+    <h1 class="title">NOS COLLABORATIONS</h1>
+    <div class="collaborations-img">
+        <img alt="English" src="<spring:url value='/images/Accueil/collab1.png'/>">
+        <img alt="English" src="<spring:url value='/images/Accueil/collab2.png'/>">
+        <img alt="English" src="<spring:url value='/images/Accueil/collab3.png'/>">
+    </div>
 </div>
 </body>
 </html>

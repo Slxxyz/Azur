@@ -1,0 +1,50 @@
+// Import des variables
+@import 'variables';
+
+// Section image container
+   .image-container {
+       position: relative;
+
+       img {
+           width: 100%;
+           height: auto;
+           display: block;
+       }
+
+       .overlay-text {
+           position: absolute;
+           top: 50%;
+           left: 50%;
+           transform: translate(-140%, -50%);
+           color: black;
+           font-size: $overlay-font-size;
+           font-weight: bold;
+           text-align: center;
+           font-family: $title-font-family;
+       }
+   }
+
+// Section collaborations
+   .collaborations {
+       width: 70%;
+       margin: 0 auto;
+       text-align: center;
+
+       .collaborations-img {
+           img {
+               width: 100%;
+               max-width: 100%;
+               height: auto;
+               display: block;
+               margin-bottom: 20px;
+           }
+       }
+
+       .title {
+           font-size: $title-height;
+           font-weight: bold;
+           text-align: left;
+           font-family: $title-font-family;
+           padding: 5% 0;
+       }
+   }
