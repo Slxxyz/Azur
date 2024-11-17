@@ -1,0 +1,41 @@
+.image-container {
+  position: relative;
+}
+.image-container img {
+  width: 100%;
+  height: auto;
+  display: block;
+}
+.image-container .overlay-text {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-140%, -50%);
+  color: black;
+  font-size: 125px;
+  font-weight: bold;
+  text-align: center;
+  font-family: "Bebas Neue", sans-serif;
+}
+
+.collaborations {
+  width: 70%;
+  margin: 0 auto;
+  text-align: center;
+}
+.collaborations .collaborations-img img {
+  width: 100%;
+  max-width: 100%;
+  height: auto;
+  display: block;
+  margin-bottom: 20px;
+}
+.collaborations .title {
+  font-size: 50px;
+  font-weight: bold;
+  text-align: left;
+  font-family: "Bebas Neue", sans-serif;
+  padding: 5% 0;
+}
+
+/*# sourceMappingURL=welcome.css.map */
