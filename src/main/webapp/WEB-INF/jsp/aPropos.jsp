@@ -3,10 +3,10 @@
 <html>
 <head>
     <link type="text/css" rel="stylesheet" href="<spring:url value='/css/aPropos.css'/>">
+    <title>${title}</title>
 </head>
 <body>
 <div class="page-about">
-    <!-- Section gauche : Texte -->
     <div class="left-section">
         <div class="text-container">
             <h1>À PROPOS</h1>
@@ -27,8 +27,6 @@
             </div>
         </div>
     </div>
-
-    <!-- Section droite : Image -->
     <div class="right-section">
         <img src="<spring:url value='/images/APropos/raquetteBalle.png'/>" alt="Raquette et balle">
     </div>

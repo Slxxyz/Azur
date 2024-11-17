@@ -6,6 +6,7 @@
 
 <html>
 <head>
+    <title>${title}</title>
 </head>
 <body>
 <div class="image-container">

@@ -1,7 +1,10 @@
 // Couleurs
 $primary-color: #98cae1;
+$secondary-color: white;
 $text-color: #333;
 $hover-color: #1e90ff;
+$text-light-color: black;
+$text-dark-color: white;
 
 // Polices
 $font-family: 'Arial', sans-serif;
@@ -23,6 +26,13 @@ $title-color: #000000;
 $title-height:50px;
 
 // Paragraphes
+$p-font-size:24px;
 
-$p-font-size:18px;
+// Boutons
+$button-width: 150px;
+$button-radius: 30px;
+$button-font-size: 20px;
+
+// Champs
+$input-radius: 8px;
 

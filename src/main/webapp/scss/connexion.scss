@@ -1,0 +1,108 @@
+@import "variables";
+
+.page-connexion {
+  display: flex;
+  height: 100vh;
+
+  // Section gauche
+  .left-section {
+    background-color: $secondary-color;
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: center; // Centre verticalement
+    align-items: center; // Centre horizontalement
+    padding: 20px;
+
+    h1 {
+      font-size: $title-height;
+      font-family: $title-font-family;
+      color: $title-color;
+      margin-bottom: 20px;
+    }
+
+    form {
+      display: flex;
+      flex-direction: column;
+      width: 100%;
+      max-width: 400px;
+      align-items: center; // Centre tout le contenu horizontalement
+
+      label {
+        margin-bottom: 10px;
+        font-size: 1rem;
+        color: $text-light-color;
+        align-self: flex-start; // Aligne les labels à gauche
+      }
+
+      input {
+        width: 100%; // Champs prennent toute la largeur disponible
+        padding: 10px;
+        margin-bottom: 15px;
+        border: 1.5px solid black;
+        border-radius: $input-radius;
+        font-size: 1rem;
+
+        &:focus {
+          outline: none;
+          border-color: lighten($secondary-color, 10%);
+        }
+      }
+
+      button {
+        padding: 10px 20px;
+        background-color: $primary-color;
+        color: $text-dark-color;
+        border: none;
+        border-radius: $button-radius;
+        cursor: pointer;
+        width: $button-width;
+        margin-top: 15px;
+        font-size: $button-font-size;
+
+        &:hover {
+          background-color: darken($secondary-color, 10%);
+        }
+      }
+    }
+  }
+
+  // Section droite
+  .right-section {
+    background-color: $primary-color;
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: center; // Centre verticalement
+    align-items: center; // Centre horizontalement
+    text-align: center;
+    color: $text-light-color;
+
+    h1 {
+      font-size: $title-height;
+      margin-bottom: 20px;
+    }
+
+    p {
+      margin: 40px 0;
+      font-size: $p-font-size;
+      line-height: 1.5;
+
+    }
+
+    a {
+      display: inline-block;
+      padding: 10px 20px;
+      background-color: $secondary-color;
+      color: $text-light-color;
+      text-decoration: none;
+      border-radius: $button-radius;
+      width: $button-width;
+      font-size: $button-font-size;
+
+      &:hover {
+        background-color: lighten($primary-color, 10%);
+      }
+    }
+  }
+}

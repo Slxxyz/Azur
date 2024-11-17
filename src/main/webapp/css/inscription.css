@@ -1,0 +1,96 @@
+.page-inscription {
+  display: flex;
+  height: 100vh;
+}
+.page-inscription .left-section {
+  background-color: #98cae1;
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  padding: 20px;
+}
+.page-inscription .left-section h1 {
+  font-size: 50px;
+  font-family: "Bebas Neue", sans-serif;
+  color: #000000;
+  margin-bottom: 20px;
+}
+.page-inscription .left-section p {
+  font-size: 24px;
+  line-height: 1.6;
+  margin: 40px 0;
+  color: black;
+}
+.page-inscription .left-section a {
+  padding: 12px 24px;
+  background-color: white;
+  color: black;
+  text-decoration: none;
+  border-radius: 30px;
+  font-size: 20px;
+  transition: background-color 0.3s;
+}
+.page-inscription .left-section a:hover {
+  background-color: rgb(191.4962406015, 222.3233082707, 236.5037593985);
+}
+.page-inscription .right-section {
+  background-color: white;
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding: 20px;
+}
+.page-inscription .right-section h1 {
+  font-size: 50px;
+  font-family: "Bebas Neue", sans-serif;
+  color: #000000;
+  margin-bottom: 20px;
+}
+.page-inscription .right-section form {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  max-width: 400px;
+}
+.page-inscription .right-section form label {
+  margin-bottom: 5px;
+  font-size: 1rem;
+  color: black;
+  align-self: flex-start;
+}
+.page-inscription .right-section form input {
+  width: 100%;
+  padding: 12px;
+  margin-bottom: 20px;
+  border: 1.5px solid rgb(229.5, 229.5, 229.5);
+  border-radius: 8px;
+  font-size: 1rem;
+  color: white;
+  background-color: white;
+  transition: border-color 0.3s;
+}
+.page-inscription .right-section form input:focus {
+  outline: none;
+  border-color: rgb(230.992481203, 242.6466165414, 248.007518797);
+}
+.page-inscription .right-section form button {
+  padding: 12px 24px;
+  background-color: #98cae1;
+  color: white;
+  border: none;
+  border-radius: 30px;
+  cursor: pointer;
+  font-size: 20px;
+  text-align: center;
+  transition: background-color 0.3s;
+}
+.page-inscription .right-section form button:hover {
+  background-color: rgb(112.5037593985, 181.6766917293, 213.4962406015);
+}
+
+/*# sourceMappingURL=inscription.css.map */

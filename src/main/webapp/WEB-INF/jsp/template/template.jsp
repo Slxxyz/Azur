@@ -60,7 +60,7 @@
             </nav>
         </div>
         <div class="right-section">
-            <a href="/login">Log in</a>
+            <a href="<spring:url value='/connexion' />">Log in</a>
             <div class="language-section">
                 <a href="${localeFr}">
                     <img alt="Français" src="<spring:url value='/images/Template/drapeauFr.png'/>" height="20px">

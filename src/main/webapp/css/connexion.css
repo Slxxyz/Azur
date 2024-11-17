@@ -1,0 +1,92 @@
+.page-connexion {
+  display: flex;
+  height: 100vh;
+}
+.page-connexion .left-section {
+  background-color: white;
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding: 20px;
+}
+.page-connexion .left-section h1 {
+  font-size: 50px;
+  font-family: "Bebas Neue", sans-serif;
+  color: #000000;
+  margin-bottom: 20px;
+}
+.page-connexion .left-section form {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  max-width: 400px;
+  align-items: center;
+}
+.page-connexion .left-section form label {
+  margin-bottom: 10px;
+  font-size: 1rem;
+  color: black;
+  align-self: flex-start;
+}
+.page-connexion .left-section form input {
+  width: 100%;
+  padding: 10px;
+  margin-bottom: 15px;
+  border: 1.5px solid black;
+  border-radius: 8px;
+  font-size: 1rem;
+}
+.page-connexion .left-section form input:focus {
+  outline: none;
+  border-color: white;
+}
+.page-connexion .left-section form button {
+  padding: 10px 20px;
+  background-color: #98cae1;
+  color: white;
+  border: none;
+  border-radius: 30px;
+  cursor: pointer;
+  width: 150px;
+  margin-top: 15px;
+  font-size: 20px;
+}
+.page-connexion .left-section form button:hover {
+  background-color: rgb(229.5, 229.5, 229.5);
+}
+.page-connexion .right-section {
+  background-color: #98cae1;
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  color: black;
+}
+.page-connexion .right-section h1 {
+  font-size: 50px;
+  margin-bottom: 20px;
+}
+.page-connexion .right-section p {
+  margin: 40px 0;
+  font-size: 24px;
+  line-height: 1.5;
+}
+.page-connexion .right-section a {
+  display: inline-block;
+  padding: 10px 20px;
+  background-color: white;
+  color: black;
+  text-decoration: none;
+  border-radius: 30px;
+  width: 150px;
+  font-size: 20px;
+}
+.page-connexion .right-section a:hover {
+  background-color: rgb(191.4962406015, 222.3233082707, 236.5037593985);
+}
+
+/*# sourceMappingURL=connexion.css.map */

@@ -1,0 +1,111 @@
+@import "variables";
+
+.page-inscription {
+  display: flex;
+  height: 100vh;
+
+  // Section gauche
+  .left-section {
+    background-color: $primary-color;
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    padding: 20px;
+
+    h1 {
+      font-size: $title-height;
+      font-family: $title-font-family;
+      color: $title-color;
+      margin-bottom: 20px;
+    }
+
+    p {
+      font-size: $p-font-size;
+      line-height: 1.6;
+      margin: 40px 0;
+      color: $text-light-color;
+    }
+
+    a {
+      padding: 12px 24px;
+      background-color: $secondary-color;
+      color: $text-light-color;
+      text-decoration: none;
+      border-radius: $button-radius;
+      font-size: $button-font-size;
+      transition: background-color 0.3s;
+
+      &:hover {
+        background-color: lighten($primary-color, 10%);
+      }
+    }
+  }
+
+  // Section droite
+  .right-section {
+    background-color: $secondary-color;
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding: 20px;
+
+    h1 {
+      font-size: $title-height;
+      font-family: $title-font-family;
+      color: $title-color;
+      margin-bottom: 20px;
+    }
+
+    form {
+      display: flex;
+      flex-direction: column;
+      width: 100%;
+      max-width: 400px;
+
+      label {
+        margin-bottom: 5px;
+        font-size: 1rem;
+        color: $text-light-color;
+        align-self: flex-start; // Aligne les labels à gauche
+      }
+
+      input {
+        width: 100%;
+        padding: 12px;
+        margin-bottom: 20px;
+        border: 1.5px solid darken($secondary-color, 10%);
+        border-radius: $input-radius;
+        font-size: 1rem;
+        color: $text-dark-color;
+        background-color: lighten($secondary-color, 20%);
+        transition: border-color 0.3s;
+
+        &:focus {
+          outline: none;
+          border-color: lighten($primary-color, 20%);
+        }
+      }
+
+      button {
+        padding: 12px 24px;
+        background-color: $primary-color;
+        color: $text-dark-color;
+        border: none;
+        border-radius: $button-radius;
+        cursor: pointer;
+        font-size: $button-font-size;
+        text-align: center;
+        transition: background-color 0.3s;
+
+        &:hover {
+          background-color: darken($primary-color, 10%);
+        }
+      }
+    }
+  }
+}
