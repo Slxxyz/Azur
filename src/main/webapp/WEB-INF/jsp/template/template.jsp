@@ -70,7 +70,7 @@
                     <img alt="English" src="<spring:url value='/images/Template/drapeauEn.png'/>" height="20px">
                 </a>
             </div>
-            <a href="/panier" class="cart-icon">🛒</a>
+            <a href="<spring:url value='/panier' />" class="cart-icon">🛒</a>
         </div>
     </div>
 </header>
