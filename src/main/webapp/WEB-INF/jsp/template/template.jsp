@@ -75,22 +75,26 @@
     </div>
 </header>
 
-<div>
+<main class="content">
     <tiles:insertAttribute name="main-content"/>
-</div>
+</main>
 
-<footer>
-    <div class="footer-container">
-        <div class="footer-links">
-            <a href="/accueil">Accueil</a>
-            <a href="/catalogue">Catalogue</a>
-            <a href="/apropos">À propos</a>
+
+
+<c:if test="${showFooter}">
+    <footer>
+        <div class="footer-container">
+            <div class="footer-links">
+                <a href="/accueil">Accueil</a>
+                <a href="/catalogue">Catalogue</a>
+                <a href="/apropos">À propos</a>
+            </div>
+            <div class="copyright">
+                <p>Copyright © 2024 Azur Inc. Tous droits réservés.</p>
+            </div>
         </div>
-        <div class="copyright">
-            <p>Copyright © 2024 Azur Inc. Tous droits réservés.</p>
-        </div>
-    </div>
-</footer>
+    </footer>
+</c:if>
 
 </body>
 </html>

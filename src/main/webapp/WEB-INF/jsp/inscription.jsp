@@ -22,16 +22,13 @@
             <input type="text" id="prenom" name="prenom" placeholder="Entrez votre prénom" required>
 
             <label for="telephone">Numéro de téléphone</label>
-            <input type="tel" id="telephone" name="telephone" placeholder="Entrez votre numéro de téléphone" required>
+            <input type="tel" id="telephone" name="telephone" placeholder="Entrez votre numéro de téléphone">
 
             <label for="email">Email</label>
             <input type="email" id="email" name="email" placeholder="Entrez votre adresse email" required>
 
             <label for="password">Mot de passe</label>
             <input type="password" id="password" name="password" placeholder="Entrez votre mot de passe" required>
-
-            <label for="passwordConfirm">Confirmer mot de passe</label>
-            <input type="password" id="passwordConfirm" name="passwordConfirm" placeholder="Confirmer votre mot de passe" required>
 
             <button type="submit">Inscription</button>
         </form>

@@ -11,6 +11,7 @@ public class ArticleController {
     @RequestMapping(method= RequestMethod.GET)
     public String home(Model model) {
         model.addAttribute("title", "Article");
+        model.addAttribute("showFooter", true);
         return "integrated:article";
     }
 }
