@@ -1,6 +1,7 @@
 <%@ page pageEncoding="UTF-8" contentType="text/html; charset=UTF-8"%>
 <%@ include file="../include/importTags.jsp"%>
 <%@ taglib uri="http://tiles.apache.org/tags-tiles" prefix="tiles" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 
 <html>
 <head>
@@ -24,6 +25,7 @@
                 // Ajouter un événement de clic au lien "Catalogue"
                 catalogueLink.addEventListener('click', function () {
                     dropdownMenu.classList.toggle('show');
+                    fetchCategories();
                 });
 
                 // Ajouter un événement pour fermer le menu si l'utilisateur clique en dehors
@@ -33,47 +35,55 @@
                     }
                 });
             }
+            function fetchCategories() {
+                const currentLocale = new URLSearchParams(window.location.search).get('locale') || 'fr';
+                const requestUrl = "/firstSpring/categories/fragment?locale="+currentLocale;
+                fetch(requestUrl)
+                    .then(response => response.text())
+                    .then(data => {
+                        dropdownMenu.innerHTML = data;
+                    })
+                    .catch(error => console.error('Error fetching categories:', error));
+            }
+
         });
 
     </script>
 
 </head>
 <body>
-<header>
-    <div class="header-container">
-        <div class="left-section">
-            <img id="logo" src="<spring:url value='/images/Template/AzurBlanc.png'/>" alt="Azur" height="50px">
-            <nav class="nav-links">
-                <a href="<spring:url value='/azur' />">Accueil</a>
+<c:if test="${showHeader}">
 
-                <a href="javascript:void(0);" id="catalogueLink">Catalogue</a>
+    <header>
+        <div class="header-container">
+            <div class="left-section">
+                <img id="logo" src="<spring:url value='/images/Template/AzurBlanc.png'/>" alt="Azur" height="50px">
+                <nav class="nav-links">
+                    <a href="<spring:url value='/azur' />">Accueil</a>
+                    <a href="javascript:void(0);" id="catalogueLink">Catalogue</a>
+                    <div id="dropdownMenu">
 
-                <div id="dropdownMenu">
-                    <a href="/category1">Bois</a>
-                    <a href="/category2">Mousse</a>
-                    <a href="/category3">Balle</a>
-                    <a href="/category3">Table</a>
-                    <a href="/category3">Filet</a>
-                </div>
+                    </div>
 
-                <a href="<spring:url value='/a-propos' />">À propos</a>
-            </nav>
-        </div>
-        <div class="right-section">
-            <a href="<spring:url value='/connexion' />">Log in</a>
-            <div class="language-section">
-                <a href="${localeFr}">
-                    <img alt="Français" src="<spring:url value='/images/Template/drapeauFr.png'/>" height="20px">
-                </a>
-                <span>|</span>
-                <a href="${localeEn}">
-                    <img alt="English" src="<spring:url value='/images/Template/drapeauEn.png'/>" height="20px">
-                </a>
+                    <a href="<spring:url value='/a-propos' />">À propos</a>
+                </nav>
             </div>
-            <a href="<spring:url value='/panier' />" class="cart-icon">🛒</a>
+            <div class="right-section">
+                <a href="<spring:url value='/connexion' />">Log in</a>
+                <div class="language-section">
+                    <a href="${localeFr}">
+                        <img alt="Français" src="<spring:url value='/images/Template/drapeauFr.png'/>" height="20px">
+                    </a>
+                    <span>|</span>
+                    <a href="${localeEn}">
+                        <img alt="English" src="<spring:url value='/images/Template/drapeauEn.png'/>" height="20px">
+                    </a>
+                </div>
+                <a href="<spring:url value='/panier' />" class="cart-icon">🛒</a>
+            </div>
         </div>
-    </div>
-</header>
+    </header>
+</c:if>
 
 <main class="content">
     <tiles:insertAttribute name="main-content"/>

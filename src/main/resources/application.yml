@@ -3,7 +3,8 @@ server:
   servlet:
     contextPath: /firstSpring
 spring:
-  autoconfigure:
-    exclude:
-      - org.springframework.boot.autoconfigure.jdbc.DataSourceAutoConfiguration
-      - org.springframework.boot.autoconfigure.orm.jpa.HibernateJpaAutoConfiguration
+  datasource:
+    url: jdbc:mysql://localhost:3306/azur_db
+    username: root
+    password: Password123
+    driverClassName: com.mysql.cj.jdbc.Driver
