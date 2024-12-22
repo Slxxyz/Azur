@@ -7,5 +7,4 @@ import com.spring.henallux.firstSpringProject.dataAccess.entity.CategoryEntity;
 
 @Repository
 public interface CategoryRepository extends JpaRepository<CategoryEntity, Integer> {
-
 }
