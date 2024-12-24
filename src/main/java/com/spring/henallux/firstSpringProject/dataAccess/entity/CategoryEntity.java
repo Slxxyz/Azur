@@ -8,13 +8,13 @@ import javax.persistence.*;
 public class CategoryEntity {
 
     @Id
-    @Column(name="categoryID")
+    @Column(name="category_id")
     private int categoryID;
 
-    @Column(name="categoryFR")
+    @Column(name="category_fr")
     private String categoryFR;
 
-    @Column(name="categoryEN")
+    @Column(name="category_en")
     private String categoryEN;
 
     public CategoryEntity() {

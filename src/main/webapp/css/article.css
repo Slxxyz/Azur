@@ -29,14 +29,14 @@
   padding-bottom: 20px;
 }
 .page-article .content h1 {
-  font-size: 50px;
+  font-size: 2.5rem;
   color: #000000;
   font-family: "Arial", sans-serif;
   margin: 0;
 }
 .page-article .content h3 {
   align-self: end;
-  font-size: 30px;
+  font-size: -17.5rem;
 }
 .page-article .content p {
   font-size: 20px;

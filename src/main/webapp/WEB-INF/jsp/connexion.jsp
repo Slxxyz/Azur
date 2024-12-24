@@ -10,15 +10,20 @@
 
     <div class="left-section">
         <h1>CONNEXION</h1>
-        <form action="<spring:url value='/connexion' />" method="post">
-            <label for="email">Email</label>
-            <input type="email" id="email" name="email" placeholder="Entrez votre adresse email" required>
+        <c:if test="${not empty loginError}">
+            <div class="error-message">${loginError}</div>
+        </c:if>
+        <form:form action="${pageContext.request.contextPath}/connexion/login" method="post" modelAttribute="customer">
+            <form:label path="mailAddress">Email</form:label>
+            <form:input path="mailAddress" type="email" placeholder="Entrez votre adresse email" required="true" id="email" name="email"/>
+            <form:errors path="mailAddress" cssClass="error-message" />
 
-            <label for="password">Mot de passe</label>
-            <input type="password" id="password" name="password" placeholder="Entrez votre mot de passe" required>
+            <form:label path="userPassword">Mot de passe</form:label>
+            <form:input path="userPassword" type="password" placeholder="Entrez votre mot de passe" required="true" id="password" name="password"/>
+            <form:errors path="userPassword" cssClass="error-message" />
 
             <button type="submit">Connexion</button>
-        </form>
+        </form:form>
     </div>
 
     <div class="right-section">
