@@ -4,7 +4,7 @@ package com.spring.henallux.firstSpringProject.dataAccess.entity;
 import javax.persistence.*;
 
 @Entity
-@Table(name = "category")
+@Table(name = "Category")
 public class CategoryEntity {
 
     @Id
@@ -24,11 +24,13 @@ public class CategoryEntity {
         return categoryID;
     }
 
-    public String getCategory(String locale){
-        if(locale.equals("en")){
-            return categoryEN;
-        }
+
+    public String getCategoryFR() {
         return categoryFR;
+    }
+
+    public String getCategoryEN() {
+        return categoryEN;
     }
 
 }

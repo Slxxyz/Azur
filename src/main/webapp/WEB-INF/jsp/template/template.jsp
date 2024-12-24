@@ -68,7 +68,6 @@
                     <div id="dropdownMenu">
 
                     </div>
-
                     <a href="<spring:url value='/a-propos' />">À propos</a>
                 </nav>
             </div>

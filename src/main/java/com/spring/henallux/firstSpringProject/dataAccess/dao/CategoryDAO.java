@@ -21,15 +21,12 @@ public class CategoryDAO implements CategoryDataAccess {
     }
 
     @Override
-    public ArrayList<String> getCategories(String locale){
-        List<CategoryEntity> categoryEntities = categoryRepository.findAll();
-        ArrayList<String> categories = new ArrayList<>();
-        for(CategoryEntity categoryEntity : categoryEntities){
-            categories.add(categoryEntity.getCategory(locale));
-        }
-        return categories;
+    public ArrayList<CategoryEntity> getCategories(){
+        return new ArrayList<>(categoryRepository.findAll());
     }
 
-
-
+    @Override
+    public CategoryEntity getCategoryById(int id){
+        return categoryRepository.findById(id).get();
+    }
 }

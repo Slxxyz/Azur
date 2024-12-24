@@ -2,7 +2,7 @@
 <%@ include file="include/importTags.jsp"%>
 <html>
 <head>
-    <title>Article</title>
+    <title>${title}</title>
     <link type="text/css" rel="stylesheet" href="<spring:url value='/css/article.css'/>">
     <script src="<spring:url value='/js/article.js'/>"></script>
 </head>
@@ -10,20 +10,25 @@
 <div class="page-article">
 
     <div class="divImage">
-        <img alt="article1" src="<spring:url value='/images/Articles/article1.png'/>">
+        <img alt="article1" src="<spring:url value='${product.getImagePath()}'/>">
     </div>
 
     <!-- Section Contenu -->
     <div class="content">
-        <h1>Article 1</h1>
+        <h1>${product.getLabelProduct()}</h1>
 
         <h3 class="stock">EN STOCK</h3>
         <div class="details">
         <h3>Détails</h3>
         <p>
-            Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore
-            et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum.
-            Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet.
+            <c:choose>
+                <c:when test="${language == 'fr'}">
+                    ${product.getDescriptionFR()}
+                </c:when>
+                <c:otherwise>
+                    ${product.getDescriptionEN()}
+                </c:otherwise>
+            </c:choose>
         </p>
         </div>
         <div class="name-quantity">
