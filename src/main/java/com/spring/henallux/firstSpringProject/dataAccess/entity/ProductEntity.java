@@ -9,31 +9,31 @@ import javax.persistence.*;
 public class ProductEntity {
 
         @Id
-        @Column(name="productID")
+        @Column(name="product_id")
         private int productID;
 
-        @Column(name="labelPRODUCT")
+        @Column(name="label_product")
         private String labelProduct;
 
-        @Column(name = "imagePATH")
+        @Column(name = "image_path")
         private String imagePath;
 
-        @Column(name="unitPRICEEXCLUDINGTAX")
+        @Column(name="unit_price_excluding_tax")
         private double unitPriceExcludingTax;
 
-        @Column(name="vATRATE")
-        private int vATRate;
+        @Column(name="vat_rate")
+        private int vatRate;
 
-        @Column(name="quantityINSTOCK")
+        @Column(name="quantity_in_stock")
         private int quantityInStock;
 
-        @Column(name="descriptionFR")
+        @Column(name="description_fr")
         private String descriptionFR;
 
-        @Column(name="descriptionEN")
+        @Column(name="description_en")
         private String descriptionEN;
 
-        @Column(name="categoryID")
+        @Column(name="category_id")
         private int categoryID;
 
         public ProductEntity() {
@@ -56,7 +56,7 @@ public class ProductEntity {
         }
 
         public int getVATRate() {
-            return vATRate;
+            return vatRate;
         }
 
         public int getQuantityInStock() {

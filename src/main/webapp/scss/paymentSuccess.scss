@@ -1,0 +1,55 @@
+@import "variables";
+
+body {
+  font-family: $font-family;
+  margin: 0;
+  padding: 0;
+  background: linear-gradient(to right, #ece9e6, $secondary-color);
+  color: $text-color;
+}
+
+.checkout-page {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+  padding: $gap-large;
+
+  .payment-section {
+    background: $secondary-color;
+    padding: $gap-large;
+    border-radius: $input-radius;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    text-align: center;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+
+    &:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+    }
+
+    h2 {
+      margin-bottom: $gap-medium;
+    }
+
+    .success-message {
+      p {
+        font-size: $p-font-size;
+        margin-bottom: $gap-medium;
+      }
+
+      .btn {
+        background-color: $primary-color;
+        color: $text-dark-color;
+        border-radius: $button-radius;
+        font-size: $button-font-size;
+        padding: 0.5rem 1rem;
+        text-decoration: none;
+
+        &:hover {
+          background-color: $hover-color;
+        }
+      }
+    }
+  }
+}

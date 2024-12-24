@@ -1,6 +1,5 @@
 package com.spring.henallux.firstSpringProject.controller;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -11,7 +10,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 public class WelcomeController {
     @RequestMapping(method=RequestMethod.GET)
     public String home(Model model) {
-        model.addAttribute("title", "Accueil");
+        model.addAttribute("title", "Home");
         model.addAttribute("showHeader", true);
         model.addAttribute("showFooter", true);
         return "integrated:welcome";

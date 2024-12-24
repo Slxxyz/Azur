@@ -35,9 +35,10 @@
                     }
                 });
             }
+
             function fetchCategories() {
                 const currentLocale = new URLSearchParams(window.location.search).get('locale') || 'fr';
-                const requestUrl = "/firstSpring/categories/fragment?locale="+currentLocale;
+                const requestUrl = "/firstSpring/categories/fragment?locale=" + currentLocale;
                 fetch(requestUrl)
                     .then(response => response.text())
                     .then(data => {
@@ -46,8 +47,19 @@
                     .catch(error => console.error('Error fetching categories:', error));
             }
 
-        });
+            // Update language links with current URL parameters
+            const currentParams = new URLSearchParams(window.location.search);
+            const localeFrLink = document.getElementById('localeFrLink');
+            const localeEnLink = document.getElementById('localeEnLink');
 
+            if (localeFrLink && localeEnLink) {
+                currentParams.set('locale', 'fr');
+                localeFrLink.href = window.location.pathname + '?' + currentParams.toString();
+
+                currentParams.set('locale', 'en');
+                localeEnLink.href = window.location.pathname + '?' + currentParams.toString();
+            }
+        });
     </script>
 
 </head>
@@ -59,22 +71,22 @@
             <div class="left-section">
                 <img id="logo" src="<spring:url value='/images/Template/AzurBlanc.png'/>" alt="Azur" height="50px">
                 <nav class="nav-links">
-                    <a href="<spring:url value='/azur' />">Accueil</a>
-                    <a href="javascript:void(0);" id="catalogueLink">Catalogue</a>
+                    <a href="<spring:url value='/azur' />"><spring:message code="Home"/></a>
+                    <a href="javascript:void(0);" id="catalogueLink"><spring:message code="Catalog"/></a>
                     <div id="dropdownMenu">
 
                     </div>
-                    <a href="<spring:url value='/a-propos' />">À propos</a>
+                    <a href="<spring:url value='/a-propos' />"><spring:message code="AboutUs"/></a>
                 </nav>
             </div>
             <div class="right-section">
-                <a href="<spring:url value='/connexion' />">Log in</a>
+                <a href="<spring:url value='/connexion' />"><spring:message code="LogIn"/></a>
                 <div class="language-section">
-                    <a href="${localeFr}">
+                    <a id="localeFrLink" href="#">
                         <img alt="Français" src="<spring:url value='/images/Template/drapeauFr.png'/>" height="20px">
                     </a>
                     <span>|</span>
-                    <a href="${localeEn}">
+                    <a id="localeEnLink" href="#">
                         <img alt="English" src="<spring:url value='/images/Template/drapeauEn.png'/>" height="20px">
                     </a>
                 </div>
@@ -88,18 +100,16 @@
     <tiles:insertAttribute name="main-content"/>
 </main>
 
-
-
 <c:if test="${showFooter}">
     <footer>
         <div class="footer-container">
             <div class="footer-links">
-                <a href="/accueil">Accueil</a>
-                <a href="/catalogue">Catalogue</a>
-                <a href="/apropos">À propos</a>
+                <a href="/accueil"><spring:message code="Home"/></a>
+                <a href="/catalogue"><spring:message code="Catalog"/></a>
+                <a href="/apropos"><spring:message code="AboutUs"/></a>
             </div>
             <div class="copyright">
-                <p>Copyright © 2024 Azur Inc. Tous droits réservés.</p>
+                <p><spring:message code="Copyright"/></p>
             </div>
         </div>
     </footer>

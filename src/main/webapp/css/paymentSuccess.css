@@ -1,0 +1,47 @@
+body {
+  font-family: "Arial", sans-serif;
+  margin: 0;
+  padding: 0;
+  background: linear-gradient(to right, #ece9e6, white);
+  color: #333;
+}
+
+.checkout-page {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+  padding: 20px;
+}
+.checkout-page .payment-section {
+  background: white;
+  padding: 20px;
+  border-radius: 8px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+  text-align: center;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+.checkout-page .payment-section:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+}
+.checkout-page .payment-section h2 {
+  margin-bottom: 15px;
+}
+.checkout-page .payment-section .success-message p {
+  font-size: 24px;
+  margin-bottom: 15px;
+}
+.checkout-page .payment-section .success-message .btn {
+  background-color: #98cae1;
+  color: white;
+  border-radius: 30px;
+  font-size: 20px;
+  padding: 0.5rem 1rem;
+  text-decoration: none;
+}
+.checkout-page .payment-section .success-message .btn:hover {
+  background-color: #1e90ff;
+}
+
+/*# sourceMappingURL=paymentSuccess.css.map */
