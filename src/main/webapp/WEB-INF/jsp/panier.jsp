@@ -2,7 +2,7 @@
 <%@ include file="include/importTags.jsp"%>
 <html>
 <head>
-    <title>Panier</title>
+    <title>${title}</title>
     <link rel="stylesheet" href="<spring:url value='/css/panier.css'/>">
 </head>
 <body>

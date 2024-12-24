@@ -1,18 +1,22 @@
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
-<html>
+<!DOCTYPE html>
+<html lang="en">
 <head>
-    <title>Payment Success</title>
-    <link type="text/css" rel="stylesheet" href="<spring:url value='/css/paymentSuccess.css' />">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>${title}</title>
+    <link rel="stylesheet" href="<spring:url value='/css/paymentSuccess.css' />">
 </head>
 <body>
 <main class="checkout-page">
     <section class="payment-section">
-        <h2>Payment Success</h2>
-        <div class="success-message">
-            <p>Your payment was successful! Thank you for your purchase.</p>
-            <a href="<spring:url value='/azur' />" class="btn">Return to Home</a>
+        <div class="icon-container">
+            <img src="<spring:url value='/images/Success/success.png' />" alt="Success Icon" class="success-icon">
         </div>
+        <h2 class="title"><spring:message code="SuccessTitle"/></h2>
+        <p class="message"><spring:message code="SuccessMessage"/></p>
+        <a href="<spring:url value='/azur' />" class="btn btn-primary"><spring:message code="SuccessBtn"/></a>
     </section>
 </main>
 </body>

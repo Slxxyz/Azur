@@ -11,7 +11,7 @@ public class PanierController {
 
     @RequestMapping(method = RequestMethod.GET)
     public String panier(Model model) {
-        model.addAttribute("title", "Panier");
+        model.addAttribute("title", "Cart");
         model.addAttribute("showHeader", true);
         model.addAttribute("showFooter", true);
         return "integrated:panier";

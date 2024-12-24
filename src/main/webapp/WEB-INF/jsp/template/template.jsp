@@ -5,6 +5,7 @@
 
 <html>
 <head>
+
     <title>${title}</title>
     <link type="text/css" rel="stylesheet" href="<spring:url value='/css/template.css'/>">
 

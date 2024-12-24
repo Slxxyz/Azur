@@ -2,7 +2,7 @@ body {
   font-family: "Arial", sans-serif;
   margin: 0;
   padding: 0;
-  background: linear-gradient(to right, #ece9e6, white);
+  background: linear-gradient(to top, #98cae1, white);
   color: #333;
 }
 
@@ -17,31 +17,91 @@ body {
   background: white;
   padding: 20px;
   border-radius: 8px;
-  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 6px 15px rgba(0, 0, 0, 0.2);
   text-align: center;
-  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  width: 100%;
+  max-width: 400px;
 }
-.checkout-page .payment-section:hover {
-  transform: translateY(-5px);
-  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
-}
-.checkout-page .payment-section h2 {
+.checkout-page .payment-section .icon-container {
   margin-bottom: 15px;
 }
-.checkout-page .payment-section .success-message p {
+.checkout-page .payment-section .icon-container .success-icon {
+  width: 60px;
+  height: 60px;
+}
+.checkout-page .payment-section .title {
+  font-family: "Bebas Neue", sans-serif;
+  color: black;
+  font-size: 1.8rem;
+  margin-bottom: 15px;
+}
+.checkout-page .payment-section .message {
   font-size: 24px;
-  margin-bottom: 15px;
+  color: #333;
+  margin-bottom: 20px;
 }
-.checkout-page .payment-section .success-message .btn {
+.checkout-page .payment-section .btn {
   background-color: #98cae1;
   color: white;
+  text-decoration: none;
   border-radius: 30px;
   font-size: 20px;
-  padding: 0.5rem 1rem;
-  text-decoration: none;
+  font-weight: 600;
+  width: 150px;
+  padding: 0.5rem;
+  display: inline-block;
+  transition: background-color 0.3s ease, transform 0.2s ease;
 }
-.checkout-page .payment-section .success-message .btn:hover {
+.checkout-page .payment-section .btn:hover {
   background-color: #1e90ff;
+  transform: scale(1.05);
+}
+.checkout-page .payment-section .btn.btn-primary {
+  background-color: #98cae1;
+  color: white;
+}
+
+/* Media queries for responsiveness */
+@media (max-width: 768px) {
+  .payment-section {
+    padding: 15px;
+    max-width: 90%;
+  }
+  .payment-section .icon-container .success-icon {
+    width: 50px;
+    height: 50px;
+  }
+  .payment-section .btn {
+    font-size: 18px;
+    width: 130px;
+  }
+  .payment-section .title {
+    font-size: 1.6rem;
+  }
+  .payment-section .message {
+    font-size: 22px;
+  }
+}
+@media (max-width: 480px) {
+  .payment-section {
+    padding: 5px;
+    max-width: 90%;
+  }
+  .payment-section .icon-container .success-icon {
+    width: 40px;
+    height: 40px;
+  }
+  .payment-section .btn {
+    font-size: 16px;
+    width: 100%;
+    padding: 0.5rem;
+  }
+  .payment-section .title {
+    font-size: 1.4rem;
+  }
+  .payment-section .message {
+    font-size: 20px;
+  }
 }
 
 /*# sourceMappingURL=paymentSuccess.css.map */

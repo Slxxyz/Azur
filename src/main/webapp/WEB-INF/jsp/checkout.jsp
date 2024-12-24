@@ -3,13 +3,13 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <head>
-  <title>Page de paiement</title>
+  <title>${title}</title>
   <link type="text/css" rel="stylesheet" href="<spring:url value='/css/checkout.css' />">
 </head>
 <body>
 <main class="checkout-page">
   <section class="address-section">
-    <h2>Adresse de livraison</h2>
+    <h2><spring:message code="DeliveryAddress"/></h2>
     <form>
       <input type="email" placeholder="Adresse email" required>
       <div class="name-fields">
@@ -29,25 +29,25 @@
   </section>
 
   <section class="payment-section">
-    <h2>Modes de paiement</h2>
+    <h2><spring:message code="PaymentMethod"/></h2>
     <div class="paypal">
       <img src="<spring:url value='/images/CheckOut/paypal.png' />" alt="PayPal">
     </div>
   </section>
 
   <section class="order-summary-section">
-    <h2>Résumé de la commande</h2>
+    <h2><spring:message code="OrderSummary"/></h2>
     <div class="order-summary">
       <div class="item">
         <img src="<spring:url value='/images/Articles/Falcima.jpg' />" alt="Produit">
         <p>Butterfly Ovtcharov S1</p>
-        <span>Qté: 1</span>
-        <span>Sous-total: 24,90€</span>
+        <span><spring:message code="Qty"/>: 1</span>
+        <span><spring:message code="subtotal"/>: 24,90€</span>
       </div>
       <div class="totals">
-        <p>Sous-total: 24,90€</p>
-        <p>Livraison: 4,99€</p>
-        <p><strong>Total: 29,95€</strong></p>
+        <p><spring:message code="subtotal"/>: 24,90€</p>
+        <p><spring:message code="Discount"/>: 4,99€</p>
+        <p><strong><spring:message code="Total"/>: 29,95€</strong></p>
       </div>
     </div>
   </section>
@@ -55,7 +55,7 @@
   <form action="/firstSpring/checkout/create-payment" method="post">
     <input type="hidden" name="amount" value="${paymentModel.getAmount()}">
     <input type="hidden" name="currency" value="${paymentModel.getCurrency()}">
-    <button type="submit" class="order-button">Commander</button>
+    <button type="submit" class="order-button"><spring:message code="Order"/></button>
   </form>
 
 

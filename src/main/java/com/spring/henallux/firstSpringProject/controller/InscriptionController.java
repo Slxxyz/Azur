@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 public class InscriptionController {
     @RequestMapping(method= RequestMethod.GET)
     public String home(Model model) {
-        model.addAttribute("title", "Inscription");
+        model.addAttribute("title", "Register");
         model.addAttribute("showHeader", true);
         model.addAttribute("showFooter", false);
         return "integrated:inscription";

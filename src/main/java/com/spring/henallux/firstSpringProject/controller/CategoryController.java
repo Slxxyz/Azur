@@ -49,7 +49,7 @@ public class CategoryController {
         }
 
         model.addAttribute("language", locale);
-        model.addAttribute("title", "Catalogue");
+        model.addAttribute("title", "Catalog");
         model.addAttribute("products", products);
         model.addAttribute("categoryName", categoryName);
         model.addAttribute("showHeader", true);

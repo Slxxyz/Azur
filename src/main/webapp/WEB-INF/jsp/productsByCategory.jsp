@@ -19,7 +19,7 @@
           <div class="product-details">
             <h5 class="product-title">${product.getLabelProduct()}</h5>
             <p class="product-price">${product.getUnitPriceExcludingTax()}€</p>
-            <a href="<spring:url value='/product/details?productID=${product.getProductID()}&locale=${language}'/>" class="btn btn-primary"><spring:message code="Order"/></a>
+            <a href="<spring:url value='/product/details?productID=${product.getProductID()}&locale=${language}'/>" class="btn btn-primary"><spring:message code="ViewMore"/></a>
           </div>
         </div>
       </c:forEach>

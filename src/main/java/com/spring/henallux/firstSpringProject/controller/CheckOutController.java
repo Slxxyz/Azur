@@ -24,7 +24,6 @@ public class CheckOutController {
     @RequestMapping(method = RequestMethod.GET)
     public String checkOut(Model model) {
         PaymentModel paymentModel = new PaymentModel(1.0,"EUR");
-        model.addAttribute("title", "Checkout");
         model.addAttribute("paymentModel", paymentModel);
         model.addAttribute("showHeader", true);
         model.addAttribute("showFooter", true);
@@ -65,21 +64,33 @@ public class CheckOutController {
                           @RequestParam("PayerID") String payerId, Model model) {
         try {
             Payment payment = payPalService.executePayment(paymentId, payerId);
-            model.addAttribute("message", "Payment Successful!");
+            model.addAttribute("title", "Payment Successful!");
+            model.addAttribute("showHeader", true);
+            model.addAttribute("showFooter", true);
             return  "integrated:paymentSuccess"; // Afficher une page de succès
         } catch (PayPalRESTException e) {
             e.printStackTrace();
+            model.addAttribute("title", "Payment failed.");
+            model.addAttribute("showHeader", true);
+            model.addAttribute("showFooter", true);
             return "integrated:paymentError"; // En cas d'erreur
         }
     }
 
     @GetMapping("/successtest")
-    public String successtest() {
+    public String successtest(Model model) {
+        model.addAttribute("locale", "fr");
+        model.addAttribute("title", "Payment Successful!");
+        model.addAttribute("showHeader", true);
+        model.addAttribute("showFooter", true);
         return "integrated:paymentSuccess"; // Afficher une page de succès
     }
 
     @GetMapping("/errortest")
-    public String errortest() {
+    public String errortest(Model model) {
+        model.addAttribute("title", "Payment failed.");
+        model.addAttribute("showHeader", true);
+        model.addAttribute("showFooter", true);
         return "integrated:paymentError"; // Afficher une page d'erreur
     }
 

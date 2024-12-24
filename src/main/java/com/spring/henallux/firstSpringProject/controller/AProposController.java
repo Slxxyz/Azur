@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 public class AProposController {
     @RequestMapping(method= RequestMethod.GET)
     public String home(Model model) {
-        model.addAttribute("title", "Qui sommes nous ?");
+        model.addAttribute("title", "Who we are ?");
         model.addAttribute("showHeader", true);
         model.addAttribute("showFooter", true);
         return "integrated:aPropos";
