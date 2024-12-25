@@ -1,11 +1,12 @@
 package com.spring.henallux.firstSpringProject.dataAccess.dao;
 
 import com.spring.henallux.firstSpringProject.dataAccess.entity.CustomerEntity;
+import com.spring.henallux.firstSpringProject.model.Customer;
 
 import java.util.List;
 
 public interface CustomerDataAccess {
-    CustomerEntity saveCustomer(CustomerEntity customer); // Sauvegarde ou met à jour un client
+    void saveCustomer(CustomerEntity customer); // Sauvegarde ou met à jour un client
 
     CustomerEntity findByMailAddress(String mailAddress);
 

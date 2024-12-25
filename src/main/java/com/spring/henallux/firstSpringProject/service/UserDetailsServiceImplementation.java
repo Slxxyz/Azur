@@ -21,16 +21,28 @@ public class UserDetailsServiceImplementation implements UserDetailsService {
     }
 
     @Override
-    public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-        // Exemple avec un utilisateur fictif
-        if (username.equals("admin")) {
-            return User.builder()
-                    .username("admin")
-                    .password(new BCryptPasswordEncoder().encode("password"))
-                    .roles("ADMIN") // Rôles ou autorités
-                    .build();
+    public UserDetails loadUserByUsername(String usernameOrEmail) throws UsernameNotFoundException {
+        CustomerEntity customer = null;
+
+        if (usernameOrEmail.contains("@")) {
+            // Recherche par email
+            customer = customerDAO.findByMailAddress(usernameOrEmail);
+            if (customer == null) {
+                throw new UsernameNotFoundException("Email not found: " + usernameOrEmail);
+            }
         } else {
-            throw new UsernameNotFoundException("User not found: " + username);
+            // Recherche par username
+            customer = customerDAO.findByUsername(usernameOrEmail);
+            if (customer == null) {
+                throw new UsernameNotFoundException("Username not found: " + usernameOrEmail);
+            }
         }
+
+        // Convertir en UserDetails
+        return User.builder()
+                .username(customer.getUsername()) // Utiliser le username comme identifiant principal
+                .password(customer.getUserPassword()) // Utiliser le mot de passe encodé
+                .roles("USER")
+                .build();
     }
 }

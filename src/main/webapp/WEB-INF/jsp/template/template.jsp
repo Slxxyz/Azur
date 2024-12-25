@@ -87,7 +87,7 @@
                 <sec:authorize access="!isAuthenticated()">
                     <!-- Ce bloc s'affiche si l'utilisateur n'est pas connecté -->
                     <a class="navbar-brand" href="<spring:url value='/connexion'/>">
-                        <spring:message code="Login"/>
+                        <spring:message code="SeConnecter"/>
                     </a>
                 </sec:authorize>
 

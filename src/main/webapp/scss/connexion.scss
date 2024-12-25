@@ -7,6 +7,18 @@
   height: calc(100vh - #{$header-height});
   max-height: calc(100vh - #{$min-header-height});
 
+  .title-container {
+    font-size: $title-height;
+    margin-bottom: 20px;
+    font-weight: bold;
+  }
+
+  .message-container {
+    margin: 40px 0;
+    font-size: $p-font-size;
+    line-height: 1.5;
+  }
+
   // Section gauche
   .left-section {
     background-color: $secondary-color;
@@ -37,6 +49,7 @@
     }
 
     form {
+      padding-top: 20px ;
       display: flex;
       flex-direction: column;
       width: 100%;
@@ -92,17 +105,6 @@
     align-items: center; // Centre horizontalement
     text-align: center;
     color: $text-light-color;
-
-    h1 {
-      font-size: $title-height;
-      margin-bottom: 20px;
-    }
-
-    p {
-      margin: 40px 0;
-      font-size: $p-font-size;
-      line-height: 1.5;
-    }
 
     a {
       display: inline-block;

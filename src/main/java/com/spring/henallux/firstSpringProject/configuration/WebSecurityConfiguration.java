@@ -9,14 +9,23 @@ import org.springframework.security.config.annotation.web.configuration.WebSecur
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.web.authentication.SavedRequestAwareAuthenticationSuccessHandler;
-
 @Configuration
 @EnableWebSecurity
 public class WebSecurityConfiguration extends WebSecurityConfigurerAdapter {
 
     private static final String LOGIN_REQUEST = "/connexion";
-    private static final String[] AUTHORIZED_REQUESTS_ANYBODY = {"/", "/css/**", "/js/**", "/images/**"};
-    private static final String[] AUTHORIZED_REQUESTS_ADMIN = {"/admin"};
+    private static final String[] AUTHORIZED_REQUESTS_ANYBODY = {
+            "/",
+            "/css/**",
+            "/js/**",
+            "/images/**",
+            "/connexion",
+            "/inscription/**",
+            "/categories/**",
+            "/product/**",
+            "/a-propos",
+            "/azur"
+    };
 
     private final UserDetailsService userDetailsServiceImpl;
 
@@ -27,19 +36,19 @@ public class WebSecurityConfiguration extends WebSecurityConfigurerAdapter {
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
-        http.csrf().disable();
-
-        http
-                .authorizeRequests() // We define the authorization here
-                .antMatchers(AUTHORIZED_REQUESTS_ADMIN).hasRole("ADMIN") // For the request to "/admin", the user needs to be an admin
-                .antMatchers(AUTHORIZED_REQUESTS_ANYBODY).permitAll()
-
+        http.csrf().disable() // Désactiver CSRF pour le développement uniquement
+                .authorizeRequests()
+                .antMatchers(AUTHORIZED_REQUESTS_ANYBODY).permitAll() // Accès public
+                .antMatchers("/admin/**").hasRole("ADMIN") // Accès restreint pour les administrateurs
+                .antMatchers("/commande/**").authenticated() // Nécessite une connexion pour passer commande
+                .anyRequest().authenticated() // Authentification requise pour tout le reste
                 .and()
                 .formLogin()
-                .successHandler(new SavedRequestAwareAuthenticationSuccessHandler())
-                .loginPage(LOGIN_REQUEST)
+                .loginPage("/connexion") // Page de connexion personnalisée
+                .loginProcessingUrl("/login") // URL où Spring Security traite l'authentification
+                .defaultSuccessUrl("/azur") // Redirection après succès
+                .failureUrl("/connexion?error=true") // Redirection en cas d'échec
                 .permitAll()
-
                 .and()
                 .logout()
                 .logoutSuccessUrl("/azur")

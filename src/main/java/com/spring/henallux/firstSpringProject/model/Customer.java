@@ -1,58 +1,52 @@
 package com.spring.henallux.firstSpringProject.model;
 
 import org.springframework.security.core.GrantedAuthority;
-import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
 import javax.validation.constraints.*;
-import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 
 public class Customer implements UserDetails {
 
-    private Integer id;
+    @NotEmpty(message = "Le nom d'utilisateur ne peut pas être vide.")
+    @Size(min = 3, max = 45, message = "Le nom d'utilisateur doit contenir entre 3 et 45 caractères.")
+    private String username;
 
-    @NotEmpty
-    @Size(min=3, max=45)
+    @NotEmpty(message = "Le prénom ne peut pas être vide.")
+    @Size(min = 3, max = 45, message = "Le prénom doit contenir entre 3 et 45 caractères.")
     private String firstName;
 
-    @NotEmpty
-    @Size(min=3, max=45)
+    @NotEmpty(message = "Le nom de famille ne peut pas être vide.")
+    @Size(min = 3, max = 45, message = "Le nom de famille doit contenir entre 3 et 45 caractères.")
     private String lastName;
 
-    @NotEmpty
-    @Pattern(regexp = "[\\w-\\.]+@([\\w-]+\\.)+[\\w-]{2,4}")
+    @NotEmpty(message = "L'adresse email ne peut pas être vide.")
+    @Pattern(regexp = "[\\w-\\.]+@([\\w-]+\\.)+[\\w-]{2,4}", message = "L'adresse email doit être valide.")
     private String mailAddress;
 
-    @NotEmpty
-    @Size(min=6, max=60)
+    @NotEmpty(message = "Le mot de passe ne peut pas être vide.")
+    @Pattern(regexp = "^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d).{8,}$", message = "Le mot de passe doit contenir au moins 8 caractères, avec des lettres majuscules, minuscules et un chiffre.")
     private String userPassword;
 
-    @Pattern(regexp = "[0-9]*")
-    @Size(min=7, max=15)
+    @Pattern(regexp = "[0-9]*", message = "Le numéro de téléphone doit uniquement contenir des chiffres.")
+    @Size(min = 7, max = 15, message = "Le numéro de téléphone doit contenir entre 7 et 15 chiffres.")
     private String telNumber;
 
     private Integer locationID;
 
-    private String authorities;
+    // Ajout de l'objet Location avec validation des champs
+    @NotNull(message = "La localisation ne peut pas être vide.")
+    private Location location;
 
-    private Boolean accountNonExpired = true;
+    // Getters et Setters
 
-    private Boolean accountNonLocked = true;
-
-    private Boolean credentialsNonExpired = true;
-
-    private Boolean enabled = true;
-
-    // Getters and Setters
-
-    public Integer getId() {
-        return id;
+    public String getUsername() {
+        return username;
     }
 
-    public void setId(Integer id) {
-        this.id = id;
+    public void setUsername(String username) {
+        this.username = username;
     }
 
     public String getFirstName() {
@@ -103,60 +97,18 @@ public class Customer implements UserDetails {
         this.locationID = locationID;
     }
 
-    public void setAuthorities(String authorities) {
-        this.authorities = authorities;
+    public Location getLocation() {
+        return location;
     }
 
-    public void setAccountNonExpired(Boolean accountNonExpired) {
-        this.accountNonExpired = accountNonExpired;
-    }
-
-    public void setAccountNonLocked(Boolean accountNonLocked) {
-        this.accountNonLocked = accountNonLocked;
-    }
-
-    public void setCredentialsNonExpired(Boolean credentialsNonExpired) {
-        this.credentialsNonExpired = credentialsNonExpired;
-    }
-
-    public void setEnabled(Boolean enabled) {
-        this.enabled = enabled;
+    public void setLocation(Location location) {
+        this.location = location;
     }
 
     @Override
-    public Collection<GrantedAuthority> getAuthorities() {
-        List<GrantedAuthority> grantedAuthorities = new ArrayList<>();
-        if (authorities != null && !authorities.isEmpty()) {
-            String[] authoritiesAsArray = authorities.split(",");
-            for (String authority : authoritiesAsArray) {
-                if (authority != null && !authority.isEmpty()) {
-                    grantedAuthorities.add(new SimpleGrantedAuthority(authority));
-                }
-            }
-        }
-        return grantedAuthorities;
+    public Collection<? extends GrantedAuthority> getAuthorities() {
+        return List.of();
     }
-
-    @Override
-    public boolean isEnabled() {
-        return enabled;
-    }
-
-    @Override
-    public boolean isAccountNonExpired() {
-        return accountNonExpired;
-    }
-
-    @Override
-    public boolean isAccountNonLocked() {
-        return accountNonLocked;
-    }
-
-    @Override
-    public boolean isCredentialsNonExpired() {
-        return credentialsNonExpired;
-    }
-
 
     @Override
     public String getPassword() {
@@ -164,8 +116,22 @@ public class Customer implements UserDetails {
     }
 
     @Override
-    public String getUsername() {
-        return "";
+    public boolean isAccountNonExpired() {
+        return true; // L'utilisateur n'est pas expiré par défaut
     }
 
+    @Override
+    public boolean isAccountNonLocked() {
+        return true; // L'utilisateur n'est pas bloqué par défaut
+    }
+
+    @Override
+    public boolean isCredentialsNonExpired() {
+        return true; // Les informations d'identification de l'utilisateur ne sont pas expirées par défaut
+    }
+
+    @Override
+    public boolean isEnabled() {
+        return true; // L'utilisateur est activé par défaut
+    }
 }

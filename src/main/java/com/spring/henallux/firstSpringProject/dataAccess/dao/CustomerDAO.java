@@ -6,6 +6,7 @@ import com.spring.henallux.firstSpringProject.dataAccess.entity.LocationEntity;
 import com.spring.henallux.firstSpringProject.dataAccess.repository.CustomerRepository;
 import com.spring.henallux.firstSpringProject.dataAccess.repository.LocationRepository;
 import com.spring.henallux.firstSpringProject.dataAccess.util.ProviderConverter;
+import com.spring.henallux.firstSpringProject.model.Customer;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -27,8 +28,8 @@ public class CustomerDAO implements CustomerDataAccess {
 
 
     @Override
-    public CustomerEntity saveCustomer(CustomerEntity customer) {
-        return customerRepository.save(customer);
+    public void saveCustomer(CustomerEntity customer) {
+        customerRepository.save(customer);
     }
 
     public LocationEntity saveLocation(LocationEntity location) {

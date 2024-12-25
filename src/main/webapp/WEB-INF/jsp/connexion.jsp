@@ -9,27 +9,39 @@
 <div class="page-connexion">
 
     <div class="left-section">
-        <h1>CONNEXION</h1>
-        <c:if test="${not empty loginError}">
-            <div class="error-message">${loginError}</div>
+        <div class="title-container">
+            <spring:message code="Connexion"/>
+        </div>
+        <c:if test="${not empty param.error}">
+            <div class="error-message"><spring:message code="ErrorConnection"/></div>
         </c:if>
-        <form:form action="${pageContext.request.contextPath}/connexion/login" method="post" modelAttribute="customer">
-            <form:label path="mailAddress">Email</form:label>
-            <form:input path="mailAddress" type="email" placeholder="Entrez votre adresse email" required="true" id="email" name="email"/>
-            <form:errors path="mailAddress" cssClass="error-message" />
+        <form action="${pageContext.request.contextPath}/login" method="post">
+            <label for="usernameOrEmail">
+                <spring:message code="UserNameOrEmail"/>
+            </label>
+            <input id="usernameOrEmail" name="username" placeholder="<spring:message code="EnterUserNameOrEmail"/>" required />
 
-            <form:label path="userPassword">Mot de passe</form:label>
-            <form:input path="userPassword" type="password" placeholder="Entrez votre mot de passe" required="true" id="password" name="password"/>
-            <form:errors path="userPassword" cssClass="error-message" />
+            <label for="password">
+                <spring:message code="Password"/>
+            </label>
+            <input type="password" id="password" name="password" placeholder="<spring:message code="EnterPassword"/>" required />
 
-            <button type="submit">Connexion</button>
-        </form:form>
+            <button type="submit">
+                <spring:message code="SeConnecter"/>
+            </button>
+        </form>
     </div>
 
     <div class="right-section">
-        <h1>SALUT TOI !</h1>
-        <p>Entre tes informations personnelles et<br> commence ta journée avec nous !</p>
-        <a href="<spring:url value='/inscription' />">Inscription</a>
+        <div class="title-container">
+            <spring:message code="SalutToi"/>
+        </div>
+        <div class="message-container">
+            <spring:message code="MessageInscription"/>
+        </div>
+        <a href="<spring:url value='/inscription' />">
+            <spring:message code="Inscription"/>
+        </a>
     </div>
 </div>
 </body>

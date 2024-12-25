@@ -15,6 +15,7 @@ document.addEventListener("DOMContentLoaded", function () {
         const lastName = document.getElementById('lastName').value.trim();
         const email = document.getElementById('email').value.trim();
         const password = document.getElementById('password').value;
+        const confirmPassword = document.getElementById("confirm-password").value;
         const telephone = document.getElementById('telephone').value.trim();
         const codePostal = document.getElementById('code-postal').value.trim();
         const rue = document.getElementById('rue').value.trim();
@@ -64,6 +65,16 @@ document.addEventListener("DOMContentLoaded", function () {
             error.textContent = "Le pays est obligatoire.";
             error.classList.add('active');
             hasError = true;
+        }
+
+        if (password !== confirmPassword) {
+            console.log("Les mots de passe ne correspondent pas.");
+            const error = document.getElementById('error-confirm-password');
+            error.textContent = "Les mots de passe ne correspondent pas.";
+            error.classList.add('active');
+            hasError = true;
+        } else {
+            document.getElementById("error-confirm-password").innerText = ""; // Efface les erreurs si tout va bien
         }
 
         // Vérification du format de l'email

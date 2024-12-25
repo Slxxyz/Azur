@@ -39,7 +39,6 @@ public class InscriptionController {
         return "integrated:inscription";
     }
 
-
     @RequestMapping(value = "/sendInscription", method = RequestMethod.POST)
     public String getFormData(
             Model model,
@@ -48,7 +47,7 @@ public class InscriptionController {
 
         boolean hasErrors = false;
 
-        // Vérification des erreurs d'email et de téléphone
+        // Vérification des erreurs d'email, de téléphone et d'username
         if (customerDAO.mailAddressExists(customer.getMailAddress())) {
             model.addAttribute("errorEmail", "Email already exists");
             hasErrors = true;
@@ -57,8 +56,7 @@ public class InscriptionController {
             model.addAttribute("errorTelephone", "Telephone number already exists");
             hasErrors = true;
         }
-
-        if(customerDAO.userNameExists(customer.getUsername())){
+        if (customerDAO.userNameExists(customer.getUsername())) {
             model.addAttribute("errorUsername", "Username already exists");
             hasErrors = true;
         }
@@ -71,6 +69,11 @@ public class InscriptionController {
             return "integrated:inscription";
         }
 
+        // Encodage du mot de passe avant la sauvegarde
+        BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
+        String encodedPassword = passwordEncoder.encode(customer.getUserPassword());
+        customer.setUserPassword(encodedPassword);
+
         // Sauvegarder l'adresse (LocationEntity) si elle existe
         if (customer.getLocation() != null && customer.getLocation().getLocationId() == null) {
             customerDAO.saveLocation(customer.getLocation());
@@ -81,7 +84,7 @@ public class InscriptionController {
 
         UserDetails userDetails = User.builder()
                 .username(customer.getUsername())
-                .password(customer.getUserPassword())
+                .password(customer.getUserPassword()) // Utilisez le mot de passe encodé ici
                 .roles("USER")
                 .build();
 
@@ -92,6 +95,5 @@ public class InscriptionController {
 
         System.out.println("Customer logged in: " + customer.getMailAddress());
         return "redirect:/azur";
-
     }
 }
