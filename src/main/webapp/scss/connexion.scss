@@ -1,8 +1,23 @@
-@import "variables";
+@use 'variables' as *;
+@use 'sass:color';
 
+// Page de connexion
 .page-connexion {
   display: flex;
-  height: 100vh;
+  height: calc(100vh - #{$header-height});
+  max-height: calc(100vh - #{$min-header-height});
+
+  .title-container {
+    font-size: $title-height;
+    margin-bottom: 20px;
+    font-weight: bold;
+  }
+
+  .message-container {
+    margin: 40px 0;
+    font-size: $p-font-size;
+    line-height: 1.5;
+  }
 
   // Section gauche
   .left-section {
@@ -10,8 +25,8 @@
     flex: 1;
     display: flex;
     flex-direction: column;
-    justify-content: center; // Centre verticalement
-    align-items: center; // Centre horizontalement
+    justify-content: center;
+    align-items: center;
     padding: 20px;
 
     h1 {
@@ -21,7 +36,20 @@
       margin-bottom: 20px;
     }
 
+    .error-message {
+      color: #ff4d4d;
+      font-size: 0.875rem;
+      margin-top: 3px;
+      margin-bottom: 3px;
+      background-color: #ffe6e6;
+      padding: 5px;
+      border-radius: 5px;
+      width: 100%;
+      text-align: center;
+    }
+
     form {
+      padding-top: 20px ;
       display: flex;
       flex-direction: column;
       width: 100%;
@@ -45,7 +73,7 @@
 
         &:focus {
           outline: none;
-          border-color: lighten($secondary-color, 10%);
+          border-color: color.scale($secondary-color, $lightness: 10%);
         }
       }
 
@@ -61,7 +89,7 @@
         font-size: $button-font-size;
 
         &:hover {
-          background-color: darken($secondary-color, 10%);
+          background-color: color.scale($secondary-color, $lightness: -10%);
         }
       }
     }
@@ -78,18 +106,6 @@
     text-align: center;
     color: $text-light-color;
 
-    h1 {
-      font-size: $title-height;
-      margin-bottom: 20px;
-    }
-
-    p {
-      margin: 40px 0;
-      font-size: $p-font-size;
-      line-height: 1.5;
-
-    }
-
     a {
       display: inline-block;
       padding: 10px 20px;
@@ -101,7 +117,7 @@
       font-size: $button-font-size;
 
       &:hover {
-        background-color: lighten($primary-color, 10%);
+        background-color: color.scale($primary-color, $lightness: 10%);
       }
     }
   }

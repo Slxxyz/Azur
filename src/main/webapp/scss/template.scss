@@ -1,12 +1,12 @@
-// Import des variables
-@import 'variables';
+@use 'variables' as *;
+@use 'sass:color';
 
 // Reset global
-   * {
-       margin: 0;
-       padding: 0;
-       box-sizing: border-box;
-   }
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
 
 body {
     font-family: $font-family;
@@ -25,82 +25,102 @@ a {
 }
 
 // Header
-   header {
-       background-color: #fff;
-       padding: $padding-header;
-       border-bottom: 1px solid #ddd;
-       width: 100%;
+header {
+    background-color: #fff;
+    padding: $padding-header;
+    border-bottom: 1px solid #ddd;
+    width: 100%;
+    height: $header-height;
+    min-height: $min-header-height;
+    margin-bottom: 1px;
 
-       .header-container {
-           display: flex;
-           justify-content: space-between;
-           align-items: center;
-           width: 100%;
-           padding: 0 20px;
+    .header-container {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        width: 100%;
+        padding: 0 20px;
+        flex-wrap: wrap; // Permet de réorganiser les éléments sur petits écrans
 
-           .left-section {
-               display: flex;
-               align-items: center;
-               gap: $gap-large;
+        .left-section {
+            display: flex;
+            align-items: center;
+            gap: $gap-large;
 
-               #logo {
-                   height: $logo-height;
-               }
+            #logo {
+                height: $logo-height;
+            }
 
-               .nav-links {
-                   display: flex;
-                   gap: $gap-large;
-                   position: relative;
-               }
-           }
+            .nav-links {
+                display: flex;
+                gap: $gap-large;
+                position: relative;
+                flex-wrap: wrap; // Permet d'ajuster les liens de manière flexible
+            }
+        }
 
-           .right-section {
-               display: flex;
-               align-items: center;
-               gap: $gap-medium;
+        .right-section {
+            display: flex;
+            align-items: center;
+            gap: $gap-medium;
+            flex-wrap: wrap; // Permet de réorganiser les éléments en fonction de la taille
 
-               .language-section {
-                   display: flex;
-                   align-items: center;
-                   gap: $gap-small;
+            .language-section {
+                display: flex;
+                align-items: center;
+                gap: $gap-small;
 
-                   img {
-                       height: 20px;
-                       border-radius: 3px;
-                   }
-               }
+                img {
+                    height: 20px;
+                    border-radius: 3px;
+                }
+            }
 
-               .cart-icon {
-                   font-size: 1.2rem;
-                   color: $text-color;
-                   text-decoration: none;
+            .cart-icon {
+                font-size: 1.2rem;
+                color: $text-color;
+                text-decoration: none;
 
-                   &:hover {
-                       color: $hover-color;
-                   }
-               }
-           }
-       }
-   }
+                &:hover {
+                    color: $hover-color;
+                }
+            }
+
+            // Burger menu pour petits écrans
+            .burger-menu {
+                display: none;
+                cursor: pointer;
+
+                .burger-bar {
+                    width: 30px;
+                    height: 4px;
+                    background-color: $text-color;
+                    margin: 6px 0;
+                    transition: 0.3s;
+                }
+            }
+        }
+    }
+}
 
 // Footer
-   .footer-container {
-       background-color: $primary-color;
+.footer-container {
+    background-color: $primary-color;
 
-       .footer-links {
-           display: flex;
-           flex-direction: column;
-           align-items: center;
-           gap: $gap-large;
-           padding: 20px 0;
-       }
+    .footer-links {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: $gap-large;
+        padding: 20px 0;
+    }
 
-       .copyright {
-           padding: 1% 0 3% 15%;
-           border-top: 1px solid white;
-           font-weight: $font-weight-links;
-       }
-   }
+    .copyright {
+        padding: 1% 0 3% 15%;
+        border-top: 1px solid white;
+        font-weight: $font-weight-links;
+    }
+}
 
 /* Conteneur du menu déroulant */
 #dropdownMenu {
@@ -142,8 +162,69 @@ a {
     }
 }
 
+/* Media Queries pour rendre le header plus responsive */
+@media (max-width: 1024px) {
+    .header-container {
+        padding: 0 10px;
+    }
 
+    .left-section {
+        .nav-links {
+            flex-direction: column; // Affiche les liens de navigation en colonne
+            gap: $gap-medium;
+        }
+    }
 
+    .right-section {
+        .cart-icon {
+            font-size: 1rem;
+        }
 
+        .language-section {
+            display: none; // Masque la section de langue sur petits écrans
+        }
+    }
+}
 
+@media (max-width: 768px) {
+    header {
+        padding: 10px;
+        height: auto;
+    }
 
+    .header-container {
+        flex-direction: column;
+        align-items: flex-start;
+        padding: 10px;
+    }
+
+    .left-section,
+    .right-section {
+        width: 100%;
+        justify-content: space-between;
+    }
+
+    .burger-menu {
+        display: block; // Affiche le menu burger sur petits écrans
+    }
+
+    .nav-links {
+        display: none; // Masque les liens par défaut
+        flex-direction: column;
+        width: 100%;
+        gap: 10px;
+        padding-top: 10px;
+    }
+
+    .nav-links.show {
+        display: flex; // Affiche les liens lorsque le menu burger est cliqué
+    }
+
+    .cart-icon {
+        font-size: 1.5rem;
+    }
+
+    .language-section {
+        display: none; // Cache la section de langue
+    }
+}

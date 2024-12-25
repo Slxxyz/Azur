@@ -5,10 +5,11 @@ server:
 
 spring:
   datasource:
-    url: jdbc:mysql://localhost:3306/azur_db?serverTimezone=Europe/Paris
+    url: jdbc:mysql://localhost:3306/azur_db
     username: root
-    password: FeHena20
-    driver-class-name: com.mysql.cj.jdbc.Driver
+    password: Password123
+    driverClassName: com.mysql.cj.jdbc.Driver
+
   jpa:
     hibernate:
       ddl-auto: validate
@@ -19,8 +20,8 @@ spring:
         naming:
           physical-strategy: org.hibernate.boot.model.naming.PhysicalNamingStrategyStandardImpl
 
-    logging:
-      level:
-        org.hibernate.SQL: DEBUG
-        org.hibernate.type.descriptor.sql.BasicBinder: TRACE
+  logging:
+    level:
+      org.hibernate.SQL: DEBUG
+      org.hibernate.type.descriptor.sql.BasicBinder: TRACE
 

@@ -1,6 +1,9 @@
 .page-inscription {
   display: flex;
-  height: 100vh;
+  flex-wrap: wrap;
+  height: calc(100vh - 50px);
+  max-height: calc(100vh - 50px);
+  overflow: auto;
 }
 .page-inscription .left-section {
   background-color: #98cae1;
@@ -13,7 +16,7 @@
   padding: 20px;
 }
 .page-inscription .left-section h1 {
-  font-size: 50px;
+  font-size: 2.5rem;
   font-family: "Bebas Neue", sans-serif;
   color: #000000;
   margin-bottom: 20px;
@@ -34,7 +37,7 @@
   transition: background-color 0.3s;
 }
 .page-inscription .left-section a:hover {
-  background-color: rgb(191.4962406015, 222.3233082707, 236.5037593985);
+  background-color: rgb(162.3, 207.3, 228);
 }
 .page-inscription .right-section {
   background-color: white;
@@ -45,8 +48,24 @@
   align-items: center;
   padding: 20px;
 }
+.page-inscription .right-section .error-message {
+  color: #ff4d4d;
+  font-size: 1rem;
+  margin: 10px 0;
+  padding: 10px;
+  background-color: #ffe6e6;
+  border: 1px solid #ff4d4d;
+  border-radius: 5px;
+  width: 100%;
+  text-align: center;
+}
 .page-inscription .right-section h1 {
-  font-size: 50px;
+  font-size: 2.5rem;
+  font-family: "Bebas Neue", sans-serif;
+  color: #000000;
+  margin-bottom: 20px;
+}
+.page-inscription .right-section h2 {
   font-family: "Bebas Neue", sans-serif;
   color: #000000;
   margin-bottom: 20px;
@@ -55,28 +74,41 @@
   display: flex;
   flex-direction: column;
   width: 100%;
-  max-width: 400px;
+  max-width: 600px;
 }
 .page-inscription .right-section form label {
+  display: block;
   margin-bottom: 5px;
   font-size: 1rem;
   color: black;
-  align-self: flex-start;
+}
+.page-inscription .right-section form .error-message {
+  color: #ff4d4d;
+  font-size: 0.875rem;
+  margin-top: 3px;
+  margin-bottom: 3px;
+  display: none;
+  background-color: #ffe6e6;
+  padding: 5px;
+  border-radius: 5px;
+}
+.page-inscription .right-section form .error-message.active {
+  display: block;
 }
 .page-inscription .right-section form input {
   width: 100%;
   padding: 12px;
-  margin-bottom: 20px;
+  margin-bottom: 15px;
   border: 1.5px solid rgb(229.5, 229.5, 229.5);
   border-radius: 8px;
   font-size: 1rem;
-  color: white;
+  color: black;
   background-color: white;
   transition: border-color 0.3s;
 }
 .page-inscription .right-section form input:focus {
   outline: none;
-  border-color: rgb(230.992481203, 242.6466165414, 248.007518797);
+  border-color: rgb(172.6, 212.6, 231);
 }
 .page-inscription .right-section form button {
   padding: 12px 24px;
@@ -90,7 +122,82 @@
   transition: background-color 0.3s;
 }
 .page-inscription .right-section form button:hover {
-  background-color: rgb(112.5037593985, 181.6766917293, 213.4962406015);
+  background-color: rgb(122.8037593985, 186.9766917293, 216.4962406015);
+}
+.page-inscription .right-section form .form-group {
+  display: flex;
+  flex-wrap: nowrap;
+  gap: 15px;
+  width: 100%;
+}
+.page-inscription .right-section form .input-wrapper {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+}
+.page-inscription .right-section form .input-wrapper label {
+  font-size: 1rem;
+  color: black;
+  margin-bottom: 5px;
+}
+.page-inscription .right-section form .input-wrapper input {
+  padding: 12px;
+  border-radius: 8px;
+  border: 1.5px solid rgb(229.5, 229.5, 229.5);
+  font-size: 1rem;
+  color: black;
+  background-color: white;
+  transition: border-color 0.3s;
+}
+.page-inscription .right-section form .input-wrapper input:focus {
+  outline: none;
+  border-color: rgb(172.6, 212.6, 231);
+}
+.page-inscription .right-section form .input-wrapper .error-message {
+  color: #ff4d4d;
+  font-size: 0.875rem;
+  margin-top: 3px;
+  margin-bottom: 3px;
+  display: none;
+  background-color: #ffe6e6;
+  padding: 5px;
+  border-radius: 5px;
+}
+.page-inscription .right-section form .input-wrapper .error-message.active {
+  display: block;
+}
+.page-inscription .right-section form .input-wrapper#street,
+.page-inscription .right-section form .input-wrapper#houseNumber,
+.page-inscription .right-section form .input-wrapper#letterBox {
+  width: 100%;
+  flex: 1;
+}
+.page-inscription .right-section form .input-wrapper#postalCode,
+.page-inscription .right-section form .input-wrapper#location,
+.page-inscription .right-section form .input-wrapper#country {
+  width: 100%;
+  flex: 1;
+}
+.page-inscription .right-section form .input-wrapper.full-width {
+  width: 100%;
+}
+@media (max-width: 768px) {
+  .page-inscription .page-inscription {
+    flex-direction: column;
+  }
+  .page-inscription .left-section, .page-inscription .right-section {
+    flex: 1 1 100%;
+    padding: 10px;
+  }
+  .page-inscription .form-group {
+    flex-direction: column;
+  }
+  .page-inscription .input-wrapper {
+    width: 100%;
+  }
+  .page-inscription .form-group {
+    gap: 10px;
+  }
 }
 
 /*# sourceMappingURL=inscription.css.map */

@@ -1,8 +1,13 @@
-@import "variables";
+@use "variables" as *;
+@use "sass:color";
 
+// Assurez-vous que la hauteur de la page prend en compte la hauteur du header
 .page-inscription {
   display: flex;
-  height: 100vh;
+  flex-wrap: wrap; // Permet aux sections de se réorganiser sur les petits écrans
+  height: calc(100vh - #{$header-height});
+  max-height: calc(100vh - #{$min-header-height});
+  overflow: auto;
 
   // Section gauche
   .left-section {
@@ -39,7 +44,7 @@
       transition: background-color 0.3s;
 
       &:hover {
-        background-color: lighten($primary-color, 10%);
+        background-color: color.scale($primary-color, $lightness: 10%);
       }
     }
   }
@@ -54,8 +59,26 @@
     align-items: center;
     padding: 20px;
 
+    .error-message {
+      color: #ff4d4d;
+      font-size: 1rem;
+      margin: 10px 0;
+      padding: 10px;
+      background-color: #ffe6e6;
+      border: 1px solid #ff4d4d;
+      border-radius: 5px;
+      width: 100%;
+      text-align: center;
+    }
+
     h1 {
       font-size: $title-height;
+      font-family: $title-font-family;
+      color: $title-color;
+      margin-bottom: 20px;
+    }
+
+    h2 {
       font-family: $title-font-family;
       color: $title-color;
       margin-bottom: 20px;
@@ -65,29 +88,44 @@
       display: flex;
       flex-direction: column;
       width: 100%;
-      max-width: 400px;
+      max-width: 600px;
 
       label {
+        display: block;
         margin-bottom: 5px;
         font-size: 1rem;
         color: $text-light-color;
-        align-self: flex-start; // Aligne les labels à gauche
+      }
+
+      .error-message {
+        color: #ff4d4d;
+        font-size: 0.875rem;
+        margin-top: 3px;
+        margin-bottom: 3px;
+        display: none;
+        background-color: #ffe6e6;
+        padding: 5px;
+        border-radius: 5px;
+      }
+
+      .error-message.active {
+        display: block;
       }
 
       input {
         width: 100%;
         padding: 12px;
-        margin-bottom: 20px;
-        border: 1.5px solid darken($secondary-color, 10%);
+        margin-bottom: 15px;
+        border: 1.5px solid color.scale($secondary-color, $lightness: -10%);
         border-radius: $input-radius;
         font-size: 1rem;
-        color: $text-dark-color;
-        background-color: lighten($secondary-color, 20%);
+        color: $text-light-color;
+        background-color: color.scale($secondary-color, $lightness: 20%);
         transition: border-color 0.3s;
 
         &:focus {
           outline: none;
-          border-color: lighten($primary-color, 20%);
+          border-color: color.scale($primary-color, $lightness: 20%);
         }
       }
 
@@ -103,9 +141,101 @@
         transition: background-color 0.3s;
 
         &:hover {
-          background-color: darken($primary-color, 10%);
+          background-color: color.scale($primary-color, $lightness: -10%);
         }
       }
+
+      .form-group {
+        display: flex;
+        flex-wrap: nowrap;
+        gap: 15px;
+        width: 100%;
+      }
+
+      .input-wrapper {
+        display: flex;
+        flex-direction: column;
+        width: 100%;
+
+        label {
+          font-size: 1rem;
+          color: $text-light-color;
+          margin-bottom: 5px;
+        }
+
+        input {
+          padding: 12px;
+          border-radius: $input-radius;
+          border: 1.5px solid color.scale($secondary-color, $lightness: -10%);
+          font-size: 1rem;
+          color: $text-light-color;
+          background-color: color.scale($secondary-color, $lightness: 20%);
+          transition: border-color 0.3s;
+
+          &:focus {
+            outline: none;
+            border-color: color.scale($primary-color, $lightness: 20%);
+          }
+        }
+
+        .error-message {
+          color: #ff4d4d;
+          font-size: 0.875rem;
+          margin-top: 3px;
+          margin-bottom: 3px;
+          display: none;
+          background-color: #ffe6e6;
+          padding: 5px;
+          border-radius: 5px;
+        }
+
+        .error-message.active {
+          display: block;
+        }
+      }
+
+      // Champs de formulaire pour les petits écrans
+      .input-wrapper#street,
+      .input-wrapper#houseNumber,
+      .input-wrapper#letterBox {
+        width: 100%;
+        flex: 1;
+      }
+
+      .input-wrapper#postalCode,
+      .input-wrapper#location,
+      .input-wrapper#country {
+        width: 100%;
+        flex: 1;
+      }
+
+      .input-wrapper.full-width {
+        width: 100%;
+      }
+    }
+  }
+
+  // Media query pour les petits écrans
+  @media (max-width: 768px) {
+    .page-inscription {
+      flex-direction: column;
+    }
+
+    .left-section, .right-section {
+      flex: 1 1 100%;
+      padding: 10px;
+    }
+
+    .form-group {
+      flex-direction: column;
+    }
+
+    .input-wrapper {
+      width: 100%;
+    }
+
+    .form-group {
+      gap: 10px;
     }
   }
 }
