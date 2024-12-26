@@ -21,8 +21,9 @@ public class ArticleController {
     }
 
     @GetMapping("/details")
-    public String details(@RequestParam(name = "productID") int productID , @RequestParam(name = "locale", defaultValue = "fr") String locale, Model model) {
+    public String details(@RequestParam(name = "product") int productID , @RequestParam(name = "locale", defaultValue = "fr") String locale, Model model) {
 
+        System.out.println("Product ID: " + productID);
         ProductEntity product= productDAO.getProductById(productID);
 
         model.addAttribute("language", locale);

@@ -9,39 +9,22 @@
 <div class="page-connexion">
 
     <div class="left-section">
-        <div class="title-container">
-            <spring:message code="Connexion"/>
-        </div>
-        <c:if test="${not empty param.error}">
-            <div class="error-message"><spring:message code="ErrorConnection"/></div>
-        </c:if>
-        <form action="${pageContext.request.contextPath}/login" method="post">
-            <label for="usernameOrEmail">
-                <spring:message code="UserNameOrEmail"/>
-            </label>
-            <input id="usernameOrEmail" name="username" placeholder="<spring:message code="EnterUserNameOrEmail"/>" required />
+        <h1>CONNEXION</h1>
+        <form action="<spring:url value='/connexion' />" method="post">
+            <label for="email">Email</label>
+            <input type="email" id="email" name="email" placeholder="Entrez votre adresse email" required>
 
-            <label for="password">
-                <spring:message code="Password"/>
-            </label>
-            <input type="password" id="password" name="password" placeholder="<spring:message code="EnterPassword"/>" required />
+            <label for="password">Mot de passe</label>
+            <input type="password" id="password" name="password" placeholder="Entrez votre mot de passe" required>
 
-            <button type="submit">
-                <spring:message code="SeConnecter"/>
-            </button>
+            <button type="submit">Connexion</button>
         </form>
     </div>
 
     <div class="right-section">
-        <div class="title-container">
-            <spring:message code="SalutToi"/>
-        </div>
-        <div class="message-container">
-            <spring:message code="MessageInscription"/>
-        </div>
-        <a href="<spring:url value='/inscription' />">
-            <spring:message code="Inscription"/>
-        </a>
+        <h1>SALUT TOI !</h1>
+        <p>Entre tes informations personnelles et<br> commence ta journée avec nous !</p>
+        <a href="<spring:url value='/inscription' />">Inscription</a>
     </div>
 </div>
 </body>

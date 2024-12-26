@@ -2,45 +2,52 @@
 <%@ include file="include/importTags.jsp"%>
 <html>
 <head>
-    <title>Panier</title>
+    <title>${title}</title>
     <link rel="stylesheet" href="<spring:url value='/css/panier.css'/>">
+    <script src="<spring:url value='/js/shoppingCart.js'/>"></script>
 </head>
+
 <body>
     <h1>Panier</h1>
     <table>
     <thead>
     <tr>
-        <th id="article">Article</th>
+        <th></th>
+        <th categoryID="article">Article</th>
         <th>Prix</th>
         <th>Qte</th>
         <th>Sous-total</th>
         <th></th>
     </tr>
     </thead>
-    <tbody>
-    <c:forEach items="${cartItems}" var="item">
-    <tr>
+    <tbody id="order-lines">
+    <c:forEach items="${productsOrdered}" var="item">
+        <c:set var="orderLine" value="${item.value}" />
+    <tr id="order-line-${orderLine.product.productID}">
         <td>
-            <img src="${item.imageUrl}" alt="${item.name}" style="width:50px; height:auto;">
-                ${item.name}
+            <img class="product-image" src="<spring:url value='${orderLine.product.imagePath}'/>" alt="${orderLine.product.labelProduct}">
         </td>
-        <td>${item.price}€</td>
-        <td>${item.quantity}</td>
-        <td>${item.subtotal}€</td>
         <td>
-            <form action="/cart/remove" method="post">
-                <input type="hidden" name="itemId" value="${item.id}">
-                <button type="submit" class="remove-button">🗑️</button>
-            </form>
+            ${orderLine.product.labelProduct}
+        </td>
+        <td>${orderLine.product.unitPriceExcludingTax} €</td>
+        <td>
+            <input type="number" name="quantity" value="${orderLine.quantity}" min="1" class="quantity-input" data-product-id="${orderLine.product.productID}">
+        </td>
+        <td id='subtotal-${orderLine.product.productID}'>${orderLine.subTotal} €</td>
+        <td>
+
+            <button type="submit" class="remove-button" data-product-id="${orderLine.product.productID}">🗑️</button>
+
         </td>
     </tr>
     </c:forEach>
     </tbody>
         <tfoot>
             <tr>
-                <td colspan="3" style="text-align:right;">Total</td>
-                <td>${totalPrice}€</td>
                 <td></td>
+                <td colspan="3" style="text-align:right;">Total</td>
+                <td id="totalAmountMen">${orderLine.order.totalAmount} €</td>
             </tr>
         </tfoot>
     </table>

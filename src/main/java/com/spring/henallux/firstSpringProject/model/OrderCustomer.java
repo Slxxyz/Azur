@@ -1,44 +1,26 @@
-package com.spring.henallux.firstSpringProject.dataAccess.entity;
+package com.spring.henallux.firstSpringProject.model;
 
-import javax.persistence.*;
 import java.util.Date;
-import java.util.List;
 
-@Entity
-@Table(name = "order_customer")
-public class OrderCustomerEntity {
+public class OrderCustomer {
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "order_id")
     private Integer orderID;
-
-    @Column(name = "total_amount", columnDefinition = "decimal")
     private double totalAmount;
-
-    @Column(name = "date_and_time")
     private Date dateAndTime;
-
-    @Column(name = "method_of_payment")
     private String methodOfPayment;
-
-    @Column(name = "state")
     private String state;
+    private Customer customer;
 
-    @ManyToOne
-    @JoinColumn(name = "username", referencedColumnName = "username")
-    private CustomerEntity customerID;
-
-    public OrderCustomerEntity() {
+    public OrderCustomer() {
     }
 
-    public OrderCustomerEntity(Integer orderID, double totalAmount, Date dateAndTime, String methodOfPayment, String state, CustomerEntity customerID) {
+    public OrderCustomer(Integer orderID, double totalAmount, Date dateAndTime, String methodOfPayment, String state, Customer customer) {
         this.orderID = orderID;
         this.totalAmount = totalAmount;
         this.dateAndTime = dateAndTime;
         this.methodOfPayment = methodOfPayment;
         this.state = state;
-        this.customerID = customerID;
+        this.customer = customer;
     }
 
     public Integer getOrderID() {
@@ -61,8 +43,8 @@ public class OrderCustomerEntity {
         return state;
     }
 
-    public CustomerEntity getCustomerID() {
-        return customerID;
+    public Customer getCustomer() {
+        return customer;
     }
 
     public void setOrderID(Integer orderID) {
@@ -85,18 +67,18 @@ public class OrderCustomerEntity {
         this.state = state;
     }
 
-    public void setCustomerID(CustomerEntity customerID) {
-        this.customerID = customerID;
+    public void setCustomer(Customer customer) {
+        this.customer = customer;
     }
 
     public String toString() {
-        return "OrderCustomerEntity{" +
+        return "OrderCustomer{" +
                 "orderID=" + orderID +
                 ", totalAmount=" + totalAmount +
                 ", dateAndTime=" + dateAndTime +
                 ", methodOfPayment='" + methodOfPayment + '\'' +
                 ", state='" + state + '\'' +
-                ", customerID=" + customerID +
+                ", customer=" + customer +
                 '}';
     }
 }

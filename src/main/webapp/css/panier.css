@@ -85,4 +85,19 @@ tfoot td {
   color: #000;
 }
 
+.product-image {
+  max-width: 100px;
+  max-height: 100px;
+}
+
+input[type="number"]::-webkit-inner-spin-button,
+input[type="number"]::-webkit-outer-spin-button {
+  opacity: 1; /* Rend toujours visible les boutons */
+
+}
+
+.quantity-input {
+  width: 40px;
+  text-align: center;
+}
 /*# sourceMappingURL=panier.css.map */

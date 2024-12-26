@@ -1,5 +1,7 @@
 package com.spring.henallux.firstSpringProject.dataAccess.entity;
 
+
+
 import javax.persistence.*;
 
 @Entity
@@ -7,40 +9,76 @@ import javax.persistence.*;
 public class OrderLineEntity {
 
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "order_line_id")
     private Integer orderLineID;
-
 
     @Column(name = "quantity")
     private Integer quantity;
 
-    @Column(name = "sub_total")
-    private Integer subTotal;
+    @Column(name = "sub_total", columnDefinition = "decimal")
+    private double subTotal;
 
     @ManyToOne
-    @Column(name = "order_id")
-    private OrderCustomerEntity orderID;
+    @JoinColumn(name = "order_id", referencedColumnName = "order_id")
+    private OrderCustomerEntity order;
 
     @ManyToOne
-    @Column(name = "product_id")
-    private  productID;
+    @JoinColumn(name = "product_id", referencedColumnName = "product_id")
+    private ProductEntity product;
 
     public OrderLineEntity() {
     }
 
-    public int getProductID() {
-        return productID;
+    public ProductEntity getProduct() {
+        return product;
+    }
+
+    public void setProduct(ProductEntity product) {
+        this.product = product;
+    }
+
+    public Integer getOrderLineID() {
+        return orderLineID;
+    }
+
+    public OrderCustomerEntity getOrder() {
+        return order;
+    }
+
+    public void setOrderLineID(Integer orderLineID) {
+        this.orderLineID = orderLineID;
+    }
+
+    public void setOrder(OrderCustomerEntity orderID) {
+        this.order = orderID;
     }
 
     public double getSubTotal() {
         return subTotal;
     }
 
-    public int getQuantity() {
+    public Integer getQuantity() {
         return quantity;
     }
 
-    public Integer getProductId() {
-        return productID;
+
+    public void setQuantity(Integer quantity) {
+        this.quantity = quantity;
     }
+
+    public void setSubTotal(double subTotal) {
+        this.subTotal = subTotal;
+    }
+
+    public String toString() {
+        return "OrderLineEntity{" +
+                "orderLineID=" + orderLineID +
+                ", quantity=" + quantity +
+                ", subTotal=" + subTotal +
+                ", order=" + order +
+                ", product=" + product +
+                '}';
+    }
+
 }

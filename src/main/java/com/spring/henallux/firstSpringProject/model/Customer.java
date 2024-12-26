@@ -134,4 +134,19 @@ public class Customer implements UserDetails {
     public boolean isEnabled() {
         return true; // L'utilisateur est activé par défaut
     }
+
+    // Ajout de la méthode toString pour afficher les informations de l'utilisateur
+    @Override
+    public String toString() {
+        return "Customer{" +
+                "username='" + username + '\'' +
+                ", firstName='" + firstName + '\'' +
+                ", lastName='" + lastName + '\'' +
+                ", mailAddress='" + mailAddress + '\'' +
+                ", userPassword='" + userPassword + '\'' +
+                ", telNumber='" + telNumber + '\'' +
+                ", locationID=" + locationID +
+                ", location=" + location +
+                '}';
+    }
 }

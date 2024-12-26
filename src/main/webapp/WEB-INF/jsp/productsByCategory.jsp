@@ -22,7 +22,7 @@
             <div class="card-body d-flex flex-column">
               <h5 class="card-title">${product.getLabelProduct()}</h5>
               <p class="card-text mb-4">${product.getUnitPriceExcludingTax()}€</p>
-              <a href="<spring:url value='/product/details?productID=${product.getProductID()}&locale=${language}'/>" class="btn btn-primary mt-auto">Détails</a>
+              <a href="<spring:url value='/product/details?product=${product.getProductID()}&locale=${language}'/>" class="btn btn-primary mt-auto">Détails</a>
             </div>
           </div>
         </div>

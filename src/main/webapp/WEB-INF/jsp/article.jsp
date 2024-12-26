@@ -35,7 +35,7 @@
             <h2>Article 1</h2>
             <div class="quantity-controls">
                 <button class="decrement">-</button>
-                <input type="text" id="quantity" value="1">
+                <input type="text" categoryID="quantity" value="1">
                 <button class="increment">+</button>
             </div>
         </div>
