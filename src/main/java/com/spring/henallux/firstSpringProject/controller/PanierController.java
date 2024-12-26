@@ -6,13 +6,14 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
 @Controller
-@RequestMapping(value="/a-propos")
-public class AProposController {
-    @RequestMapping(method= RequestMethod.GET)
-    public String home(Model model) {
-        model.addAttribute("title", "Who we are ?");
+@RequestMapping(value = "/panier")
+public class PanierController {
+
+    @RequestMapping(method = RequestMethod.GET)
+    public String panier(Model model) {
+        model.addAttribute("title", "Cart");
         model.addAttribute("showHeader", true);
         model.addAttribute("showFooter", true);
-        return "integrated:aPropos";
+        return "integrated:panier";
     }
 }

@@ -9,21 +9,9 @@
 <div class="page-about">
     <div class="left-section">
         <div class="text-container">
-            <h1>À PROPOS</h1>
+            <h1><spring:message code="AboutUs"/></h1>
             <div class="paragraph-container">
-            <p>
-                Nous sommes JeF, une jeune équipe de passionnés<br>de ping-pong dédiée à partager notre amour pour<br> ce sport rapide et intense.
-            </p>
-            <p>
-                Ce qui nous unit, c’est une vision commune :
-            </p>
-            <p>
-                Faire du ping-pong une expérience accessible,<br> divertissante et dynamique pour tous,<br>
-                des débutants aux compétiteurs aguerris.
-            </p>
-            <p>
-                Avec une énergie débordante et l'envie de toujours<br> aller plus loin, nous nous engageons à offrir des<br> contenus, des conseils, et des événements qui<br> inspirent et rassemblent la communauté du tennis<br> de table.
-            </p>
+            <spring:message code="Description"/>
             </div>
         </div>
     </div>

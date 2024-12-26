@@ -1,0 +1,177 @@
+@import "variables";
+
+body {
+  font-family: $font-family;
+  margin: 0;
+  padding: 0;
+  background: linear-gradient(to right, #ece9e6, $secondary-color);
+  color: $text-color;
+}
+
+.checkout-page {
+  display: grid;
+  grid-template-areas:
+    "address payment summary"
+    "button button button";
+  grid-template-columns: 1fr 1fr 1fr;
+  gap: $gap-large;
+  padding: $gap-large;
+  min-height: 100vh;
+
+  section {
+    background: $secondary-color;
+    padding: $gap-large;
+    border-radius: $input-radius;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+
+    &:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+    }
+  }
+
+  .address-section {
+    grid-area: address;
+
+    form {
+      display: flex;
+      flex-direction: column;
+      gap: $gap-medium;
+
+      input {
+        padding: $gap-medium;
+        border: 1px solid lighten($text-color, 40%);
+        border-radius: $input-radius;
+        font-size: $p-font-size / 1.5;
+        transition: border 0.3s;
+
+        &:focus {
+          border-color: $hover-color;
+          outline: none;
+          box-shadow: 0 0 5px rgba($hover-color, 0.5);
+        }
+      }
+
+      .name-fields,
+      .location-fields,
+      .zip-phone-fields {
+        display: flex;
+        gap: $gap-small;
+
+        input {
+          flex: 1;
+        }
+      }
+    }
+  }
+
+  .payment-section {
+    grid-area: payment;
+    text-align: center;
+
+    h2 {
+      margin-bottom: $gap-medium;
+    }
+
+    .paypal img {
+      width: 150px;
+      margin-top: $gap-small;
+    }
+  }
+
+  .order-summary-section {
+    grid-area: summary;
+
+    .order-summary {
+      display: flex;
+      flex-direction: column;
+      gap: $gap-medium;
+
+      .item {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        background: lighten($secondary-color, 10%);
+        padding: $gap-small;
+        border-radius: $input-radius;
+
+        img {
+          width: 70px;
+          height: 70px;
+          object-fit: cover;
+          border-radius: $input-radius;
+        }
+
+        p {
+          flex: 1;
+          margin: 0 $gap-medium;
+          font-size: $p-font-size / 1.5;
+          color: lighten($text-color, 20%);
+        }
+
+        span {
+          font-size: $p-font-size / 1.8;
+          color: lighten($text-color, 30%);
+        }
+      }
+
+      .totals {
+        padding: $gap-small;
+        border-top: 1px solid lighten($text-color, 60%);
+
+        p {
+          display: flex;
+          justify-content: space-between;
+          margin: $gap-small 0;
+          font-size: $p-font-size / 1.5;
+        }
+
+        strong {
+          font-size: $p-font-size;
+          color: $text-color;
+        }
+      }
+    }
+  }
+
+  .order-button {
+    grid-area: button;
+    justify-self: center;
+    align-self: center;
+    padding: $gap-large $button-width / 2;
+    font-size: $button-font-size;
+    color: $text-dark-color;
+    background: $primary-color;
+    border: none;
+    border-radius: $button-radius;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+
+    &:hover {
+      background: darken($primary-color, 10%);
+    }
+  }
+}
+
+/* Responsive Design */
+@media (max-width: 1024px) {
+  .checkout-page {
+    grid-template-areas:
+      "address address"
+      "payment summary"
+      "button button";
+    grid-template-columns: 1fr 1fr;
+  }
+}
+
+@media (max-width: 768px) {
+  .checkout-page {
+    grid-template-areas:
+      "address"
+      "payment"
+      "summary"
+      "button";
+    grid-template-columns: 1fr;
+  }
+}

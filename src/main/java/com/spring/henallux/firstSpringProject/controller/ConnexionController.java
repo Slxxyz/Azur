@@ -21,7 +21,7 @@ public class ConnexionController {
 
     @RequestMapping(method = RequestMethod.GET)
     public String home(Model model) {
-        model.addAttribute("title", "Connexion");
+        model.addAttribute("title", "Sign in");
         model.addAttribute("showHeader", true);
         model.addAttribute("showFooter", false);
         return "integrated:connexion";

@@ -14,7 +14,7 @@
     <h1 class="overlay-text">SERVE.<br>SMASH.<br>SCORE!</h1>
 </div>
 <div class="collaborations">
-    <h1 class="title">NOS COLLABORATIONS</h1>
+    <h1 class="title"><spring:message code="Collaborations"/></h1>
     <div class="collaborations-img">
         <img alt="English" src="<spring:url value='/images/Accueil/collab1.png'/>">
         <img alt="English" src="<spring:url value='/images/Accueil/collab2.png'/>">

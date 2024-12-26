@@ -1,0 +1,128 @@
+@import "variables";
+
+body {
+  font-family: $font-family;
+  margin: 0;
+  padding: 0;
+  background: linear-gradient(to top, $primary-color, $secondary-color); // Couleur de succès
+  color: $text-color;
+}
+
+.checkout-page {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+  padding: $gap-large;
+
+  .payment-section {
+    background: $secondary-color; // Couleur de fond différente
+    padding: $gap-large;
+    border-radius: $input-radius;
+    box-shadow: 0 6px 15px rgba(0, 0, 0, 0.2);
+    text-align: center;
+    width: 100%;
+    max-width: 400px;
+
+    .icon-container {
+      margin-bottom: $gap-medium;
+
+      .success-icon {
+        width: 60px;
+        height: 60px;
+      }
+    }
+
+    .title {
+      font-family: $title-font-family;
+      color: $text-light-color;
+      font-size: 1.8rem;
+      margin-bottom: $gap-medium;
+    }
+
+    .message {
+      font-size: $p-font-size;
+      color: $text-color;
+      margin-bottom: $gap-large;
+    }
+
+    .btn {
+      background-color: $primary-color;
+      color: $text-dark-color;
+      text-decoration: none;
+      border-radius: $button-radius;
+      font-size: $button-font-size;
+      font-weight: $font-weight-links;
+      width: $button-width;
+      padding: 0.5rem;
+      display: inline-block;
+      transition: background-color 0.3s ease, transform 0.2s ease;
+
+      &:hover {
+        background-color: $hover-color;
+        transform: scale(1.05);
+      }
+
+      &.btn-primary {
+        background-color: $primary-color; // Couleur du bouton de succès
+        color: $text-dark-color;
+      }
+    }
+  }
+}
+
+/* Media queries for responsiveness */
+@media (max-width: 768px) { // Tablettes et téléphones
+  .payment-section {
+    padding: $gap-medium;
+    max-width: 90%;
+
+    .icon-container {
+      .success-icon {
+        width: 50px;
+        height: 50px;
+      }
+    }
+
+    .btn {
+      font-size: calc($button-font-size - 2px);
+      width: calc($button-width - 20px);
+    }
+
+    .title {
+      font-size: 1.6rem;
+    }
+
+    .message {
+      font-size: calc($p-font-size - 2px);
+    }
+  }
+}
+
+@media (max-width: 480px) { // Petits téléphones
+  .payment-section {
+    padding: $gap-small;
+    max-width: 90%;
+
+    .icon-container {
+      .success-icon {
+        width: 40px;
+        height: 40px;
+      }
+    }
+
+    .btn {
+      font-size: calc($button-font-size - 4px);
+      width: 100%;
+      padding: 0.5rem;
+    }
+
+    .title {
+      font-size: 1.4rem;
+    }
+
+    .message {
+      font-size: calc($p-font-size - 4px);
+    }
+  }
+}

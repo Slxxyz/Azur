@@ -17,9 +17,9 @@
     <div class="content">
         <h1>${product.getLabelProduct()}</h1>
 
-        <h3 class="stock">EN STOCK</h3>
+        <h3 class="stock"><spring:message code="Stock"/></h3>
         <div class="details">
-        <h3>Détails</h3>
+        <h3><spring:message code="Details"/></h3>
         <p>
             <c:choose>
                 <c:when test="${language == 'fr'}">
@@ -32,15 +32,15 @@
         </p>
         </div>
         <div class="name-quantity">
-            <h2>Article 1</h2>
+            <h2><spring:message code="Quantity"/></h2>
             <div class="quantity-controls">
                 <button class="decrement">-</button>
                 <input type="text" categoryID="quantity" value="1">
                 <button class="increment">+</button>
             </div>
         </div>
-        <h2>349.99€</h2>
-        <button class="add-to-cart">Ajouter au panier</button>
+        <h2>${product.getUnitPriceExcludingTax()}€</h2>
+        <button class="add-to-cart"><spring:message code="AddToCard"/></button>
     </div>
 </div>
 </body>
