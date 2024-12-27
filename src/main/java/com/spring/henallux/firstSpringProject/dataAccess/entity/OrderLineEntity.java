@@ -21,7 +21,7 @@ public class OrderLineEntity {
 
     @ManyToOne
     @JoinColumn(name = "order_id", referencedColumnName = "order_id")
-    private OrderCustomerEntity order;
+    private OrderCustomerEntity orderID;
 
     @ManyToOne
     @JoinColumn(name = "product_id", referencedColumnName = "product_id")
@@ -42,16 +42,16 @@ public class OrderLineEntity {
         return orderLineID;
     }
 
-    public OrderCustomerEntity getOrder() {
-        return order;
+    public OrderCustomerEntity getOrderID() {
+        return orderID;
     }
 
     public void setOrderLineID(Integer orderLineID) {
         this.orderLineID = orderLineID;
     }
 
-    public void setOrder(OrderCustomerEntity orderID) {
-        this.order = orderID;
+    public void setOrderID(OrderCustomerEntity orderID) {
+        this.orderID = orderID;
     }
 
     public double getSubTotal() {
@@ -76,7 +76,7 @@ public class OrderLineEntity {
                 "orderLineID=" + orderLineID +
                 ", quantity=" + quantity +
                 ", subTotal=" + subTotal +
-                ", order=" + order +
+                ", orderID=" + orderID +
                 ", product=" + product +
                 '}';
     }

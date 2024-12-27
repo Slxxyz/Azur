@@ -50,7 +50,7 @@ public class OrderLine {
     }
 
     public void setSubTotal(double subTotal) {
-        this.subTotal = subTotal;
+        this.subTotal = Math.round(subTotal*100.0)/100.0;
     }
 
     public void addQuantity(int quantity) {

@@ -28,4 +28,10 @@ public class ShoppingCart {
         this.productsOrdered = productsOrderedByOrderId;
     }
 
+    public String toString() {
+        return "ShoppingCart{" +
+                "productsOrdered=" + productsOrdered +
+                '}';
+    }
+
 }

@@ -35,12 +35,12 @@
             <h2><spring:message code="Quantity"/></h2>
             <div class="quantity-controls">
                 <button class="decrement">-</button>
-                <input type="text" categoryID="quantity" value="1">
+                <input type="text" id="quantity" value="1">
                 <button class="increment">+</button>
             </div>
         </div>
         <h2>${product.getUnitPriceExcludingTax()}€</h2>
-        <button class="add-to-cart"><spring:message code="AddToCard"/></button>
+        <button class="add-to-cart" data-product-id="${product.productID}" data-quantity="input.value"><spring:message code="AddToCard"/></button>
     </div>
 </div>
 </body>

@@ -23,13 +23,12 @@ public class WebSecurityConfiguration extends WebSecurityConfigurerAdapter {
             "/css/**",
             "/js/**",
             "/images/**",
-            "/connexion",
+            "/connexion/**",
             "/inscription/**",
             "/categories/**",
             "/product/**",
             "/a-propos",
             "/azur",
-            "/panier",
             "/panier/**",
     };
 

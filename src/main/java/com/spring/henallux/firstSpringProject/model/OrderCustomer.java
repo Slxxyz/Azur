@@ -52,7 +52,7 @@ public class OrderCustomer {
     }
 
     public void setTotalAmount(double totalAmount) {
-        this.totalAmount = totalAmount;
+        this.totalAmount = Math.round(totalAmount*100.0)/100.0;
     }
 
     public void setDateAndTime(Date dateAndTime) {

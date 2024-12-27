@@ -7,5 +7,6 @@ import com.spring.henallux.firstSpringProject.dataAccess.entity.OrderCustomerEnt
 @Repository
 public interface OrderCustomerRepository extends JpaRepository<OrderCustomerEntity, Integer> {
 
+    OrderCustomerEntity findByCustomerID(String username);
 
 }

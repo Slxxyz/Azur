@@ -27,4 +27,13 @@ spring:
       com.spring.henallux.firstSpringProject: INFO
       org.hibernate.SQL: DEBUG
       org.hibernate.type.descriptor.sql.BasicBinder: TRACE
-
+      logging:
+        level:
+          org:
+            springframework:
+              security=DEBUG: INFO
+paypal:
+  client:
+    id: ATgmIhDqdrWO8GxK9FkxMsrpt7l82U0SQX-0RAtQYbchkYrryCSQkiJsmYJYLdhmSAnPIWNnrmJyprog
+    secret: EBJM-moOcgUIAfHytnNUY9Cs4YhgYOKYcUUtr8m_MV3Gfq44zjEbK4bs87byAjuufqeNVjbKXYxSNdG-
+  mode: sandbox

@@ -75,4 +75,42 @@ public class ProductEntity {
             return categoryID;
         }
 
+        public void setProductID(int productID) {
+            this.productID = productID;
+        }
+
+        public void setLabelProduct(String labelProduct) {
+            this.labelProduct = labelProduct;
+        }
+
+        public void setImagePath(String imagePath) {
+            this.imagePath = imagePath;
+        }
+
+        public void setUnitPriceExcludingTax(double unitPriceExcludingTax) {
+            this.unitPriceExcludingTax = unitPriceExcludingTax;
+        }
+
+        public void setVATRate(int vatRate) {
+            this.vatRate = vatRate;
+        }
+
+        public void setQuantityInStock(int quantityInStock) {
+            this.quantityInStock = quantityInStock;
+        }
+
+        public void setDescriptionFR(String descriptionFR) {
+            this.descriptionFR = descriptionFR;
+        }
+
+        public void setDescriptionEN(String descriptionEN) {
+            this.descriptionEN = descriptionEN;
+        }
+
+        public void setCategoryID(int categoryID) {
+            this.categoryID = categoryID;
+        }
+
+
+
 }

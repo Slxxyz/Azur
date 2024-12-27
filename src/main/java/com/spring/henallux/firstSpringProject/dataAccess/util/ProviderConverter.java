@@ -5,8 +5,6 @@ import com.spring.henallux.firstSpringProject.model.*;
 import org.springframework.stereotype.Component;
 import org.dozer.DozerBeanMapper;
 
-import java.util.Optional;
-
 @Component
 public class ProviderConverter {
 
@@ -82,9 +80,19 @@ public class ProviderConverter {
         orderLineEntity.setSubTotal(orderLine.getSubTotal());
         orderLineEntity.setQuantity(orderLine.getQuantity());
         orderLineEntity.setProduct(productModelToProductEntity(orderLine.getProduct()));
-        orderLineEntity.setOrder(orderCustomerModelToOrderCustomerEntity(orderLine.getOrder()));
+        orderLineEntity.setOrderID(orderCustomerModelToOrderCustomerEntity(orderLine.getOrder()));
         System.out.println(orderLineEntity);
         return orderLineEntity;
+    }
+
+    public OrderLine orderLineEntityToOrderLineModel(OrderLineEntity orderLineEntity) {
+        OrderLine orderLine = mapper.map(orderLineEntity, OrderLine.class);
+        orderLine.setOrderLineID(orderLineEntity.getOrderLineID());
+        orderLine.setSubTotal(orderLineEntity.getSubTotal());
+        orderLine.setQuantity(orderLineEntity.getQuantity());
+        orderLine.setProduct(productEntityToProductModel(orderLineEntity.getProduct()));
+        orderLine.setOrder(orderCustomerEntityToOrderCustomerModel(orderLineEntity.getOrderID()));
+        return orderLine;
     }
 
 

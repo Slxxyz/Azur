@@ -12,6 +12,6 @@ import java.util.List;
 public interface OrderLineRepository extends JpaRepository<OrderLineEntity, Integer> {
 
     // Requête pour trouver les lignes de commande d'une commande donnée
-    List<OrderLineEntity> findByOrder(OrderCustomerEntity orderCustomerEntity);
+    List<OrderLineEntity> findByOrderID(OrderCustomerEntity orderID);
 
 }

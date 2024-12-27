@@ -1,4 +1,6 @@
+
 function updateQuantity(productId, quantity) {
+    let cart = JSON.parse(localStorage.getItem('guestCart'));
     fetch('/firstSpring/panier/update', {
         method: 'POST',
         headers: {
@@ -11,8 +13,13 @@ function updateQuantity(productId, quantity) {
             try {
                 const data = JSON.parse(text); // Try to parse the text as JSON
                 if (data.success) {
-                    const newSubTotal = parseFloat(data.newSubTotal).toFixed(2);
-                    const totalAmount = parseFloat(data.totalAmount).toFixed(2);
+                    // Mettre à jour la quantité dans le panier temporaire
+                    cart[productId] = quantity;
+                    localStorage.setItem('guestCart', JSON.stringify(cart));
+                    const newSubTotal = parseFloat(data.newSubTotal);
+                    const totalAmount = parseFloat(data.totalAmount);
+                    console.log('newSubTotal:', newSubTotal);
+                    console.log('totalAmount:', totalAmount);
                     // Mettre à jour le sous-total et le montant total
                     document.querySelector(`#subtotal-${productId}`).textContent = newSubTotal + ' €';
                     console.log('subtotal updated successfully');
@@ -39,8 +46,19 @@ document.addEventListener('DOMContentLoaded', () => {
     });
 });
 
+document.addEventListener('DOMContentLoaded', () => {
+    let totalAmount = 0;
+
+    document.querySelectorAll('[id^="subtotal-"]').forEach(subtotal => {
+        const subtotalValue = parseFloat(subtotal.textContent);
+        totalAmount += subtotalValue;
+    });
+    document.querySelector('#totalAmountMen').innerHTML = totalAmount + ' €';
+});
+
 
 function removeOrderLine(productId) {
+    let cart = JSON.parse(localStorage.getItem('guestCart'));
     console.log('Removing order line:', productId);
     fetch('/firstSpring/panier/remove', {
         method: 'POST',
@@ -52,6 +70,9 @@ function removeOrderLine(productId) {
         .then(response => response.json())
         .then(data => {
             if (data.success) {
+                // Mettre à jour le panier temporaire
+                delete cart[productId];
+                localStorage.setItem('guestCart', JSON.stringify(cart));
                 // Supprimer la ligne de commande de l'interface utilisateur
                 document.querySelector(`#order-line-${productId}`).remove();
                 if (data.isOrderCustomerDeleted) {

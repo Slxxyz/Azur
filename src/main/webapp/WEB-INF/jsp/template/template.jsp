@@ -21,6 +21,7 @@
         document.addEventListener('DOMContentLoaded', function () {
             const catalogueLink = document.getElementById('catalogueLink');
             const dropdownMenu = document.getElementById('dropdownMenu');
+            const cart = document.getElementsByClassName('cart-icon')[0];
 
             if (catalogueLink && dropdownMenu) {
                 // Ajouter un événement de clic au lien "Catalogue"
@@ -60,6 +61,30 @@
                 currentParams.set('locale', 'en');
                 localeEnLink.href = window.location.pathname + '?' + currentParams.toString();
             }
+
+            if (cart) {
+                cart.addEventListener('click', function () {
+                    // Envoyer le panier au serveur
+                    const cart = JSON.parse(localStorage.getItem('guestCart')) || {};
+
+                    fetch('/firstSpring/panier/sync', {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json',
+                        },
+                        body: JSON.stringify(cart),
+                    })
+                    .then((data) => {
+                        console.log('Données :', data);
+                        window.location.href = data.url;
+                    })
+                    .catch((error) => {
+                        console.error('Erreur :', error);
+                    });
+
+                });
+            }
+
         });
     </script>
 
@@ -91,7 +116,7 @@
                         <img alt="English" src="<spring:url value='/images/Template/drapeauEn.png'/>" height="20px">
                     </a>
                 </div>
-                <a href="<spring:url value='/panier' />" class="cart-icon">🛒</a>
+                <a  class="cart-icon">🛒</a>
             </div>
         </div>
     </header>

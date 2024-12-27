@@ -1,21 +1,21 @@
 package com.spring.henallux.firstSpringProject.service;
 
+import com.spring.henallux.firstSpringProject.dataAccess.dao.OrderCustomerDAO;
+import com.spring.henallux.firstSpringProject.dataAccess.dao.OrderLineDAO;
 import com.spring.henallux.firstSpringProject.dataAccess.entity.ProductEntity;
+import com.spring.henallux.firstSpringProject.dataAccess.repository.CustomerRepository;
 import com.spring.henallux.firstSpringProject.dataAccess.repository.OrderCustomerRepository;
 import com.spring.henallux.firstSpringProject.dataAccess.repository.OrderLineRepository;
 import com.spring.henallux.firstSpringProject.dataAccess.repository.ProductRepository;
 import com.spring.henallux.firstSpringProject.dataAccess.util.ProviderConverter;
-import com.spring.henallux.firstSpringProject.model.OrderCustomer;
-import com.spring.henallux.firstSpringProject.model.OrderLine;
-import com.spring.henallux.firstSpringProject.model.Product;
-import com.spring.henallux.firstSpringProject.model.ShoppingCart;
-import org.apache.catalina.Store;
+import com.spring.henallux.firstSpringProject.model.*;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 
@@ -26,106 +26,268 @@ public class ShoppingCartService {
 
     @Autowired
     private OrderLineRepository orderLineRepository;
+
     @Autowired
     private OrderCustomerRepository orderCustomerRepository;
+
     @Autowired
     private ProductRepository productRepository;
+
+    @Autowired
+    private CustomerRepository customerRepository;
+
     @Autowired
     private ProviderConverter providerConverter;
 
+    private final OrderCustomerDAO orderCustomerDAO;
+
+    private final OrderLineDAO orderLineDAO;
+
+    @Autowired
+    public ShoppingCartService(OrderCustomerDAO orderCustomerDAO, OrderLineDAO orderLineDAO) {
+        this.orderCustomerDAO = orderCustomerDAO;
+        this.orderLineDAO = orderLineDAO;
+    }
+
+    public HashMap<Integer, OrderLine> loadShoppingCartForUser(String username) {
+        // Récupère la commande (OrderCustomer) pour cet utilisateur
+        OrderCustomer orderCustomer = orderCustomerDAO.getOrderByCustomerId(username);
+
+        // Si aucun panier n'existe pour cet utilisateur, retourne une HashMap vide
+        if (orderCustomer == null) {
+            return new HashMap<>();
+        }
+
+        List<OrderLine> orderLines = orderLineDAO.findByOrderId(providerConverter.orderCustomerModelToOrderCustomerEntity(orderCustomer));
+        HashMap<Integer, OrderLine> productsOrdered = new HashMap<>();
+        for (OrderLine orderLine : orderLines) {
+            productsOrdered.put(orderLine.getProduct().getProductID(), orderLine);
+        }
+        return productsOrdered;
+    }
+
+    /**
+     * Met à jour la quantité d'un produit dans le panier.
+     */
     public void updateProductQuantity(ShoppingCart shoppingCart, Integer productId, Integer quantity) {
         logger.info("Updating product quantity: productId={}, quantity={}", productId, quantity);
+
         HashMap<Integer, OrderLine> productsOrdered = shoppingCart.getProductsOrdered();
-        if (productsOrdered.containsKey(productId)) {
-            OrderLine orderLine = productsOrdered.get(productId);
+        OrderLine orderLine = productsOrdered.get(productId);
+
+        if (orderLine != null) {
             orderLine.setQuantity(quantity);
             orderLine.setSubTotal(orderLine.getProduct().getUnitPriceExcludingTax() * quantity);
-            System.out.println(orderLine);
-            orderLineRepository.save(providerConverter.orderLineModelToOrderLineEntity(orderLine)); // Save changes to the database
+
+            // Sauvegarder la ligne de commande
+            orderLineRepository.save(providerConverter.orderLineModelToOrderLineEntity(orderLine));
             logger.info("Updated order line: {}", orderLine);
 
-            // Update OrderCustomer totalAmount
-            OrderCustomer orderCustomer = orderLine.getOrder();
-            double totalAmount = productsOrdered.values().stream()
-                    .mapToDouble(OrderLine::getSubTotal)
-                    .sum();
-            orderCustomer.setTotalAmount(totalAmount);
-            System.out.println(orderCustomer);
-            orderCustomer.setCustomer(orderLine.getOrder().getCustomer());
-            System.out.println("ici");
-            orderCustomerRepository.save(providerConverter.orderCustomerModelToOrderCustomerEntity(orderCustomer));
-            System.out.println("la");
-            // Save changes to the database
-            logger.info("Updated order customer: {}", orderCustomer);
+            // Mettre à jour le montant total de l'OrderCustomer
+            updateOrderCustomerTotalAmount(orderLine.getOrder(), productsOrdered);
         } else {
             logger.warn("Product with productId={} not found in shopping cart", productId);
+            throw new IllegalArgumentException("Produit introuvable dans le panier : " + productId);
         }
     }
 
-    public Map<String, Object> removeOrderLine(ShoppingCart shoppingCart, Integer productId) {
-        HashMap<Integer, OrderLine> productsOrdered = shoppingCart.getProductsOrdered();
-        System.out.println("service" + productId);
-        System.out.println(productsOrdered);
+    public void updateProductQuantityTemporary(ShoppingCart temporaryCart, Integer productId, Integer quantity) {
+        logger.info("Updating product quantity (temporary cart): productId={}, quantity={}", productId, quantity);
 
+        HashMap<Integer, OrderLine> productsOrdered = temporaryCart.getProductsOrdered();
+        OrderLine orderLine = productsOrdered.get(productId);
+        if (orderLine != null) {
+            orderLine.setQuantity(quantity);
+            orderLine.setSubTotal(orderLine.getProduct().getUnitPriceExcludingTax() * quantity);
+            logger.info("Updated order line in temporary cart: {}", orderLine);
+        } else {
+            logger.warn("Product with productId={} not found in temporary cart", productId);
+            throw new IllegalArgumentException("Produit introuvable dans le panier temporaire : " + productId);
+        }
+    }
+
+
+    /**
+     * Supprime une ligne de commande du panier.
+     */
+    public Map<String, Object> removeOrderLine(ShoppingCart shoppingCart, Integer productId) {
+        logger.info("Removing order line: productId={}", productId);
+
+        HashMap<Integer, OrderLine> productsOrdered = shoppingCart.getProductsOrdered();
         Map<String, Object> response = new HashMap<>();
 
         if (productsOrdered.containsKey(productId)) {
-            System.out.println("if" + productId);
-
-            // Supprimer la ligne de commande
             OrderLine orderLine = productsOrdered.remove(productId);
-            orderLineRepository.delete(providerConverter.orderLineModelToOrderLineEntity(orderLine)); // Supprimer de la base de données
 
-            // Récupérer l'OrderCustomer
+            // Supprimer la ligne de commande de la base de données
+            orderLineRepository.delete(providerConverter.orderLineModelToOrderLineEntity(orderLine));
+            logger.info("Order line removed: {}", orderLine);
+
+            // Mettre à jour ou supprimer l'OrderCustomer
             OrderCustomer orderCustomer = orderLine.getOrder();
-
-            // Vérifier s'il reste des OrderLine pour cet OrderCustomer
             if (productsOrdered.isEmpty()) {
-                // Si plus de OrderLine, supprimer l'OrderCustomer
-                System.out.println("No more order lines, removing OrderCustomer");
+                // Supprimer l'OrderCustomer si plus de lignes de commande
                 orderCustomerRepository.delete(providerConverter.orderCustomerModelToOrderCustomerEntity(orderCustomer));
-
-                response.put("success", true);
-                response.put("isOrderCustomerDeleted", true); // Indiquer que l'OrderCustomer est supprimée
-                return response;
+                logger.info("Order customer removed: {}", orderCustomer);
+                response.put("isOrderCustomerDeleted", true);
             } else {
-                // Sinon, mettre à jour le montant total
-                double totalAmount = productsOrdered.values().stream()
-                        .mapToDouble(OrderLine::getSubTotal)
-                        .sum();
-                orderCustomer.setTotalAmount(totalAmount);
-                orderCustomerRepository.save(providerConverter.orderCustomerModelToOrderCustomerEntity(orderCustomer)); // Sauvegarder les changements
-
-                response.put("success", true);
-                response.put("isOrderCustomerDeleted", false); // Indiquer que l'OrderCustomer existe encore
-                response.put("totalAmount", totalAmount);
-                return response;
+                // Mettre à jour le montant total
+                updateOrderCustomerTotalAmount(orderCustomer, productsOrdered);
+                response.put("isOrderCustomerDeleted", false);
             }
+
+            response.put("success", true);
+        } else {
+            logger.warn("Product with productId={} not found in shopping cart", productId);
+            response.put("success", false);
+            response.put("error", "Produit introuvable dans le panier");
         }
 
-        response.put("success", false); // Ligne de commande non trouvée
         return response;
     }
 
-    public void addOrUpdateProduct(ShoppingCart shoppingCart, Integer productId, Integer quantity) {
+    public Map<String, Object> removeOrderLineTemporary(ShoppingCart temporaryCart, Integer productId) {
+        logger.info("Removing order line (temporary cart): productId={}", productId);
+
+        HashMap<Integer, OrderLine> productsOrdered = temporaryCart.getProductsOrdered();
+        Map<String, Object> response = new HashMap<>();
+
+        if (productsOrdered.containsKey(productId)) {
+            OrderLine removedOrderLine = productsOrdered.remove(productId);
+            logger.info("Order line removed from temporary cart: {}", removedOrderLine);
+
+            response.put("success", true);
+        } else {
+            logger.warn("Product with productId={} not found in temporary cart", productId);
+            response.put("success", false);
+            response.put("error", "Produit introuvable dans le panier temporaire");
+        }
+
+        return response;
+    }
+
+
+    public Customer getCustomerByUsername(String username) {
+
+        return providerConverter.customerEntityToCustomerModel(customerRepository.findByUsername(username));
+    }
+
+    /**
+     * Ajoute ou met à jour un produit dans le panier.
+     */
+    public ShoppingCart addProduct(ShoppingCart shoppingCart, Integer productId, Integer quantity, Customer customer) {
+        logger.info("Adding or updating product: productId={}, quantity={}, user={}", productId, quantity, customer);
+
+        // Récupérer ou créer une commande pour un utilisateur connecté
+        OrderCustomer orderCustomer = null;
+        if (customer != null) {
+            OrderCustomer optionalOrderCustomer = providerConverter.orderCustomerEntityToOrderCustomerModel(orderCustomerRepository.findByCustomerID(customer.getUsername()));
+            if (optionalOrderCustomer != null) {
+                orderCustomer = optionalOrderCustomer;
+            } else {
+                // Créer une nouvelle commande pour l'utilisateur
+                orderCustomer = new OrderCustomer();
+                orderCustomer.setCustomer(customer);
+                orderCustomer.setTotalAmount(0.0);
+                orderCustomer = providerConverter.orderCustomerEntityToOrderCustomerModel(
+                        orderCustomerRepository.save(providerConverter.orderCustomerModelToOrderCustomerEntity(orderCustomer))
+                );
+            }
+        }
+
         // Vérifier si le produit est déjà dans le panier
         OrderLine orderLine = shoppingCart.getProductsOrdered().get(productId);
         if (orderLine == null) {
-            // Ajouter le produit
+            // Ajouter un nouveau produit
             Optional<ProductEntity> optionalProductEntity = productRepository.findById(productId);
             if (optionalProductEntity.isPresent()) {
                 Product product = providerConverter.productEntityToProductModel(optionalProductEntity.get());
                 orderLine = new OrderLine(quantity, product.getUnitPriceExcludingTax() * quantity, product);
+                orderLine.setOrder(orderCustomer);
                 shoppingCart.getProductsOrdered().put(productId, orderLine);
+
+                // Sauvegarder la nouvelle ligne de commande en base si utilisateur connecté
+                if (customer != null) {
+                    orderLineRepository.save(providerConverter.orderLineModelToOrderLineEntity(orderLine));
+                }
             } else {
-                // Gérer le cas où le produit n'existe pas
                 throw new IllegalArgumentException("Produit introuvable avec l'ID : " + productId);
             }
         } else {
             // Mettre à jour la quantité
             orderLine.setQuantity(orderLine.getQuantity() + quantity);
             orderLine.setSubTotal(orderLine.getProduct().getUnitPriceExcludingTax() * orderLine.getQuantity());
+
+            // Mettre à jour en base si utilisateur connecté
+            if (customer != null) {
+                orderLineRepository.save(providerConverter.orderLineModelToOrderLineEntity(orderLine));
+            }
+        }
+
+        // Mettre à jour le montant total de la commande
+        if (customer != null && orderCustomer != null) {
+            double totalAmount = shoppingCart.getProductsOrdered().values().stream()
+                    .mapToDouble(OrderLine::getSubTotal)
+                    .sum();
+            orderCustomer.setTotalAmount(totalAmount);
+            orderCustomerRepository.save(providerConverter.orderCustomerModelToOrderCustomerEntity(orderCustomer));
+        }
+        return shoppingCart;
+    }
+
+
+    /**
+     * Récupère un produit à partir de son ID.
+     */
+    private Product fetchProductById(Integer productId) {
+        Optional<ProductEntity> optionalProductEntity = productRepository.findById(productId);
+        if (optionalProductEntity.isPresent()) {
+            return providerConverter.productEntityToProductModel(optionalProductEntity.get());
+        } else {
+            logger.error("Product not found with ID: {}", productId);
+            throw new IllegalArgumentException("Produit introuvable avec l'ID : " + productId);
         }
     }
 
+    /**
+     * Met à jour le montant total d'un OrderCustomer.
+     */
+    private void updateOrderCustomerTotalAmount(OrderCustomer orderCustomer, HashMap<Integer, OrderLine> productsOrdered) {
+        double totalAmount = productsOrdered.values().stream()
+                .mapToDouble(OrderLine::getSubTotal)
+                .sum();
+        orderCustomer.setTotalAmount(totalAmount);
+        orderCustomerRepository.save(providerConverter.orderCustomerModelToOrderCustomerEntity(orderCustomer));
+        logger.info("Updated order customer total amount: {}", orderCustomer);
+    }
+
+    public OrderLine setOrderLineTemporary(ShoppingCart temporaryCart, Integer productId, Integer quantity) {
+        logger.info("Setting order line (temporary cart): productId={}, quantity={}", productId, quantity);
+
+        HashMap<Integer, OrderLine> productsOrdered = temporaryCart.getProductsOrdered();
+        Map<String, Object> response = new HashMap<>();
+
+        // Vérifier si le produit est déjà dans le panier
+        if (productsOrdered.containsKey(productId)) {
+            // Mise à jour de la quantité et du sous-total
+            OrderLine existingOrderLine = productsOrdered.get(productId);
+            existingOrderLine.setQuantity(quantity);
+            logger.info("Order line updated in temporary cart: {}", existingOrderLine);
+            return existingOrderLine;
+        } else {
+            // Création d'une nouvelle ligne de commande
+            Product product = fetchProductById(productId);
+
+            OrderLine newOrderLine = new OrderLine(quantity, product.getUnitPriceExcludingTax() * quantity, product);
+            logger.info("New order line added to temporary cart: {}", newOrderLine);
+            return newOrderLine;
+        }
+    }
+
+
+    public double calculateTotalAmount(ShoppingCart shoppingCart) {
+        return shoppingCart.getProductsOrdered().values().stream()
+                .mapToDouble(OrderLine::getSubTotal)
+                .sum();
+    }
 }
