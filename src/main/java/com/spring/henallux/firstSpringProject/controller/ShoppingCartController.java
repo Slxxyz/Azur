@@ -61,7 +61,7 @@ public class ShoppingCartController {
 
         if (authentication != null && authentication.isAuthenticated() && !(authentication instanceof AnonymousAuthenticationToken)) {
         // Vérifie si l'utilisateur est connecté
-            String username = authentication.getName(); // Récupère l'ID de l'utilisateur connecté
+            String username = authentication.getName();
             HashMap<Integer, OrderLine> productsOrdered = shoppingCartService.loadShoppingCartForUser(username);
             shoppingCart.setProductsOrdered(productsOrdered); // Charge les produits dans le panier
         }else {
@@ -154,10 +154,10 @@ public class ShoppingCartController {
         Map<String, Object> response = new HashMap<>();
         try {
             Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-
             if (authentication != null && authentication.isAuthenticated() && !(authentication instanceof AnonymousAuthenticationToken)) {
                 // Ajouter pour un utilisateur connecté
                 Customer customer = shoppingCartService.getCustomerByUsername(authentication.getName());
+                System.out.println(customer);
                 shoppingCartService.addProduct(shoppingCart, request.getProductID(), request.getQuantity(), customer);
             } else {
                 // Ajouter au panier temporaire (stocké en session)

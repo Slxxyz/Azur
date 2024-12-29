@@ -8,15 +8,15 @@
 </head>
 
 <body>
-    <h1>Panier</h1>
+    <h1><spring:message code="cart.title" /></h1>
     <table>
     <thead>
     <tr>
         <th></th>
-        <th categoryID="article">Article</th>
-        <th>Prix</th>
-        <th>Qte</th>
-        <th>Sous-total</th>
+        <th categoryID="article"><spring:message code="cart.column.article" /></th>
+        <th><spring:message code="cart.column.price" /></th>
+        <th><spring:message code="cart.column.quantity" /></th>
+        <th><spring:message code="cart.column.subtotal" /></th>
         <th></th>
     </tr>
     </thead>
@@ -46,7 +46,7 @@
         <tfoot>
             <tr>
                 <td></td>
-                <td colspan="3" style="text-align:right;">Total</td>
+                <td colspan="3" style="text-align:right;"><spring:message code="cart.total" /></td>
                 <td id="totalAmountMen">${orderLine.order.totalAmount} €</td>
             </tr>
         </tfoot>
@@ -54,7 +54,7 @@
 
     <div class="checkout">
         <form action="/checkout" method="post">
-            <button type="submit" class="checkout-button">Commander</button>
+            <button type="submit" class="checkout-button"><spring:message code="cart.checkout.button" /></button>
         </form>
     </div>
 </body>

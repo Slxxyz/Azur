@@ -95,28 +95,47 @@
     <header>
         <div class="header-container">
             <div class="left-section">
-                <img id="logo" src="<spring:url value='/images/Template/AzurBlanc.png'/>" alt="Azur" height="50px">
+                <img id="logo" src="<spring:url value='/images/Template/AzurBlanc.png'/>" alt="Azur" height="40px">
                 <nav class="nav-links">
-                    <a href="<spring:url value='/azur' />"><spring:message code="Home"/></a>
-                    <a href="javascript:void(0);" id="catalogueLink"><spring:message code="Catalog"/></a>
+                    <a href="<spring:url value='/azur' />">Accueil</a>
+                    <a href="javascript:void(0);" id="catalogueLink">Catalogue</a>
                     <div id="dropdownMenu">
 
                     </div>
-                    <a href="<spring:url value='/a-propos' />"><spring:message code="AboutUs"/></a>
+                    <a href="<spring:url value='/a-propos' />">À propos</a>
                 </nav>
             </div>
             <div class="right-section">
-                <a href="<spring:url value='/connexion' />"><spring:message code="LogIn"/></a>
+                <sec:authorize access="isAuthenticated()">
+                    <!-- Ce bloc s'affiche si l'utilisateur est connecté -->
+                    <a href="<spring:url value='/authenticated'/>">
+                            Bienvenue ${pageContext.request.userPrincipal.name}
+                    </a>
+
+                    <a class="navbar-brand" href="<spring:url value='/logout'/>" title="Se déconnecter">
+                        <i class="fas fa-sign-out-alt"></i>
+                    </a>
+
+                </sec:authorize>
+
+                <sec:authorize access="!isAuthenticated()">
+                    <!-- Ce bloc s'affiche si l'utilisateur n'est pas connecté -->
+                    <a class="navbar-brand" href="<spring:url value='/connexion'/>">
+                        <spring:message code="SeConnecter"/>
+                    </a>
+                </sec:authorize>
+
+
                 <div class="language-section">
-                    <a id="localeFrLink" href="#">
+                    <a href="${localeFr}">
                         <img alt="Français" src="<spring:url value='/images/Template/drapeauFr.png'/>" height="20px">
                     </a>
                     <span>|</span>
-                    <a id="localeEnLink" href="#">
+                    <a href="${localeEn}">
                         <img alt="English" src="<spring:url value='/images/Template/drapeauEn.png'/>" height="20px">
                     </a>
                 </div>
-                <a  class="cart-icon">🛒</a>
+                <a href="<spring:url value='/panier' />" class="cart-icon">🛒</a>
             </div>
         </div>
     </header>
@@ -130,12 +149,12 @@
     <footer>
         <div class="footer-container">
             <div class="footer-links">
-                <a href="/accueil"><spring:message code="Home"/></a>
-                <a href="/catalogue"><spring:message code="Catalog"/></a>
-                <a href="/apropos"><spring:message code="AboutUs"/></a>
+                <a href="/accueil">Accueil</a>
+                <a href="/catalogue">Catalogue</a>
+                <a href="/apropos">À propos</a>
             </div>
             <div class="copyright">
-                <p><spring:message code="Copyright"/></p>
+                <p>Copyright © 2024 Azur Inc. Tous droits réservés.</p>
             </div>
         </div>
     </footer>

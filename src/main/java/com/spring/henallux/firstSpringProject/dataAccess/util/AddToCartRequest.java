@@ -24,4 +24,8 @@ public class AddToCartRequest {
     public void setQuantity(Integer quantity) {
         this.quantity = quantity;
     }
+
+    public String toString() {
+        return "Product ID: " + productID + ", Quantity: " + quantity;
+    }
 }

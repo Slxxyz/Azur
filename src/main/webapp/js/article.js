@@ -43,24 +43,25 @@ document.addEventListener("DOMContentLoaded", () => {
 });
 
 // Ajouter au panier pour un utilisateur connecté
-function addToCartForAuthenticatedUser(productId, quantity) {
-    fetch("firstSpring/panier/add", {
+function addToCartForAuthenticatedUser(productID, quantity) {
+    console.log(productID, quantity);
+    fetch("/firstSpring/panier/add", {
         method: "POST",
         headers: {
             "Content-Type": "application/json"
         },
-        body: JSON.stringify({ productId: productId, quantity: quantity })
+        body: JSON.stringify({ productID: productID, quantity: quantity })
     })
         .then(response => response.json())
         .then(data => {
+            console.log(data);
             if (data.success) {
-                alert("Produit ajouté au panier !");
-                console.log("Panier mis à jour :", data.shoppingCart);
+                console.log("Panier mis à jour.");
             } else {
-                alert("Erreur lors de l'ajout au panier : " + data.error);
+                alert("Erreur lors de l'ajout au panier not success : " + data.error);
             }
         })
-        .catch(error => console.error("Erreur lors de l'ajout au panier :", error));
+        .catch(error => console.error("Erreur lors de l'ajout au panier fetch :", error));
 }
 
 // Ajouter au panier pour un utilisateur non connecté

@@ -2,6 +2,8 @@ package com.spring.henallux.firstSpringProject.service;
 
 import com.spring.henallux.firstSpringProject.dataAccess.dao.OrderCustomerDAO;
 import com.spring.henallux.firstSpringProject.dataAccess.dao.OrderLineDAO;
+import com.spring.henallux.firstSpringProject.dataAccess.entity.CustomerEntity;
+import com.spring.henallux.firstSpringProject.dataAccess.entity.OrderCustomerEntity;
 import com.spring.henallux.firstSpringProject.dataAccess.entity.ProductEntity;
 import com.spring.henallux.firstSpringProject.dataAccess.repository.CustomerRepository;
 import com.spring.henallux.firstSpringProject.dataAccess.repository.OrderCustomerRepository;
@@ -14,10 +16,8 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.Optional;
+import java.time.LocalDateTime;
+import java.util.*;
 
 @Service
 public class ShoppingCartService {
@@ -51,7 +51,8 @@ public class ShoppingCartService {
 
     public HashMap<Integer, OrderLine> loadShoppingCartForUser(String username) {
         // Récupère la commande (OrderCustomer) pour cet utilisateur
-        OrderCustomer orderCustomer = orderCustomerDAO.getOrderByCustomerId(username);
+        CustomerEntity customerEntity = customerRepository.findByUsername(username);
+        OrderCustomer orderCustomer = orderCustomerDAO.getOrderByCustomerId(customerEntity);
 
         // Si aucun panier n'existe pour cet utilisateur, retourne une HashMap vide
         if (orderCustomer == null) {
@@ -134,6 +135,7 @@ public class ShoppingCartService {
                 // Mettre à jour le montant total
                 updateOrderCustomerTotalAmount(orderCustomer, productsOrdered);
                 response.put("isOrderCustomerDeleted", false);
+                response.put("totalAmount", orderCustomer.getTotalAmount());
             }
 
             response.put("success", true);
@@ -176,30 +178,42 @@ public class ShoppingCartService {
      * Ajoute ou met à jour un produit dans le panier.
      */
     public ShoppingCart addProduct(ShoppingCart shoppingCart, Integer productId, Integer quantity, Customer customer) {
-        logger.info("Adding or updating product: productId={}, quantity={}, user={}", productId, quantity, customer);
+        logger.info("Adding product: productId={}, quantity={}, user={}", productId, quantity, customer);
 
         // Récupérer ou créer une commande pour un utilisateur connecté
+
         OrderCustomer orderCustomer = null;
         if (customer != null) {
-            OrderCustomer optionalOrderCustomer = providerConverter.orderCustomerEntityToOrderCustomerModel(orderCustomerRepository.findByCustomerID(customer.getUsername()));
-            if (optionalOrderCustomer != null) {
-                orderCustomer = optionalOrderCustomer;
-            } else {
+            System.out.println("jdois passer la");
+            CustomerEntity customerEntity = customerRepository.findByUsername(customer.getUsername());
+            System.out.println(customerEntity);
+            OrderCustomerEntity orderCustomerEntity = orderCustomerRepository.findByCustomerID(customerEntity);
+
+            if (orderCustomerEntity == null || !Objects.equals(orderCustomerEntity.getState(), "En attente")){
                 // Créer une nouvelle commande pour l'utilisateur
+                System.out.println("Creating new order for customer: " + customer);
                 orderCustomer = new OrderCustomer();
+                orderCustomer.setOrderID(-1);
                 orderCustomer.setCustomer(customer);
-                orderCustomer.setTotalAmount(0.0);
-                orderCustomer = providerConverter.orderCustomerEntityToOrderCustomerModel(
-                        orderCustomerRepository.save(providerConverter.orderCustomerModelToOrderCustomerEntity(orderCustomer))
-                );
+                orderCustomer.setMethodOfPayment("Paypal");
+                orderCustomer.setState("En attente");
+                orderCustomer.setTotalAmount(1);
+                System.out.println("here");
+                orderCustomer = providerConverter.orderCustomerEntityToOrderCustomerModel(orderCustomerRepository.save(providerConverter.orderCustomerModelToOrderCustomerEntity(orderCustomer)));
+            }else {
+                System.out.println("ici");
+                orderCustomer = providerConverter.orderCustomerEntityToOrderCustomerModel(orderCustomerEntity);
             }
         }
 
         // Vérifier si le produit est déjà dans le panier
+        System.out.println("fin nouvelle section");
         OrderLine orderLine = shoppingCart.getProductsOrdered().get(productId);
         if (orderLine == null) {
+            System.out.println("jdois passer la");
             // Ajouter un nouveau produit
             Optional<ProductEntity> optionalProductEntity = productRepository.findById(productId);
+            System.out.println("optional "+optionalProductEntity);
             if (optionalProductEntity.isPresent()) {
                 Product product = providerConverter.productEntityToProductModel(optionalProductEntity.get());
                 orderLine = new OrderLine(quantity, product.getUnitPriceExcludingTax() * quantity, product);

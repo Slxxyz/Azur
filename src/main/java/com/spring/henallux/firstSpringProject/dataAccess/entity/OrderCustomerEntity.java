@@ -1,6 +1,8 @@
 package com.spring.henallux.firstSpringProject.dataAccess.entity;
 
 import javax.persistence.*;
+import java.time.LocalDateTime;
+import java.time.ZoneId;
 import java.util.Date;
 import java.util.List;
 
@@ -26,7 +28,7 @@ public class OrderCustomerEntity {
     private String state;
 
     @ManyToOne
-    @JoinColumn(name = "username", referencedColumnName = "username")
+    @JoinColumn(name = "customer_id", referencedColumnName = "username")
     private CustomerEntity customerID;
 
     public OrderCustomerEntity() {
@@ -41,6 +43,12 @@ public class OrderCustomerEntity {
         this.customerID = customerID;
     }
 
+    @PrePersist
+    public void prePersist() {
+        if (this.dateAndTime == null) {
+            this.dateAndTime = Date.from(LocalDateTime.now().atZone(ZoneId.systemDefault()).toInstant());
+        }
+    }
     public Integer getOrderID() {
         return orderID;
     }

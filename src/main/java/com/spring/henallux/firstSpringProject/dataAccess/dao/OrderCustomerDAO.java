@@ -1,8 +1,10 @@
 package com.spring.henallux.firstSpringProject.dataAccess.dao;
 
+import com.spring.henallux.firstSpringProject.dataAccess.entity.CustomerEntity;
 import com.spring.henallux.firstSpringProject.dataAccess.entity.OrderCustomerEntity;
 import com.spring.henallux.firstSpringProject.dataAccess.entity.OrderLineEntity;
 import com.spring.henallux.firstSpringProject.dataAccess.entity.ProductEntity;
+import com.spring.henallux.firstSpringProject.dataAccess.repository.CustomerRepository;
 import com.spring.henallux.firstSpringProject.dataAccess.repository.OrderCustomerRepository;
 import com.spring.henallux.firstSpringProject.dataAccess.repository.OrderLineRepository;
 import com.spring.henallux.firstSpringProject.model.OrderCustomer;
@@ -22,6 +24,7 @@ public class OrderCustomerDAO implements OrderCustomerDataAccess {
     private final ProviderConverter providerConverter;
     private OrderLineRepository orderLineRepository;
     private OrderCustomerRepository orderCustomerRepository;
+    private CustomerRepository customerRepository;
 
     @Autowired
     public OrderCustomerDAO(OrderLineRepository orderLineRepository, OrderCustomerRepository orderCustomerRepository, ProviderConverter providerConverter) {
@@ -36,16 +39,21 @@ public class OrderCustomerDAO implements OrderCustomerDataAccess {
         return List.of();
     }
 
-    public OrderCustomerEntity doesOrderExistForCustomer(String username) {
-        return orderCustomerRepository.findByCustomerID(username);
+    public CustomerEntity getCustomerByUsername(String username) {
+        return customerRepository.findByUsername(username);
     }
 
-    public OrderCustomer getOrderByCustomerId(String username) {
-        OrderCustomerEntity orderCustomerEntity = orderCustomerRepository.findByCustomerID(username);
-        if (orderCustomerEntity == null) {
-            throw new IllegalArgumentException("Aucune commande trouvée pour l'utilisateur avec l'ID : " + username);
+    public OrderCustomerEntity doesOrderExistForCustomer(CustomerEntity customerEntity) {
+        return orderCustomerRepository.findByCustomerID(customerEntity);
+    }
+
+    public OrderCustomer getOrderByCustomerId(CustomerEntity customerEntity) {
+        OrderCustomerEntity orderCustomerEntity = orderCustomerRepository.findByCustomerID(customerEntity);
+        System.out.println("dans orderdao "+orderCustomerEntity);
+        if (orderCustomerEntity != null) {
+            return providerConverter.orderCustomerEntityToOrderCustomerModel(orderCustomerEntity);
         }
-        return providerConverter.orderCustomerEntityToOrderCustomerModel(orderCustomerEntity);
+        return null;
     }
 
 

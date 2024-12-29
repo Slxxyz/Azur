@@ -89,4 +89,8 @@ public class CustomerEntity {
     public String getUsername() {
         return username;
     }
+
+    public String toString() {
+        return "Username: " + username + ", First Name: " + firstName + ", Last Name: " + lastName + ", Telephone Number: " + telNumber + ", Mail Address: " + mailAddress + ", User Password: " + userPassword + ", Location: " + location;
+    }
 }

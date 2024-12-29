@@ -16,15 +16,15 @@ function updateQuantity(productId, quantity) {
                     // Mettre à jour la quantité dans le panier temporaire
                     cart[productId] = quantity;
                     localStorage.setItem('guestCart', JSON.stringify(cart));
+
                     const newSubTotal = parseFloat(data.newSubTotal);
                     const totalAmount = parseFloat(data.totalAmount);
-                    console.log('newSubTotal:', newSubTotal);
-                    console.log('totalAmount:', totalAmount);
+
                     // Mettre à jour le sous-total et le montant total
                     document.querySelector(`#subtotal-${productId}`).textContent = newSubTotal + ' €';
-                    console.log('subtotal updated successfully');
+
                     document.querySelector('#totalAmountMen').textContent = totalAmount + ' €';
-                    console.log('Quantity updated successfully');
+
                 } else {
                     console.error('Failed to update quantity');
                 }
@@ -53,6 +53,7 @@ document.addEventListener('DOMContentLoaded', () => {
         const subtotalValue = parseFloat(subtotal.textContent);
         totalAmount += subtotalValue;
     });
+    totalAmount = totalAmount.toFixed(2);
     document.querySelector('#totalAmountMen').innerHTML = totalAmount + ' €';
 });
 

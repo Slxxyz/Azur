@@ -5,6 +5,8 @@ import com.spring.henallux.firstSpringProject.model.*;
 import org.springframework.stereotype.Component;
 import org.dozer.DozerBeanMapper;
 
+import java.time.ZoneId;
+
 @Component
 public class ProviderConverter {
 

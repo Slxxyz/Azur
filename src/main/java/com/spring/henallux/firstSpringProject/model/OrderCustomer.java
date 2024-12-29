@@ -1,5 +1,6 @@
 package com.spring.henallux.firstSpringProject.model;
 
+import java.time.LocalDateTime;
 import java.util.Date;
 
 public class OrderCustomer {
