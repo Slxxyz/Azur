@@ -17,7 +17,13 @@ public class ProviderConverter {
     }
 
     public Customer customerEntityToCustomerModel(CustomerEntity customerEntity) {
-        return mapper.map(customerEntity, Customer.class);
+        Customer customer =  mapper.map(customerEntity, Customer.class);
+        customer.setFirstName(customerEntity.getFirstName());
+        customer.setLastName(customerEntity.getLastName());
+        customer.setMailAddress(customerEntity.getMailAddress());
+        customer.setTelNumber(customerEntity.getTelNumber());
+
+        return customer;
     }
 
     public OrderCustomerEntity orderCustomerModelToOrderCustomerEntity(OrderCustomer orderCustomer) {

@@ -11,6 +11,10 @@ public class ShoppingCart {
 
     }
 
+    public ShoppingCart(HashMap<Integer, OrderLine> productsOrdered) {
+        this.productsOrdered = productsOrdered;
+    }
+
     public void addProduct(OrderLine orderLine) {
         int id = orderLine.getProduct().getProductID();
         if (productsOrdered.containsKey(id)) {

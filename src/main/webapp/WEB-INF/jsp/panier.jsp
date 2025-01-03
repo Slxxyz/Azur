@@ -53,7 +53,7 @@
     </table>
 
     <div class="checkout">
-        <form action="/checkout" method="post">
+        <form action="/firstSpring/checkout" method="GET">
             <button type="submit" class="checkout-button"><spring:message code="cart.checkout.button" /></button>
         </form>
     </div>

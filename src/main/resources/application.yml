@@ -34,6 +34,6 @@ spring:
               security=DEBUG: INFO
 paypal:
   client:
-    id: ATgmIhDqdrWO8GxK9FkxMsrpt7l82U0SQX-0RAtQYbchkYrryCSQkiJsmYJYLdhmSAnPIWNnrmJyprog
-    secret: EBJM-moOcgUIAfHytnNUY9Cs4YhgYOKYcUUtr8m_MV3Gfq44zjEbK4bs87byAjuufqeNVjbKXYxSNdG-
+    id: Aa16zXSjsgXpc-5NVkKvMox7TovZD44a8b-TZdxbPnzHzQ89mfKYG6RPjAymgZcOeg6JJsqxs2mXlbOX
+    secret: ECj7NZAqt-eXCoPluw5np-iEJKIs7HWxeZzShdJrTlIl1lKXHKoMZpVol29sjVLsRTOtGkWE0Hv7TMJW
   mode: sandbox

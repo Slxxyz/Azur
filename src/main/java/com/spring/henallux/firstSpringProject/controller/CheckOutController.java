@@ -1,30 +1,47 @@
 package com.spring.henallux.firstSpringProject.controller;
 
 
-import ch.qos.logback.core.boolex.EvaluationException;
 import com.paypal.api.payments.Payment;
 import com.paypal.base.rest.PayPalRESTException;
-import com.spring.henallux.firstSpringProject.model.PaymentModel;
+import com.spring.henallux.firstSpringProject.model.CommandModel;
+import com.spring.henallux.firstSpringProject.model.ShoppingCart;
+import com.spring.henallux.firstSpringProject.service.CheckoutService;
 import com.spring.henallux.firstSpringProject.service.PayPalService;
+import com.spring.henallux.firstSpringProject.service.ShoppingCartService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 
 @Controller
 @RequestMapping("/checkout")
+@SessionAttributes("commandModel")
 public class CheckOutController {
 
     @Autowired
     private PayPalService payPalService;
 
+    @Autowired
+    private CheckoutService checkoutService;
+
+    @ModelAttribute("commandModel")
+    public CommandModel initializeCommandModel() {
+        return new CommandModel();
+    }
+
     @RequestMapping(method = RequestMethod.GET)
-    public String checkOut(Model model) {
-        PaymentModel paymentModel = new PaymentModel(1.0,"EUR");
-        model.addAttribute("paymentModel", paymentModel);
+    public String checkOut(Model model, @ModelAttribute(value = "panier") ShoppingCart shoppingCart,
+                           @ModelAttribute(value = "commandModel") CommandModel commandModel) {
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        String username = authentication.getName();
+
+        commandModel = checkoutService.initializeCommandModel(username, shoppingCart);
+
+        model.addAttribute("products", commandModel.getShoppingCart().getProductsOrdered());
+        model.addAttribute("command", commandModel);
+        model.addAttribute("title", "Checkout");
         model.addAttribute("showHeader", true);
         model.addAttribute("showFooter", true);
         return "integrated:checkout";
@@ -61,9 +78,10 @@ public class CheckOutController {
     // Gérer le succès du paiement
     @GetMapping("/success")
     public String success(@RequestParam("paymentId") String paymentId,
-                          @RequestParam("PayerID") String payerId, Model model) {
+                          @RequestParam("PayerID") String payerId, Model model, @ModelAttribute(value="commandModel") CommandModel commandModel) {
         try {
             Payment payment = payPalService.executePayment(paymentId, payerId);
+            checkoutService.orderDone(commandModel);
             model.addAttribute("title", "Payment Successful!");
             model.addAttribute("showHeader", true);
             model.addAttribute("showFooter", true);
@@ -97,7 +115,7 @@ public class CheckOutController {
     // Gérer l'annulation du paiement
     @GetMapping("/cancel")
     public String cancel() {
-        return "integrated:welcome"; // Afficher une page d'annulation
+        return "redirect:/panier"; // Afficher une page d'annulation
     }
 
 

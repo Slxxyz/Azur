@@ -1,5 +1,4 @@
-<%@ taglib prefix="spring" uri="http://www.springframework.org/tags" %>
-<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
+<%@ include file="include/importTags.jsp"%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <head>
@@ -37,24 +36,28 @@
 
   <section class="order-summary-section">
     <h2><spring:message code="OrderSummary"/></h2>
+    <c:forEach items="${products}" var="command">
+        <c:set var="orderLine" value="${command.value}" />
     <div class="order-summary">
-      <div class="item">
-        <img src="<spring:url value='/images/Articles/Falcima.jpg' />" alt="Produit">
-        <p>Butterfly Ovtcharov S1</p>
-        <span><spring:message code="Qty"/>: 1</span>
-        <span><spring:message code="subtotal"/>: 24,90€</span>
-      </div>
-      <div class="totals">
-        <p><spring:message code="subtotal"/>: 24,90€</p>
-        <p><spring:message code="Discount"/>: 4,99€</p>
-        <p><strong><spring:message code="Total"/>: 29,95€</strong></p>
-      </div>
+        <div class="item">
+          <img src="<spring:url value='${orderLine.product.imagePath}' />" alt="Produit">
+          <p>${orderLine.product.labelProduct}</p>
+          <span><spring:message code="Qty"/>: ${orderLine.quantity} </span>
+          <span><spring:message code="subtotal"/>: ${orderLine.subTotal} €</span>
+        </div>
     </div>
+    </c:forEach>
+    <div class="totals">
+          <p><spring:message code="subtotal"/>: ${command.totalAmount} €</p>
+          <p><spring:message code="Discount"/>: ${command.discountAmount} €</p>
+          <p><strong><spring:message code="Total"/>: ${command.totalAmountDiscount} €</strong></p>
+        </div>
+
   </section>
 
   <form action="/firstSpring/checkout/create-payment" method="post">
-    <input type="hidden" name="amount" value="${paymentModel.getAmount()}">
-    <input type="hidden" name="currency" value="${paymentModel.getCurrency()}">
+    <input type="hidden" name="amount" value="${command.paymentModel.getAmount()}">
+    <input type="hidden" name="currency" value="${command.paymentModel.getCurrency()}">
     <button type="submit" class="order-button"><spring:message code="Order"/></button>
   </form>
 
