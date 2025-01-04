@@ -34,6 +34,10 @@ body {
   .address-section {
     grid-area: address;
 
+    h2{
+      margin-bottom: $gap-medium;
+    }
+
     form {
       display: flex;
       flex-direction: column;
@@ -82,6 +86,10 @@ body {
 
   .order-summary-section {
     grid-area: summary;
+
+    h2{
+      margin-bottom: $gap-medium;
+    }
 
     .order-summary {
       display: flex;
@@ -139,7 +147,7 @@ body {
     grid-area: button;
     justify-self: center;
     align-self: center;
-    padding: $gap-large $button-width / 2;
+    padding: $gap-large calc($button-width / 2);
     font-size: $button-font-size;
     color: $text-dark-color;
     background: $primary-color;

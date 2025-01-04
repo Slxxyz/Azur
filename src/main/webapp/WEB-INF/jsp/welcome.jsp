@@ -11,7 +11,6 @@
 <body>
 <div class="image-container">
     <img alt="English" src="<spring:url value='/images/Accueil/imageAccueil.png'/>">
-    <h1 class="overlay-text">SERVE.<br>SMASH.<br>SCORE!</h1>
 </div>
 <div class="collaborations">
     <h1 class="title"><spring:message code="Collaborations"/></h1>

@@ -1,5 +1,7 @@
 package com.spring.henallux.firstSpringProject.controller;
 
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -13,6 +15,10 @@ public class AProposController {
         model.addAttribute("title", "Who we are ?");
         model.addAttribute("showHeader", true);
         model.addAttribute("showFooter", true);
+
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+
+        System.out.println("Customer saved: " + authentication);
         return "integrated:aPropos";
     }
 }

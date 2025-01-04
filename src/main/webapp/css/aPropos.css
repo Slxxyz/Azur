@@ -1,17 +1,20 @@
 .page-about {
   display: flex;
-  height: 95vh;
+  flex-direction: row;
+  height: auto;
 }
-.page-about .left-section {
-  background-color: #98cae1;
+.page-about .left-section, .page-about .right-section {
   flex: 1;
   display: flex;
   justify-content: center;
   align-items: center;
-  padding: 20px;
+}
+.page-about .left-section {
+  background-color: #98cae1;
 }
 .page-about .left-section .text-container {
   width: auto;
+  max-width: 600px;
   text-align: center;
 }
 .page-about .left-section .text-container h1 {
@@ -27,8 +30,8 @@
   gap: 15px;
   text-align: left;
 }
-.page-about .left-section .text-container p {
-  font-size: 20px;
+.page-about .left-section .text-container .paragraph-container p {
+  font-size: 1rem;
   line-height: 1.6;
   margin: 0;
   padding: 0;

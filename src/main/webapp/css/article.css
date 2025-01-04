@@ -5,15 +5,18 @@
   column-gap: 20px;
   padding: 50px;
   background-color: white;
+  height: calc(100vh - 50px);
+  box-sizing: border-box;
 }
 .page-article .divImage {
   display: flex;
   justify-content: center;
-  align-items: center;
+  align-items: flex-start;
 }
 .page-article .divImage img {
   max-width: 100%;
   height: auto;
+  max-height: 80vh;
 }
 .page-article .content {
   display: flex;
@@ -36,7 +39,7 @@
 }
 .page-article .content h3 {
   align-self: end;
-  font-size: -17.5rem;
+  font-size: calc(2.5rem - 20px);
 }
 .page-article .content p {
   font-size: 20px;
@@ -69,7 +72,7 @@
   cursor: pointer;
 }
 .page-article .content .name-quantity .quantity-controls button:hover {
-  background-color: rgb(191.5, 191.5, 191.5);
+  background-color: rgb(195.3, 195.3, 195.3);
 }
 .page-article .content .name-quantity .quantity-controls input {
   width: 70px;
@@ -91,6 +94,10 @@
 }
 .page-article .content .add-to-cart:hover {
   background-color: rgb(25.5, 25.5, 25.5);
+}
+.page-article .content .add-to-cart:active {
+  background-color: black;
+  transform: scale(0.95);
 }
 
 /*# sourceMappingURL=article.css.map */

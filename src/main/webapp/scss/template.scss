@@ -170,13 +170,6 @@ header {
         padding: 0 10px;
     }
 
-    .left-section {
-        .nav-links {
-            flex-direction: column; // Affiche les liens de navigation en colonne
-            gap: $gap-medium;
-        }
-    }
-
     .right-section {
         .cart-icon {
             font-size: 1rem;
@@ -210,17 +203,6 @@ header {
         display: block; // Affiche le menu burger sur petits écrans
     }
 
-    .nav-links {
-        display: none; // Masque les liens par défaut
-        flex-direction: column;
-        width: 100%;
-        gap: 10px;
-        padding-top: 10px;
-    }
-
-    .nav-links.show {
-        display: flex; // Affiche les liens lorsque le menu burger est cliqué
-    }
 
     .cart-icon {
         font-size: 1.5rem;

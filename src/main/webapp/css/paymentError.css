@@ -47,7 +47,7 @@ body {
   border-radius: 30px;
   font-size: 20px;
   font-weight: 600;
-  width: 150px;
+  width: 170px;
   padding: 0.5rem;
   display: inline-block;
   transition: background-color 0.3s ease, transform 0.2s ease;
@@ -73,7 +73,7 @@ body {
   }
   .payment-section .btn {
     font-size: 18px;
-    width: 130px;
+    width: 150px;
   }
   .payment-section .title {
     font-size: 1.6rem;

@@ -1,4 +1,5 @@
-@import "variables";
+@use "sass:color";
+@use "variables" as *;
 
 $button-height: 40px;
 
@@ -9,15 +10,18 @@ $button-height: 40px;
   column-gap: 20px;
   padding: 50px;
   background-color: $secondary-color;
+  height: calc(100vh - #{$header-height}); // S'assure que la hauteur est au moins celle de la vue
+  box-sizing: border-box; // Inclut les paddings dans le calcul de la hauteur
 
   .divImage {
     display: flex;
     justify-content: center;
-    align-items: center;
+    align-items: flex-start;
 
     img {
       max-width: 100%;
       height: auto;
+      max-height: 80vh;
     }
   }
 
@@ -45,7 +49,7 @@ $button-height: 40px;
 
     h3 {
       align-self: end;
-        font-size: $title-height - 20;
+      font-size: calc($title-height - 20px);
     }
 
     p {
@@ -81,7 +85,7 @@ $button-height: 40px;
           cursor: pointer;
 
           &:hover {
-            background-color: darken(#d9d9d9, 10%);
+            background-color: color.scale(#d9d9d9, $lightness: -10%);
           }
         }
 
@@ -107,8 +111,14 @@ $button-height: 40px;
       align-self: flex-end;
 
       &:hover {
-        background-color: lighten(black, 10%);
+        background-color: color.scale(black, $lightness: 10%);
+      }
+      &:active {
+        background-color: color.scale(black, $lightness: -10%);
+        transform: scale(0.95); // Réduit légèrement le bouton pour un effet de clic visuel
       }
     }
   }
 }
+
+

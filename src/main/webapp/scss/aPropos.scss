@@ -1,19 +1,23 @@
-@import 'variables';
+@import '_variables';
 
 .page-about {
   display: flex;
-  height: 95vh;
+  flex-direction: row; // Par défaut, les sections sont côte à côte
+  height: auto;
+
+  .left-section, .right-section {
+    flex: 1;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
 
   .left-section {
     background-color: $primary-color;
-    flex: 1;
-    display: flex;
-    justify-content: center; // Centre horizontalement la div texte dans la section gauche
-    align-items: center; // Centre verticalement la div texte dans la section gauche
-    padding: 20px;
 
     .text-container {
       width: auto;
+      max-width: 600px; // Ajout d’une largeur maximale pour éviter un trop grand étirement
       text-align: center;
 
       h1 {
@@ -27,15 +31,15 @@
         margin-top: 15%;
         display: flex;
         flex-direction: column;
-        gap: 15px; // Uniformise l'espacement entre les paragraphes
-        text-align: left; // Aligne tous les paragraphes à gauche
-      }
+        gap: 15px;
+        text-align: left;
 
-      p {
-        font-size: 20px;
-        line-height: 1.6; // Espacement vertical des lignes
-        margin: 0; // Supprime tout espacement interne ou externe
-        padding: 0; // Supprime tout padding
+        p {
+          font-size: 1rem; // Utilisation d'unités relatives
+          line-height: 1.6;
+          margin: 0;
+          padding: 0;
+        }
       }
     }
   }

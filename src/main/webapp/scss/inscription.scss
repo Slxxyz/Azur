@@ -1,10 +1,9 @@
 @use "variables" as *;
 @use "sass:color";
 
-// Assurez-vous que la hauteur de la page prend en compte la hauteur du header
 .page-inscription {
   display: flex;
-  flex-wrap: wrap; // Permet aux sections de se réorganiser sur les petits écrans
+  flex-wrap: wrap;
   height: calc(100vh - #{$header-height});
   max-height: calc(100vh - #{$min-header-height});
   overflow: auto;

@@ -28,6 +28,9 @@ body {
 .checkout-page .address-section {
   grid-area: address;
 }
+.checkout-page .address-section h2 {
+  margin-bottom: 15px;
+}
 .checkout-page .address-section form {
   display: flex;
   flex-direction: column;
@@ -69,6 +72,9 @@ body {
 }
 .checkout-page .order-summary-section {
   grid-area: summary;
+}
+.checkout-page .order-summary-section h2 {
+  margin-bottom: 15px;
 }
 .checkout-page .order-summary-section .order-summary {
   display: flex;
@@ -117,7 +123,7 @@ body {
   grid-area: button;
   justify-self: center;
   align-self: center;
-  padding: 20px 75px;
+  padding: 20px 85px;
   font-size: 20px;
   color: white;
   background: #98cae1;

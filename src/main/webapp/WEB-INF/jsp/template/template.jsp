@@ -152,9 +152,9 @@
     <footer>
         <div class="footer-container">
             <div class="footer-links">
-                <a href="/accueil">Accueil</a>
-                <a href="/catalogue">Catalogue</a>
-                <a href="/apropos">À propos</a>
+                <a href="<spring:url value='/azur' />">Accueil</a>
+                <a href="<spring:url value='/panier' />" class="cart-icon">Votre panier</a>
+                <a href="<spring:url value='/a-propos' />">À propos</a>
             </div>
             <div class="copyright">
                 <p>Copyright © 2024 Azur Inc. Tous droits réservés.</p>
