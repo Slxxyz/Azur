@@ -1,3 +1,4 @@
+@charset "UTF-8";
 body {
   font-family: "Arial", sans-serif;
   margin: 0;
@@ -13,6 +14,10 @@ body {
   gap: 20px;
   padding: 20px;
   min-height: 100vh;
+  /* Section de l'adresse */
+  /* Section de paiement */
+  /* Section du résumé de la commande */
+  /* Bouton de commande */
 }
 .checkout-page section {
   background: white;
@@ -50,14 +55,17 @@ body {
 }
 .checkout-page .address-section form .name-fields,
 .checkout-page .address-section form .location-fields,
-.checkout-page .address-section form .zip-phone-fields {
+.checkout-page .address-section form .address-fields,
+.checkout-page .address-section form .city-fields {
   display: flex;
   gap: 5px;
 }
 .checkout-page .address-section form .name-fields input,
 .checkout-page .address-section form .location-fields input,
-.checkout-page .address-section form .zip-phone-fields input {
+.checkout-page .address-section form .address-fields input,
+.checkout-page .address-section form .city-fields input {
   flex: 1;
+  gap: 5px;
 }
 .checkout-page .payment-section {
   grid-area: payment;
@@ -68,6 +76,7 @@ body {
 }
 .checkout-page .payment-section .paypal img {
   width: 150px;
+  max-width: 100%; /* Empêche les débordements */
   margin-top: 5px;
 }
 .checkout-page .order-summary-section {
@@ -76,48 +85,50 @@ body {
 .checkout-page .order-summary-section h2 {
   margin-bottom: 15px;
 }
-.checkout-page .order-summary-section .order-summary {
-  display: flex;
-  flex-direction: column;
-  gap: 15px;
+.checkout-page .order-summary-section .order-summary table {
+  width: 100%;
+  border-collapse: collapse;
+  text-align: left;
+  font-size: 16px;
 }
-.checkout-page .order-summary-section .order-summary .item {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  background: white;
+.checkout-page .order-summary-section .order-summary table thead {
+  background-color: white;
+  text-transform: uppercase;
+}
+.checkout-page .order-summary-section .order-summary table thead th {
   padding: 5px;
-  border-radius: 8px;
+  color: #666666;
+  font-weight: bold;
+  border-bottom: 2px solid #999999;
 }
-.checkout-page .order-summary-section .order-summary .item img {
-  width: 70px;
-  height: 70px;
+.checkout-page .order-summary-section .order-summary table tbody tr:nth-child(even) {
+  background-color: white;
+}
+.checkout-page .order-summary-section .order-summary table tbody tr td {
+  padding: 5px;
+}
+.checkout-page .order-summary-section .order-summary table tbody tr td .product-info {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+}
+.checkout-page .order-summary-section .order-summary table tbody tr td .product-info img {
+  width: 50px;
+  height: 50px;
   object-fit: cover;
   border-radius: 8px;
 }
-.checkout-page .order-summary-section .order-summary .item p {
-  flex: 1;
-  margin: 0 15px;
-  font-size: 16px;
-  color: #666666;
-}
-.checkout-page .order-summary-section .order-summary .item span {
-  font-size: 13.3333333333px;
-  color: rgb(127.5, 127.5, 127.5);
-}
-.checkout-page .order-summary-section .order-summary .totals {
-  padding: 5px;
-  border-top: 1px solid #cccccc;
-}
-.checkout-page .order-summary-section .order-summary .totals p {
-  display: flex;
-  justify-content: space-between;
-  margin: 5px 0;
-  font-size: 16px;
-}
-.checkout-page .order-summary-section .order-summary .totals strong {
-  font-size: 24px;
+.checkout-page .order-summary-section .order-summary table tbody tr td .product-info p {
+  margin: 0;
   color: #333;
+}
+.checkout-page .order-summary-section .order-summary table tfoot td {
+  padding: 5px;
+  font-weight: bold;
+}
+.checkout-page .order-summary-section .order-summary table tfoot td:last-child {
+  text-align: right;
+  color: #98cae1;
 }
 .checkout-page .order-button {
   grid-area: button;
@@ -136,7 +147,7 @@ body {
   background: rgb(112.5037593985, 181.6766917293, 213.4962406015);
 }
 
-/* Responsive Design */
+/* Design responsive */
 @media (max-width: 1024px) {
   .checkout-page {
     grid-template-areas: "address address" "payment summary" "button button";
@@ -147,6 +158,19 @@ body {
   .checkout-page {
     grid-template-areas: "address" "payment" "summary" "button";
     grid-template-columns: 1fr;
+  }
+  .order-summary-section .order-summary table {
+    font-size: 13.3333333333px;
+  }
+  .order-summary-section .order-summary table tbody tr td .product-info {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+  .order-summary-section .order-summary table tbody tr td .product-info img {
+    margin-bottom: 5px;
+  }
+  .order-summary-section .order-summary table tbody tr td .product-info p {
+    margin-bottom: 5px;
   }
 }
 

@@ -9,21 +9,25 @@
 <main class="checkout-page">
   <section class="address-section">
     <h2><spring:message code="DeliveryAddress"/></h2>
-    <form>
-      <input type="email" placeholder="Adresse email" required>
+    <form id="livraison" action="/firstSpring/checkout/create-payment" method="post">
       <div class="name-fields">
-        <input type="text" placeholder="Prenom" required>
-        <input type="text" placeholder="Nom" required>
+        <input type="text" name="firstName" placeholder="Prenom" required>
+        <input type="text" name="lastName" placeholder="Nom" required>
       </div>
-      <input type="text" placeholder="Adresse" required>
+      <div class="address-fields">
+        <input type="text" name="street" placeholder="Adresse" required>
+        <input type="number" name="houseNumber" placeholder="Numéro de rue" required>
+      </div>
+      <div class="city-fields">
+        <input type="number" name="postalCode" placeholder="Code postal" required>
+        <input type="text" name="letterBox" placeholder="Complément d'adresse">
+      </div>
       <div class="location-fields">
-        <input type="text" placeholder="Pays" required>
-        <input type="text" placeholder="Ville" required>
+        <input type="text" name="country" placeholder="Pays" required>
+        <input type="text" name="city" placeholder="Ville" required>
       </div>
-      <div class="zip-phone-fields">
-        <input type="text" placeholder="Code postal" required>
-        <input type="text" placeholder="Numéro de téléphone" required>
-      </div>
+      <input type="hidden" name="amount" value="${command.paymentModel.getAmount()}">
+      <input type="hidden" name="currency" value="${command.paymentModel.getCurrency()}">
     </form>
   </section>
 
@@ -47,17 +51,13 @@
       </c:forEach>
       <div class="totals">
         <p><spring:message code="subtotal"/>: ${command.totalAmount} €</p>
-        <p><spring:message code="Discount"/>: ${formattedDiscount} €</p>
+        <p><spring:message code="Discount"/>: ${command.discountAmount} €</p>
         <p><strong><spring:message code="Total"/>: ${command.totalAmountDiscount} €</strong></p>
       </div>
     </div>
   </section>
 
-  <form action="/firstSpring/checkout/create-payment" method="post">
-    <input type="hidden" name="amount" value="${command.paymentModel.getAmount()}">
-    <input type="hidden" name="currency" value="${command.paymentModel.getCurrency()}">
-    <button type="submit" class="order-button"><spring:message code="Order"/></button>
-  </form>
+  <button type="submit" form="livraison" class="order-button"><spring:message code="Order"/></button>
 
 </main>
 </body>

@@ -148,24 +148,18 @@ public class ShoppingCartService {
         return response;
     }
 
-    public Map<String, Object> removeOrderLineTemporary(ShoppingCart temporaryCart, Integer productId) {
+    public void removeOrderLineTemporary(ShoppingCart temporaryCart, Integer productId) {
         logger.info("Removing order line (temporary cart): productId={}", productId);
 
         HashMap<Integer, OrderLine> productsOrdered = temporaryCart.getProductsOrdered();
-        Map<String, Object> response = new HashMap<>();
 
         if (productsOrdered.containsKey(productId)) {
             OrderLine removedOrderLine = productsOrdered.remove(productId);
             logger.info("Order line removed from temporary cart: {}", removedOrderLine);
 
-            response.put("success", true);
         } else {
             logger.warn("Product with productId={} not found in temporary cart", productId);
-            response.put("success", false);
-            response.put("error", "Produit introuvable dans le panier temporaire");
         }
-
-        return response;
     }
 
 
@@ -187,22 +181,19 @@ public class ShoppingCartService {
             System.out.println("jdois passer la");
             CustomerEntity customerEntity = customerRepository.findByUsername(customer.getUsername());
             System.out.println(customerEntity);
-            OrderCustomerEntity orderCustomerEntity = orderCustomerRepository.findByCustomerID(customerEntity);
+            orderCustomer = orderCustomerDAO.getOrderByCustomerId(customerEntity);
 
-            if (orderCustomerEntity == null || !Objects.equals(orderCustomerEntity.getState(), "En attente")){
+            if (orderCustomer == null || !Objects.equals(orderCustomer.getState(), "En attente")){
                 // Créer une nouvelle commande pour l'utilisateur
                 System.out.println("Creating new order for customer: " + customer);
                 orderCustomer = new OrderCustomer();
-                orderCustomer.setOrderID(-1);
                 orderCustomer.setCustomer(customer);
+                orderCustomer.setOrderID(-1);
                 orderCustomer.setMethodOfPayment("Paypal");
                 orderCustomer.setState("En attente");
                 orderCustomer.setTotalAmount(1);
                 System.out.println("here");
                 orderCustomer = providerConverter.orderCustomerEntityToOrderCustomerModel(orderCustomerRepository.save(providerConverter.orderCustomerModelToOrderCustomerEntity(orderCustomer)));
-            }else {
-                System.out.println("ici");
-                orderCustomer = providerConverter.orderCustomerEntityToOrderCustomerModel(orderCustomerEntity);
             }
         }
 

@@ -15,9 +15,12 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.Map;
+import java.util.Objects;
+
 @Controller
 @RequestMapping("/checkout")
-@SessionAttributes("commandModel")
+@SessionAttributes({"commandModel"})
 public class CheckOutController {
 
     @Autowired
@@ -37,7 +40,7 @@ public class CheckOutController {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         String username = authentication.getName();
 
-        commandModel = checkoutService.initializeCommandModel(username, shoppingCart);
+        checkoutService.initializeCommandModel(username, shoppingCart, commandModel);
 
         model.addAttribute("products", commandModel.getShoppingCart().getProductsOrdered());
         model.addAttribute("command", commandModel);
@@ -51,8 +54,12 @@ public class CheckOutController {
     @RequestMapping(value="/create-payment", method= RequestMethod.POST)
     public String createPayment(@RequestParam("amount") Double amount,
                                 @RequestParam("currency") String currency,
+                                @RequestParam Map<String, String> formData,
+                                @ModelAttribute(value = "commandModel") CommandModel commandModel,
                                 Model model) {
         try {
+            checkoutService.location(formData);
+
             // Créer le paiement avec PayPal
             Payment payment = payPalService.createPayment(amount, currency, "paypal", "sale",
                     "Payment description", "http://localhost:8082/firstSpring/checkout/cancel", "http://localhost:8082/firstSpring/checkout/success");
@@ -115,6 +122,12 @@ public class CheckOutController {
     @GetMapping("/cancel")
     public String cancel() {
         return "redirect:/panier"; // Afficher une page d'annulation
+    }
+
+    @RequestMapping(value = "/localisation", method = RequestMethod.POST)
+    public void localisation(@RequestBody Map<String, Object> payload, Model model) {
+        System.out.println(payload);
+
     }
 
 }
