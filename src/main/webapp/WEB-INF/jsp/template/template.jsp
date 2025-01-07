@@ -100,12 +100,12 @@
             <div class="left-section">
                 <img id="logo" src="<spring:url value='/images/Template/AzurBlanc.png'/>" alt="Azur" height="40px">
                 <nav class="nav-links">
-                    <a href="<spring:url value='/azur' />">Accueil</a>
-                    <a href="javascript:void(0);" id="catalogueLink">Catalogue</a>
+                    <a href="<spring:url value='/azur' />"><spring:message code="Home"/></a>
+                    <a href="javascript:void(0);" id="catalogueLink"><spring:message code="Catalog"/></a>
                     <div id="dropdownMenu">
 
                     </div>
-                    <a href="<spring:url value='/a-propos' />">À propos</a>
+                    <a href="<spring:url value='/a-propos' />"><spring:message code="AboutUs"/></a>
                 </nav>
             </div>
             <div class="right-section">
@@ -152,16 +152,15 @@
     <footer>
         <div class="footer-container">
             <div class="footer-links">
-                <a href="<spring:url value='/azur' />">Accueil</a>
-                <a href="<spring:url value='/panier' />" class="cart-icon">Votre panier</a>
-                <a href="<spring:url value='/a-propos' />">À propos</a>
+                <a href="<spring:url value='/azur' />"><spring:message code="Home"/></a>
+                <a href="<spring:url value='/panier' />" class="cart-icon"><spring:message code="YourCart"/></a>
+                <a href="<spring:url value='/a-propos' />"><spring:message code="AboutUs"/></a>
             </div>
             <div class="copyright">
-                <p>Copyright © 2024 Azur Inc. Tous droits réservés.</p>
+                <p><spring:message code="Copyright"/></p>
             </div>
         </div>
     </footer>
 </c:if>
-
 </body>
 </html>

@@ -64,7 +64,6 @@ public class CheckOutController {
                     break;
                 }
             }
-
             // Rediriger vers PayPal pour approbation
             return "redirect:" + model.getAttribute("approvalUrl");
         } catch (PayPalRESTException e) {
@@ -117,6 +116,5 @@ public class CheckOutController {
     public String cancel() {
         return "redirect:/panier"; // Afficher une page d'annulation
     }
-
 
 }

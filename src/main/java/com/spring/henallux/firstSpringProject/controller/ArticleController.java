@@ -33,5 +33,4 @@ public class ArticleController {
         model.addAttribute("showFooter", true);
         return "integrated:article";
     }
-
 }

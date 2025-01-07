@@ -10,8 +10,8 @@ $button-height: 40px;
   column-gap: 20px;
   padding: 50px;
   background-color: $secondary-color;
-  height: calc(100vh - #{$header-height}); // S'assure que la hauteur est au moins celle de la vue
-  box-sizing: border-box; // Inclut les paddings dans le calcul de la hauteur
+  height: calc(100vh - #{$header-height});
+  box-sizing: border-box;
 
   .divImage {
     display: flex;

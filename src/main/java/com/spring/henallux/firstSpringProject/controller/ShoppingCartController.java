@@ -45,7 +45,6 @@ public class ShoppingCartController {
         return shoppingCart;
     }
 
-
     @Autowired
     public ShoppingCartController(ShoppingCartService shoppingCartService, OrderCustomerDataAccess orderCustomerDataAccess, ProductDataAccess productDataAccess) {
         this.shoppingCartService = shoppingCartService;
@@ -193,6 +192,4 @@ public class ShoppingCartController {
         }
         return "redirect:/panier";
     }
-
-
 }

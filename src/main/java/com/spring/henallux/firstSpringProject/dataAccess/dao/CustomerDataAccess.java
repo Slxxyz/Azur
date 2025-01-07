@@ -6,10 +6,10 @@ import com.spring.henallux.firstSpringProject.model.Customer;
 import java.util.List;
 
 public interface CustomerDataAccess {
-    void saveCustomer(CustomerEntity customer); // Sauvegarde ou met à jour un client
+    void saveCustomer(CustomerEntity customer);
 
     CustomerEntity findByMailAddress(String mailAddress);
 
-    boolean mailAddressExists(String mailAddress); // Vérifie si un email existe déjà
-    boolean telephoneExists(String telephone); // Vérifie si un numéro de téléphone existe déjà
+    boolean mailAddressExists(String mailAddress);
+    boolean telephoneExists(String telephone);
 }

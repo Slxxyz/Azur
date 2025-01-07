@@ -37,5 +37,4 @@ public class ShoppingCart {
                 "productsOrdered=" + productsOrdered +
                 '}';
     }
-
 }
