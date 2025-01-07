@@ -1,12 +1,15 @@
 package com.spring.henallux.firstSpringProject.service;
 
 import com.spring.henallux.firstSpringProject.dataAccess.dao.CustomerDAO;
+import com.spring.henallux.firstSpringProject.dataAccess.dao.LocationDAO;
+import com.spring.henallux.firstSpringProject.dataAccess.dao.OrderCustomerDAO;
 import com.spring.henallux.firstSpringProject.dataAccess.util.ProviderConverter;
 import com.spring.henallux.firstSpringProject.model.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.HashMap;
+import java.util.Map;
 
 @Service
 public class CheckoutService {
@@ -18,6 +21,10 @@ public class CheckoutService {
 
     @Autowired
     private ShoppingCartService shoppingCartService;
+    @Autowired
+    private OrderCustomerDAO orderCustomerDAO;
+    @Autowired
+    private LocationDAO locationDAO;
 
     public CheckoutService(CustomerDAO customerDAO, ProviderConverter providerConverter) {
         this.customerDAO = customerDAO;
@@ -30,7 +37,7 @@ public class CheckoutService {
         if (amount > 100 && amount < 300) {
             discount = 0.05;
         } else {
-            if (amount < 500) {
+            if (amount < 500 && amount > 300) {
                 discount = 0.10;
             } else {
                 if (amount > 500) {
@@ -38,27 +45,40 @@ public class CheckoutService {
                 }
             }
         }
-        commandModel.setDiscountAmount(amount * discount);
-        commandModel.setTotalAmountDiscount(amount - (amount * discount));
+        commandModel.setDiscountAmount(Math.round((amount * discount) * 100.0) / 100.0);
+        commandModel.setTotalAmountDiscount(Math.round((amount - (amount * discount)) * 100.0) / 100.0);
     }
 
 
-    public CommandModel initializeCommandModel(String username, ShoppingCart shoppingCart) {
+    public void initializeCommandModel(String username, ShoppingCart shoppingCart, CommandModel commandModel) {
         HashMap<Integer, OrderLine> productsOrdered = shoppingCartService.loadShoppingCartForUser(username);
         shoppingCart.setProductsOrdered(productsOrdered);
-
-        CommandModel commandModel = new CommandModel();
         commandModel.setShoppingCart(shoppingCart);
         commandModel.setCustomer(providerConverter.customerEntityToCustomerModel(customerDAO.findByUsername(username)));
         commandModel.setTotalAmount(commandModel.getShoppingCart().getProductsOrdered().entrySet().iterator().next().getValue().getOrder().getTotalAmount());
         calculatePromotion(commandModel);
         PaymentModel paymentModel = new PaymentModel(commandModel.getTotalAmountDiscount(), "EUR");
         commandModel.setPaymentModel(paymentModel);
-        return commandModel;
     }
 
     public void orderDone(CommandModel commandModel) {
         OrderCustomer orderCustomer = commandModel.getShoppingCart().getProductsOrdered().entrySet().iterator().next().getValue().getOrder();
         orderCustomer.setState("Accepté");
+        orderCustomerDAO.save(providerConverter.orderCustomerModelToOrderCustomerEntity(orderCustomer));
+    }
+
+    public void location(Map<String, String> formData) {
+        Location location = new Location();
+        location.setCountry(formData.get("country"));
+        String address = formData.get("address");
+        location.setHouseNumber(Integer.parseInt(formData.get("houseNumber")));
+        if (formData.get("letterBox") != null) {
+            location.setLetterBox(formData.get("letterBox"));
+        }
+        location.setLocation(formData.get("location"));
+        location.setPostalCode(Integer.parseInt(formData.get("postalCode")));
+        location.setStreet(formData.get("street"));
+        System.out.println(location);
+        locationDAO.saveLocation(providerConverter.locationModelToLocationEntity(location));
     }
 }

@@ -27,7 +27,7 @@
             </tr>
             </thead>
             <tbody id="order-lines">
-            <c:forEach items="${productsOrdered}" var="item">
+            <c:forEach items="${products}" var="item">
                 <c:set var="orderLine" value="${item.value}" />
                 <tr id="order-line-${orderLine.product.productID}">
                     <td>

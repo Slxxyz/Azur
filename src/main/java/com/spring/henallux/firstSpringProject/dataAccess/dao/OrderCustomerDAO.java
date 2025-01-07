@@ -43,15 +43,14 @@ public class OrderCustomerDAO implements OrderCustomerDataAccess {
         return customerRepository.findByUsername(username);
     }
 
-    public OrderCustomerEntity doesOrderExistForCustomer(CustomerEntity customerEntity) {
-        return orderCustomerRepository.findByCustomerID(customerEntity);
-    }
 
     public OrderCustomer getOrderByCustomerId(CustomerEntity customerEntity) {
-        OrderCustomerEntity orderCustomerEntity = orderCustomerRepository.findByCustomerID(customerEntity);
-        System.out.println("dans orderdao "+orderCustomerEntity);
-        if (orderCustomerEntity != null) {
-            return providerConverter.orderCustomerEntityToOrderCustomerModel(orderCustomerEntity);
+        List<OrderCustomerEntity> orderCustomerEntities = orderCustomerRepository.findByCustomerID(customerEntity);
+
+        for (OrderCustomerEntity orderCustomerEntity : orderCustomerEntities) {
+            if (orderCustomerEntity.getState().equals("En attente")) {
+                return providerConverter.orderCustomerEntityToOrderCustomerModel(orderCustomerEntity);
+            }
         }
         return null;
     }

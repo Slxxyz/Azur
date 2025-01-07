@@ -25,6 +25,7 @@ import java.util.Map;
 
 @Controller
 @RequestMapping(value = "/panier")
+@SessionAttributes("panier")
 public class ShoppingCartController {
 
     private static final Logger logger = LoggerFactory.getLogger(ShoppingCartController.class);
@@ -63,22 +64,13 @@ public class ShoppingCartController {
             String username = authentication.getName();
             HashMap<Integer, OrderLine> productsOrdered = shoppingCartService.loadShoppingCartForUser(username);
             shoppingCart.setProductsOrdered(productsOrdered); // Charge les produits dans le panier
-        }else {
-            // Vérifie si l'utilisateur n'est pas connecté
-            System.out.println("User not authenticated");
-            System.out.println(shoppingCart);
-
-            HashMap<Integer, OrderLine> productsOrdered = shoppingCart.getProductsOrdered();
-            if (productsOrdered != null && !productsOrdered.isEmpty()) {
-                // Si le panier n'est pas vide, charge les produits dans le panier temporaire
-                shoppingCart.setProductsOrdered(productsOrdered);
-            }
         }
         // Ajoute les attributs au modèle
         model.addAttribute("title", "Panier");
         model.addAttribute("showHeader", true);
         model.addAttribute("showFooter", true);
-        model.addAttribute("productsOrdered", shoppingCart.getProductsOrdered());
+        model.addAttribute("products", shoppingCart.getProductsOrdered());
+        System.out.println("Model attributes: " + model.asMap());
 
         return "integrated:panier";
     }

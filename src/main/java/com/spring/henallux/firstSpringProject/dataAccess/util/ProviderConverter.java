@@ -103,5 +103,18 @@ public class ProviderConverter {
         return orderLine;
     }
 
+    public LocationEntity locationModelToLocationEntity(Location location) {
+        LocationEntity locationEntity = mapper.map(location, LocationEntity.class);
+        if (location.getLocationId() != 0) {
+            locationEntity.setLocationId(location.getLocationId());
+        }
+        locationEntity.setStreet(location.getStreet());
+        locationEntity.setHouseNumber(location.getHouseNumber());
+        locationEntity.setLetterBox(location.getLetterBox());
+        locationEntity.setPostalCode(location.getPostalCode());
+        locationEntity.setLocation(location.getLocation());
+        locationEntity.setCountry(location.getCountry());
+        return locationEntity;
+    }
 
 }
