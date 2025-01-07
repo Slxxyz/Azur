@@ -139,11 +139,11 @@
 
 
                 <div class="language-section">
-                    <a href="${localeFr}">
+                    <a id="localeFrLink" href="#">
                         <img alt="Français" src="<spring:url value='/images/Template/drapeauFr.png'/>" height="20px">
                     </a>
                     <span>|</span>
-                    <a href="${localeEn}">
+                    <a id="localeEnLink" href="#">
                         <img alt="English" src="<spring:url value='/images/Template/drapeauEn.png'/>" height="20px">
                     </a>
                 </div>
