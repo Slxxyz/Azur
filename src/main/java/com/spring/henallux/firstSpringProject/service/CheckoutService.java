@@ -69,13 +69,15 @@ public class CheckoutService {
 
     public void location(Map<String, String> formData) {
         Location location = new Location();
+        System.out.println(formData);
+        location.setLocationId(0);
         location.setCountry(formData.get("country"));
         String address = formData.get("address");
         location.setHouseNumber(Integer.parseInt(formData.get("houseNumber")));
         if (formData.get("letterBox") != null) {
             location.setLetterBox(formData.get("letterBox"));
         }
-        location.setLocation(formData.get("location"));
+        location.setLocation(formData.get("city"));
         location.setPostalCode(Integer.parseInt(formData.get("postalCode")));
         location.setStreet(formData.get("street"));
         System.out.println(location);
