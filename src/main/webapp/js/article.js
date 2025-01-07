@@ -29,6 +29,7 @@ document.addEventListener("DOMContentLoaded", () => {
             fetch("/firstSpring/connexion/check", { method: "GET" }) // Créer un endpoint pour vérifier l'authentification
                 .then(response => response.json())
                 .then(data => {
+                    console.log(data);
                     if (data.isAuthenticated) {
                         // Si l'utilisateur est connecté
                         addToCartForAuthenticatedUser(productId, quantity);
@@ -36,6 +37,15 @@ document.addEventListener("DOMContentLoaded", () => {
                         // Si l'utilisateur n'est pas connecté
                         addToCartForGuest(productId, quantity);
                     }
+                    // Change le texte du bouton
+                    const originalText = button.textContent;
+
+                    button.textContent = "Article ajouté";
+
+                    // Reviens à "Ajouter au panier" après 2 secondes
+                    setTimeout(() => {
+                        button.textContent = originalText;
+                    }, 2000);
                 })
                 .catch(error => console.error("Erreur d'authentification :", error));
         });

@@ -24,7 +24,7 @@
         document.addEventListener('DOMContentLoaded', function () {
             const catalogueLink = document.getElementById('catalogueLink');
             const dropdownMenu = document.getElementById('dropdownMenu');
-            const cart = document.getElementsByClassName('cart-icon')[0];
+            const cart = document.getElementsByClassName('cart-icon');
 
             if (catalogueLink && dropdownMenu) {
                 // Ajouter un événement de clic au lien "Catalogue"
@@ -65,26 +65,33 @@
                 localeEnLink.href = window.location.pathname + '?' + currentParams.toString();
             }
 
+            function panier(){
+                const cart = JSON.parse(localStorage.getItem('guestCart')) || {};
+
+                fetch('/firstSpring/panier/sync', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify(cart),
+                })
+                .then((data) => {
+                    console.log('Données :', data);
+                    window.location.href = data.url;
+                })
+                .catch((error) => {
+                    console.error('Erreur :', error);
+                });
+            }
+
             if (cart) {
-                cart.addEventListener('click', function () {
+                cart[0].addEventListener('click', function () {
                     // Envoyer le panier au serveur
-                    const cart = JSON.parse(localStorage.getItem('guestCart')) || {};
-
-                    fetch('/firstSpring/panier/sync', {
-                        method: 'POST',
-                        headers: {
-                            'Content-Type': 'application/json',
-                        },
-                        body: JSON.stringify(cart),
-                    })
-                    .then((data) => {
-                        console.log('Données :', data);
-                        window.location.href = data.url;
-                    })
-                    .catch((error) => {
-                        console.error('Erreur :', error);
-                    });
-
+                    panier()
+                });
+                cart[1].addEventListener('click', function () {
+                    // Envoyer le panier au serveur
+                    panier()
                 });
             }
 
@@ -138,7 +145,7 @@
                         <img alt="English" src="<spring:url value='/images/Template/drapeauEn.png'/>" height="20px">
                     </a>
                 </div>
-                <a href="<spring:url value='/panier' />" class="cart-icon">🛒</a>
+                <a class="cart-icon">🛒</a>
             </div>
         </div>
     </header>
@@ -153,7 +160,7 @@
         <div class="footer-container">
             <div class="footer-links">
                 <a href="<spring:url value='/azur' />"><spring:message code="Home"/></a>
-                <a href="<spring:url value='/panier' />" class="cart-icon"><spring:message code="YourCart"/></a>
+                <a class="cart-icon"><spring:message code="YourCart"/></a>
                 <a href="<spring:url value='/a-propos' />"><spring:message code="AboutUs"/></a>
             </div>
             <div class="copyright">

@@ -49,6 +49,11 @@ public class ShoppingCartService {
         this.orderLineDAO = orderLineDAO;
     }
 
+    public ShoppingCart sync (ShoppingCart shoppingCart) {
+
+        return shoppingCart;
+    }
+
     public HashMap<Integer, OrderLine> loadShoppingCartForUser(String username) {
         // Récupère la commande (OrderCustomer) pour cet utilisateur
         CustomerEntity customerEntity = customerRepository.findByUsername(username);

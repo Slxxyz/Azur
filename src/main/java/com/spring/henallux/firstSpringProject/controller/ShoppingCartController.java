@@ -1,5 +1,6 @@
 package com.spring.henallux.firstSpringProject.controller;
 
+import com.spring.henallux.firstSpringProject.constants.Constants;
 import com.spring.henallux.firstSpringProject.dataAccess.dao.OrderCustomerDataAccess;
 import com.spring.henallux.firstSpringProject.dataAccess.dao.ProductDataAccess;
 import com.spring.henallux.firstSpringProject.dataAccess.util.AddToCartRequest;
@@ -10,8 +11,6 @@ import com.spring.henallux.firstSpringProject.service.ShoppingCartService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AnonymousAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -25,7 +24,7 @@ import java.util.Map;
 
 @Controller
 @RequestMapping(value = "/panier")
-@SessionAttributes("panier")
+@SessionAttributes(Constants.PANIER)
 public class ShoppingCartController {
 
     private static final Logger logger = LoggerFactory.getLogger(ShoppingCartController.class);
@@ -36,16 +35,6 @@ public class ShoppingCartController {
 
     private ProductDataAccess productDataAccess;
 
-    @ModelAttribute("panier")
-    public ShoppingCart initializeCart(HttpSession session) {
-        ShoppingCart shoppingCart = (ShoppingCart) session.getAttribute("panier");
-        if (shoppingCart == null) {
-            shoppingCart = new ShoppingCart(); // Crée un panier vide si aucun panier en session
-            session.setAttribute("panier", shoppingCart);
-        }
-        return shoppingCart;
-    }
-
     @Autowired
     public ShoppingCartController(ShoppingCartService shoppingCartService, OrderCustomerDataAccess orderCustomerDataAccess, ProductDataAccess productDataAccess) {
         this.shoppingCartService = shoppingCartService;
@@ -55,10 +44,11 @@ public class ShoppingCartController {
 
 
     @RequestMapping(method = RequestMethod.GET)
-    public String shoppingCart(Model model,
-                               @ModelAttribute(value = "panier") ShoppingCart shoppingCart) {
+    public String shoppingCart(Model model, HttpSession session
+                               ) {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
 
+        ShoppingCart shoppingCart = (ShoppingCart) session.getAttribute(Constants.PANIER);
         if (authentication != null && authentication.isAuthenticated() && !(authentication instanceof AnonymousAuthenticationToken)) {
         // Vérifie si l'utilisateur est connecté
             String username = authentication.getName();
@@ -79,7 +69,8 @@ public class ShoppingCartController {
 
     @RequestMapping(value = "/update", method = RequestMethod.POST)
     @ResponseBody
-    public Map<String, Object> updateQuantity(@RequestBody Map<String, Object> payload, @ModelAttribute("panier") ShoppingCart shoppingCart) {
+    public Map<String, Object> updateQuantity(@RequestBody Map<String, Object> payload,
+                                              @ModelAttribute(Constants.PANIER) ShoppingCart shoppingCart) {
         Map<String, Object> response = new HashMap<>();
         try {
             Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
@@ -108,7 +99,7 @@ public class ShoppingCartController {
     @ResponseBody
     public Map<String, Object> removeOrderLine(
             @RequestBody Map<String, Object> payload,
-            @ModelAttribute("panier") ShoppingCart shoppingCart
+            @ModelAttribute(Constants.PANIER) ShoppingCart shoppingCart
     ) {
         Map<String, Object> response = new HashMap<>();
         try {
@@ -140,7 +131,7 @@ public class ShoppingCartController {
     @ResponseBody
     public Map<String, Object> addToCart(
             @RequestBody AddToCartRequest request,
-            @ModelAttribute("panier") ShoppingCart shoppingCart
+            @ModelAttribute(Constants.PANIER) ShoppingCart shoppingCart
     ) {
         Map<String, Object> response = new HashMap<>();
         try {
@@ -166,7 +157,7 @@ public class ShoppingCartController {
 
     @RequestMapping(value="/sync", method = RequestMethod.POST)
     public String syncCart(@RequestBody HashMap<Integer, Integer> cart,
-                                      @ModelAttribute("panier") ShoppingCart shoppingCart) {
+                                      @ModelAttribute(Constants.PANIER) ShoppingCart shoppingCart) {
         // "cart" est une map où les clés sont les IDs de produit et les valeurs sont les quantités
         System.out.println("Synchronisation du panier");
         try {

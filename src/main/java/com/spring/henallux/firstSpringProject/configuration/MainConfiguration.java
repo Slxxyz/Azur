@@ -1,5 +1,6 @@
 package com.spring.henallux.firstSpringProject.configuration;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.support.ResourceBundleMessageSource;
@@ -18,6 +19,11 @@ import java.util.Locale;
 @Configuration
 public class MainConfiguration implements WebMvcConfigurer {
 
+    private final ShoppingCartInterceptor shoppingCartInterceptor;
+
+    public MainConfiguration(ShoppingCartInterceptor shoppingCartInterceptor) {
+        this.shoppingCartInterceptor = shoppingCartInterceptor;
+    }
 
     @Bean
     public DefaultMessageCodesResolver defaultMessageCodesResolver() {
@@ -39,6 +45,7 @@ public class MainConfiguration implements WebMvcConfigurer {
         LocaleChangeInterceptor interceptor = new LocaleChangeInterceptor();
         interceptor.setParamName("locale");
         registry.addInterceptor(interceptor);
+        registry.addInterceptor(shoppingCartInterceptor).addPathPatterns("/**");
     }
 
     @Bean

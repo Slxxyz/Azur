@@ -1,4 +1,4 @@
-@use "variables" as *;
+@import "variables";
 
 body {
   font-family: $font-family;
@@ -31,11 +31,10 @@ body {
     }
   }
 
-  /* Section de l'adresse */
   .address-section {
     grid-area: address;
 
-    h2 {
+    h2{
       margin-bottom: $gap-medium;
     }
 
@@ -59,21 +58,19 @@ body {
       }
 
       .name-fields,
-      .location-fields,
       .address-fields,
-      .city-fields {
+      .city-fields,
+      .location-fields {
         display: flex;
         gap: $gap-small;
 
         input {
           flex: 1;
-          gap: $gap-small;
         }
       }
     }
   }
 
-  /* Section de paiement */
   .payment-section {
     grid-area: payment;
     text-align: center;
@@ -84,89 +81,74 @@ body {
 
     .paypal img {
       width: 150px;
-      max-width: 100%; /* Empêche les débordements */
       margin-top: $gap-small;
     }
   }
 
-  /* Section du résumé de la commande */
   .order-summary-section {
     grid-area: summary;
 
-    h2 {
+    h2{
       margin-bottom: $gap-medium;
     }
 
     .order-summary {
-      table {
-        width: 100%;
-        border-collapse: collapse;
-        text-align: left;
-        font-size: $p-font-size / 1.5;
+      display: flex;
+      flex-direction: column;
+      gap: $gap-medium;
 
-        thead {
-          background-color: lighten($secondary-color, 10%);
-          text-transform: uppercase;
+      .item {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        background: lighten($secondary-color, 10%);
+        padding: $gap-small;
+        border-radius: $input-radius;
 
-          th {
-            padding: $gap-small;
-            color: lighten($text-color, 20%);
-            font-weight: bold;
-            border-bottom: 2px solid lighten($text-color, 40%);
-          }
+        img {
+          width: 70px;
+          height: 70px;
+          object-fit: cover;
+          border-radius: $input-radius;
         }
 
-        tbody {
-          tr {
-            &:nth-child(even) {
-              background-color: lighten($secondary-color, 20%);
-            }
-
-            td {
-              padding: $gap-small;
-
-              .product-info {
-                display: flex;
-                align-items: center;
-                gap: $gap-small;
-
-                img {
-                  width: 50px;
-                  height: 50px;
-                  object-fit: cover;
-                  border-radius: $input-radius;
-                }
-
-                p {
-                  margin: 0;
-                  color: $text-color;
-                }
-              }
-            }
-          }
+        p {
+          flex: 1;
+          margin: 0 $gap-medium;
+          font-size: $p-font-size / 1.5;
+          color: lighten($text-color, 20%);
         }
 
-        tfoot {
-          td {
-            padding: $gap-small;
-            font-weight: bold;
+        span {
+          font-size: $p-font-size / 1.8;
+          color: lighten($text-color, 30%);
+        }
+      }
 
-            &:last-child {
-              text-align: right;
-              color: $primary-color;
-            }
-          }
+      .totals {
+        padding: $gap-small;
+        border-top: 1px solid lighten($text-color, 60%);
+
+        p {
+          display: flex;
+          justify-content: space-between;
+          margin: $gap-small 0;
+          font-size: $p-font-size / 1.5;
+        }
+
+        strong {
+          font-size: $p-font-size;
+          color: $text-color;
         }
       }
     }
   }
 
-  /* Bouton de commande */
   .order-button {
     grid-area: button;
     justify-self: center;
     align-self: center;
-    padding: $gap-large calc($button-width / 2);
+    padding: $gap-large $button-width / 2;
     font-size: $button-font-size;
     color: $text-dark-color;
     background: $primary-color;
@@ -181,7 +163,7 @@ body {
   }
 }
 
-/* Design responsive */
+/* Responsive Design */
 @media (max-width: 1024px) {
   .checkout-page {
     grid-template-areas:
@@ -200,24 +182,5 @@ body {
       "summary"
       "button";
     grid-template-columns: 1fr;
-  }
-
-  .order-summary-section .order-summary table {
-    font-size: $p-font-size / 1.8;
-
-    tbody tr td {
-      .product-info {
-        flex-direction: column;
-        align-items: flex-start;
-
-        img {
-          margin-bottom: $gap-small;
-        }
-
-        p {
-          margin-bottom: $gap-small;
-        }
-      }
-    }
   }
 }

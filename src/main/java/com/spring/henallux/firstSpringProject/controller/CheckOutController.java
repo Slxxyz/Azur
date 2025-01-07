@@ -3,6 +3,7 @@ package com.spring.henallux.firstSpringProject.controller;
 
 import com.paypal.api.payments.Payment;
 import com.paypal.base.rest.PayPalRESTException;
+import com.spring.henallux.firstSpringProject.constants.Constants;
 import com.spring.henallux.firstSpringProject.model.CommandModel;
 import com.spring.henallux.firstSpringProject.model.ShoppingCart;
 import com.spring.henallux.firstSpringProject.service.CheckoutService;
@@ -20,7 +21,7 @@ import java.util.Objects;
 
 @Controller
 @RequestMapping("/checkout")
-@SessionAttributes({"commandModel"})
+@SessionAttributes({Constants.COMMAND})
 public class CheckOutController {
 
     @Autowired
@@ -29,14 +30,14 @@ public class CheckOutController {
     @Autowired
     private CheckoutService checkoutService;
 
-    @ModelAttribute("commandModel")
+    @ModelAttribute(Constants.COMMAND)
     public CommandModel initializeCommandModel() {
         return new CommandModel();
     }
 
     @RequestMapping(method = RequestMethod.GET)
-    public String checkOut(Model model, @ModelAttribute(value = "panier") ShoppingCart shoppingCart,
-                           @ModelAttribute(value = "commandModel") CommandModel commandModel) {
+    public String checkOut(Model model, @ModelAttribute(Constants.PANIER) ShoppingCart shoppingCart,
+                           @ModelAttribute(Constants.COMMAND) CommandModel commandModel) {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         String username = authentication.getName();
 
@@ -55,7 +56,7 @@ public class CheckOutController {
     public String createPayment(@RequestParam("amount") Double amount,
                                 @RequestParam("currency") String currency,
                                 @RequestParam Map<String, String> formData,
-                                @ModelAttribute(value = "commandModel") CommandModel commandModel,
+                                @ModelAttribute(Constants.COMMAND) CommandModel commandModel,
                                 Model model) {
         try {
             checkoutService.location(formData);
@@ -84,7 +85,7 @@ public class CheckOutController {
     // Gérer le succès du paiement
     @GetMapping("/success")
     public String success(@RequestParam("paymentId") String paymentId,
-                          @RequestParam("PayerID") String payerId, Model model, @ModelAttribute(value="commandModel") CommandModel commandModel) {
+                          @RequestParam("PayerID") String payerId, Model model, @ModelAttribute(Constants.COMMAND) CommandModel commandModel) {
         try {
             Payment payment = payPalService.executePayment(paymentId, payerId);
             checkoutService.orderDone(commandModel);
@@ -122,12 +123,6 @@ public class CheckOutController {
     @GetMapping("/cancel")
     public String cancel() {
         return "redirect:/panier"; // Afficher une page d'annulation
-    }
-
-    @RequestMapping(value = "/localisation", method = RequestMethod.POST)
-    public void localisation(@RequestBody Map<String, Object> payload, Model model) {
-        System.out.println(payload);
-
     }
 
 }

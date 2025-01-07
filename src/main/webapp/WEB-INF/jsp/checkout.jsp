@@ -11,21 +11,22 @@
     <h2><spring:message code="DeliveryAddress"/></h2>
     <form id="livraison" action="/firstSpring/checkout/create-payment" method="post">
       <div class="name-fields">
-        <input type="text" name="firstName" placeholder="Prenom" required>
-        <input type="text" name="lastName" placeholder="Nom" required>
+        <input type="text" name="firstName" placeholder="<spring:message code='placeholder.firstName'/>" required>
+        <input type="text" name="lastName" placeholder="<spring:message code='placeholder.lastName'/>" required>
       </div>
       <div class="address-fields">
-        <input type="text" name="street" placeholder="Adresse" required>
-        <input type="number" name="houseNumber" placeholder="Numéro de rue" required>
+        <input type="text" name="street" placeholder="<spring:message code='placeholder.street'/>" required>
+        <input type="number" name="houseNumber" placeholder="<spring:message code='placeholder.houseNumber'/>" required>
       </div>
       <div class="city-fields">
-        <input type="number" name="postalCode" placeholder="Code postal" required>
-        <input type="text" name="letterBox" placeholder="Complément d'adresse">
+        <input type="number" name="postalCode" placeholder="<spring:message code='placeholder.postalCode'/>" required>
+        <input type="text" name="letterBox" placeholder="<spring:message code='placeholder.letterBox'/>">
       </div>
       <div class="location-fields">
-        <input type="text" name="country" placeholder="Pays" required>
-        <input type="text" name="city" placeholder="Ville" required>
+        <input type="text" name="country" placeholder="<spring:message code='placeholder.country'/>" required>
+        <input type="text" name="city" placeholder="<spring:message code='placeholder.city'/>" required>
       </div>
+
       <input type="hidden" name="amount" value="${command.paymentModel.getAmount()}">
       <input type="hidden" name="currency" value="${command.paymentModel.getCurrency()}">
     </form>

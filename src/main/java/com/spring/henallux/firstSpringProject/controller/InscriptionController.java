@@ -3,8 +3,11 @@ package com.spring.henallux.firstSpringProject.controller;
 import com.spring.henallux.firstSpringProject.constants.Constants;
 import com.spring.henallux.firstSpringProject.dataAccess.dao.CustomerDAO;
 import com.spring.henallux.firstSpringProject.dataAccess.entity.CustomerEntity;
+import com.spring.henallux.firstSpringProject.service.CustomerService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -24,6 +27,9 @@ public class InscriptionController {
 
     @Autowired
     private CustomerDAO customerDAO;
+
+    @Autowired
+    private CustomerService customerService;
 
     @RequestMapping(method = RequestMethod.GET)
     public String home(Model model) {
