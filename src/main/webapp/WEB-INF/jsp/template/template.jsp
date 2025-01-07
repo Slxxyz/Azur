@@ -65,7 +65,7 @@
                 localeEnLink.href = window.location.pathname + '?' + currentParams.toString();
             }
 
-            function panier(){
+            function syncCart(){
                 const cart = JSON.parse(localStorage.getItem('guestCart')) || {};
 
                 fetch('/firstSpring/panier/sync', {
@@ -84,14 +84,16 @@
                 });
             }
 
-            if (cart) {
+            if (cart[0]) {
                 cart[0].addEventListener('click', function () {
                     // Envoyer le panier au serveur
-                    panier()
+                    syncCart()
                 });
+            }
+            if( cart[1]) {
                 cart[1].addEventListener('click', function () {
                     // Envoyer le panier au serveur
-                    panier()
+                    syncCart()
                 });
             }
 
