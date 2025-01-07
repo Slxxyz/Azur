@@ -36,23 +36,21 @@
 
   <section class="order-summary-section">
     <h2><spring:message code="OrderSummary"/></h2>
-    <c:forEach items="${products}" var="command">
-        <c:set var="orderLine" value="${command.value}" />
     <div class="order-summary">
+      <c:forEach items="${products}" var="command">
         <div class="item">
-          <img src="<spring:url value='${orderLine.product.imagePath}' />" alt="Produit">
-          <p>${orderLine.product.labelProduct}</p>
-          <span><spring:message code="Qty"/>: ${orderLine.quantity} </span>
-          <span><spring:message code="subtotal"/>: ${orderLine.subTotal} €</span>
+          <img src="<spring:url value='${command.value.product.imagePath}' />" alt="${command.value.product.labelProduct}">
+          <p>${command.value.product.labelProduct}</p>
+          <span><spring:message code="Qty"/>: ${command.value.quantity}</span>
+          <span><spring:message code="subtotal"/>: ${command.value.subTotal} €</span>
         </div>
+      </c:forEach>
+      <div class="totals">
+        <p><spring:message code="subtotal"/>: ${command.totalAmount} €</p>
+        <p><spring:message code="Discount"/>: ${formattedDiscount} €</p>
+        <p><strong><spring:message code="Total"/>: ${command.totalAmountDiscount} €</strong></p>
+      </div>
     </div>
-    </c:forEach>
-    <div class="totals">
-          <p><spring:message code="subtotal"/>: ${command.totalAmount} €</p>
-          <p><spring:message code="Discount"/>: ${command.discountAmount} €</p>
-          <p><strong><spring:message code="Total"/>: ${command.totalAmountDiscount} €</strong></p>
-        </div>
-
   </section>
 
   <form action="/firstSpring/checkout/create-payment" method="post">
@@ -60,7 +58,6 @@
     <input type="hidden" name="currency" value="${command.paymentModel.getCurrency()}">
     <button type="submit" class="order-button"><spring:message code="Order"/></button>
   </form>
-
 
 </main>
 </body>
