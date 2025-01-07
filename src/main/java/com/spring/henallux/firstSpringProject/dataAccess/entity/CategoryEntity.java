@@ -33,6 +33,17 @@ public class CategoryEntity {
         return categoryEN;
     }
 
+    public void setCategoryID(int categoryID) {
+        this.categoryID = categoryID;
+    }
+
+    public void setCategoryFR(String categoryFR) {
+        this.categoryFR = categoryFR;
+    }
+
+    public void setCategoryEN(String categoryEN) {
+        this.categoryEN = categoryEN;
+    }
 }
 
 
